@@ -1,0 +1,91 @@
+
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root
+{
+    --gun_bg_colour: red;
+    --spaceship_bg_colour: blue;
+    --game_bg_colour: black;
+    --txt_colour_white: white;
+    --txt_colour_black: black;
+    --txt_colour_red: red;
+}
+
+/* ----- Gameplay CSS below ----- */
+
+body
+{
+    max-width: 100%;
+}
+
+main
+{
+    max-width: 50vw;
+    margin: 50px auto 0 auto;
+    height: 80vh;
+    background-color: var(--game_bg_colour);
+}
+
+#gamescreen_section
+{
+    display: grid;
+    max-width: 100%;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    height: 100%;
+}
+
+.spaceship
+{
+    display: grid;
+    justify-self: center; /*Ask Kadeem about justify again*/
+    max-width: 158px;
+    background-color: var(--spaceship_bg_colour);
+    color: var(--txt_colour_white);
+    margin-top: 0;
+    border: none;
+    border-radius: 5px;
+    height: 50px;
+    width: 50px;
+}
+
+.spaceship > h3
+{
+    max-width: 100%;
+    font-size: 0.9rem;
+    text-align: center;
+    align-self: center;
+   /*padding: 10px 60px; /*Ask Kadeem how to get padding size to be exactly equal for each bubble, no matter the bubble content*/
+}
+
+#bot_gun_div
+{
+    max-width: 100%;
+    /*margin-top: 500px;*/
+}
+
+#gun
+{
+    position: absolute;
+    bottom: 150px;
+    max-width: 80px;
+    text-align: center;
+    margin: 0 auto 0 auto;
+    padding: 10px 10px;
+    background-color: var(--gun_bg_colour);
+    color: var(--txt_colour_white);
+}
+
+/*.spaceship
+{
+    display: grid;
+    background-color: red;
+    max-width: 800px;
+    margin: 0 auto;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+}*/
