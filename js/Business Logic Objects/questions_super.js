@@ -1,9 +1,8 @@
 
 class Question 
 {
-    correct_ans = {first_num : 0, second_num : 0, val : 0}; //first and second num values to be referenced to spaceship innerHTML
+    correct_ans = {first_num : 0, second_num : 0, val : 0, position : 0}; //first and second num values to be used as references for spaceship innerHTML
     incorrect_ans = []; //get_incorrect_ques to populate this as object array with similar properties to correct_ans
-    //nincorrect_ans_rand_num_arr = [];
     easy_mode = false;
     hard_mode = true;
     min_incorrect_ans; //varies for easy/hard mode
@@ -18,6 +17,65 @@ class Question
     get_rand_second_num()
     {
         return Math.floor(Math.random()*9 + 1);
+    }
+
+    check_repeat_incorrect_val(num)
+    {
+        let repeat_val = false;
+
+        if(this.incorrect_ans.some(function(ans){
+            return ans.val === num
+        }))
+            {
+                console.log(`value of ${num} already exists`);
+
+                repeat_val = true;
+            }
+
+        if(repeat_val == true)
+        {
+            return true;
+        }
+
+        else
+        {
+            return false;
+        }
+    }
+
+    position_meth(fn_val)
+    {
+        return this.correct_ans.position = fn_val;
+    }
+
+    select_correct_ans_position()
+    {
+        let num = Math.floor(Math.random()*5);
+        
+        if(num == 0)
+        {
+            this.position_meth(0); //reference to 1st spaceship (from left) i.e. spaceship[0]
+        }
+
+        else if(num == 1)
+        {
+            this.position_meth(1);
+        }
+
+        else if(num == 2)
+        {
+            this.position_meth(2);
+        }
+
+        else if(num == 3)
+        {
+            this.position_meth(3);
+        }
+
+        else
+        {
+            this.position_meth(4); //reference to 5th spaceship (from left) i.e. spaceship[4]
+        }
     }
 }
 

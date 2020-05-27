@@ -1,36 +1,51 @@
 import Question from "../Business Logic Objects/questions_super.js"
 import Sum_Question from "../Business Logic Objects/sum_questions_sub.js"
 import Diff_Question from "../Business Logic Objects/difference_questions_sub.js"
-import Game_App from "../gameapp.js"
+//import Main_Game from "../gameapp.js"
 
 const Gameplay_UI =
 {
     spaceships : document.querySelectorAll(".spaceship"),
     gun : document.querySelector("#gun"),
     gamescreen : document.querySelector("#gamescreen_section"),
-    
     //rand_diff_block : document.createElement("h3")
 
-    populate_spaceship() //must call populate correct and incorrect answers (Sum and Diff) before this method
+    display_spaceship_num(mtd_i, mtd_ship_color, mtd_ans_obj) //this is called within populate_spaceship method
     {
-        const test = new Sum_Question();
-        const test2 = new Game_App();
-        
-        test.populate_correct_ans();
-        test.populate_incorrect_ans_arr();
+        const rand_sum_block = document.createElement("h3");
+            
+        this.spaceships[mtd_i].style.backgroundColor = mtd_ship_color;
+        this.spaceships[mtd_i].style.marginTop = 0;
+            
+        rand_sum_block.innerHTML = `${mtd_ans_obj.first_num} + ${mtd_ans_obj.second_num}`;
 
+        this.spaceships[mtd_i].appendChild(rand_sum_block);    
+    },
+
+    populate_spaceship(mtd_ques) //must call populate correct and incorrect answers (Sum and Diff) before this method
+    {
         let i = 0;
 
         for(i=0; i < this.spaceships.length; i++)
         {
-            const rand_sum_block = document.createElement("h3");
+            if(i == mtd_ques.correct_ans.position)
+            {
+                this.display_spaceship_num(i, "red", mtd_ques.correct_ans); //color argument must be passed as string here
+            }
             
-            this.spaceships[i].style.backgroundColor = "green";
-            this.spaceships[i].style.marginTop = 0;
-            
-            rand_sum_block.innerHTML = `${test.correct_ans.first_num} + ${test.correct_ans.second_num}`;
+            else
+            {
+                if(i == (this.spaceships.length - 1) && mtd_ques.correct_ans.position != (this.spaceships.length - 1)) //if correct ans is not in last spaceship, one incorrect ans spaceship disappears, this fixes that issue
+                {
+                    this.display_spaceship_num(i, "green", mtd_ques.incorrect_ans[mtd_ques.correct_ans.position]);
+                }
 
-            this.spaceships[i].appendChild(rand_sum_block);
+                else
+                {
+                    this.display_spaceship_num(i, "green", mtd_ques.incorrect_ans[i]);
+                }
+            }
+            
         }
     }
 }

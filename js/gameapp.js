@@ -4,43 +4,36 @@ import Diff_Question from "./Business Logic Objects/difference_questions_sub.js"
 import Gameplay_UI from "./UI Logic Objects/gameplayUI.js";
 
 console.log("Game_App Linked")
-
-class Game_App
+    
+const Main_Game =
 {
     game_init()
     {
-        //const ship_section = document.querySelector("#top_block_section");
-        const spaceship = document.querySelectorAll(".spaceship");
-        const gun = document.querySelector("#gun");
-        const gameContainer = document.querySelector("#gamescreen_section");
-
-        let rand_sum_block;
-
         Gameplay_UI.spaceships;
         Gameplay_UI.gamescreen;
-        Gameplay_UI.rand_sum_block;
+        Gameplay_UI.gun;
 
         document.addEventListener("DOMContentLoaded",function(){
 
-            //alert("DOM Loaded");
+            //console.log(gameContainer.clientHeight);
+            const Sum = new Sum_Question();
+            const Diff = new Diff_Question();
 
-            console.log(gameContainer.clientHeight);
-
-            let test = new Sum_Question();
-            console.log("correct ans before " + test.correct_ans)
-            console.log("incorrect ans before " + test.incorrect_ans[0])
-            console.log("incorrect ans before " + test.incorrect_ans[1])
-            console.log("incorrect ans before " + test.incorrect_ans[2])
-            console.log("incorrect ans before " + test.incorrect_ans[3])
-
+            Sum.populate_correct_ans_sum();
+            Sum.populate_incorrect_ans_arr_sum();
+            Sum.select_correct_ans_position();
+            console.log(Sum)
             let speed_test = 90;
-            /*test.populate_correct_ans();
-            test.get_incorrect_ans();
-            test.populate_incorrect_ans_arr();*/
 
-            console.log("populated correct ans = " + test.populate_correct_ans()) + console.log(test.correct_ans.first_num, test.correct_ans.second_num);
-            console.log("returned incorrect ques = " + test.get_incorrect_ques());
-            console.log("populated incorrect ans = " + test.populate_incorrect_ans_arr());
+            console.log(Gameplay_UI.populate_spaceship(Sum) + "TESTING POPULATE SPACESHIP")
+
+            /*test.populate_correct_ans_sum();
+            test.get_incorrect_ans_sum();
+            test.populate_incorrect_ans_arr_sum();*/
+
+            /*console.log("populated correct ans = " + test.populate_correct_ans_sum()) + console.log(test.correct_ans.first_num, test.correct_ans.second_num);
+            console.log("returned incorrect ques = " + test.get_incorrect_ques_sum());
+            console.log("populated incorrect ans = " + test.populate_incorrect_ans_arr_sum());
 
             console.log("correct ans after " + test.correct_ans.val)
             console.log("incorrect ans after " + test.incorrect_ans[0].val)
@@ -48,16 +41,14 @@ class Game_App
             console.log("incorrect ans after " + test.incorrect_ans[2].val)
             console.log("incorrect ans after " + test.incorrect_ans[3].val)
 
-            console.log("populated incorrect ans = " + JSON.stringify(test.incorrect_ans));
+            console.log("populated incorrect ans = " + JSON.stringify(test.incorrect_ans));*/
+
             //console.log(new Sum_Question().get_ans());
 
-            test.populate_correct_ans();
-            test.populate_incorrect_ans_arr();
+
 
             let marginBottomPx=0;
             let marginTopPx=0;
-
-            Gameplay_UI.populate_spaceship();
 
             /*for(let i=0; i < spaceship.length; i++)
             {
@@ -111,8 +102,6 @@ class Game_App
     }
 }
 
-const Main_Game = new Game_App;
-
 Main_Game.game_init();
 
-export default Game_App;
+//export default Main_Game;
