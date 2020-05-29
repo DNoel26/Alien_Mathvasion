@@ -36,9 +36,9 @@ const Gameplay_UI =
                     this.display_spaceship_num(i, "green", mtd_ques.incorrect_ans[mtd_ques.correct_ans.position]);
                 }
 
-                else
+                else 
                 {
-                    this.display_spaceship_num(i, "green", mtd_ques.incorrect_ans[i]);
+                    this.display_spaceship_num(i, "none", mtd_ques.incorrect_ans[i]);
                 }
             }    
         }
@@ -60,14 +60,33 @@ const Gameplay_UI =
         
         for(i=0; i<this.spaceships.length; i++)
         {*/
-        console.log(this.spaceships[mtd_i].style.marginTop = mtd_margin[mtd_i] + "px");  
+        this.spaceships[mtd_i].style.marginTop = mtd_margin[mtd_i] + "px";  
         //}
     },
 
-    move_projectile(mtd_margin)
+    fire_projectile(mtd_margin)
     {
         this.gun_projectile.style.marginBottom = mtd_margin + "px";
     },
+
+    move_gun(mtd_margin) //to be used with keyboard events
+    {
+        this.gun.style.marginLeft = mtd_margin + "%";
+        this.gun_projectile.style.marginLeft = mtd_margin + "%";
+    },
+
+    click_position_gun(mtd_margin) //to be used with click/touch events
+    {
+        this.gun.style.position = "absolute";
+        this.gun_projectile.style.position = "absolute";
+
+        //this.gun.style.left = mtd_margin + "px";
+        this.gun_projectile.style.left = mtd_margin + "px";
+        this.gun.style.left = "500px";
+
+        //this.gun.style.top = "absolute";
+        //this.gun_projectile.style.top = "absolute";
+    }
 }
 
 export default Gameplay_UI

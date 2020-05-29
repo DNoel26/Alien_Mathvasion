@@ -3,9 +3,7 @@ const Game_Rules =
 {
     easy_mode : false,
     hard_mode : false,
-    score : 0,
-    hits : 0,
-    misses : 0,
+    level : [1,2],
     combo_set : false,
     combo_multiplier : 1.5,
     score_incr : 10,
@@ -30,7 +28,10 @@ const Game_Rules =
     set_score_bonus()
     {
         if(hits + 5 == true && miss + 1 == false)
-    }
+        {
+
+        }
+    },
 }
 
 

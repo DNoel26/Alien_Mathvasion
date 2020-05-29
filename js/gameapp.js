@@ -6,6 +6,7 @@ import Boundaries from "./Business Logic Objects/boundaries.js";
 import Speed_Controller from "./Business Logic Objects/speed_control.js";
 
 console.log("Game_App Linked")
+console.log(new KeyboardEvent('keydown'))
     
 const Main_Game =
 {
@@ -28,6 +29,7 @@ const Main_Game =
             
             let ship_margin_top = [0,0,0,0,0];
             let projectile_margin_bottom = 0;
+            let gun_margin_left = 0;
             let index = 0;
 
             //console.log(gameContainer.clientHeight);
@@ -41,25 +43,6 @@ const Main_Game =
             
             console.log(Gameplay_UI.populate_spaceship(Sum) + "TESTING POPULATE SPACESHIP");
             Gameplay_UI.populate_gun(Sum);
-            
-            const timer_arr = [];
-            const move_ship = function(ship_index)
-            {
-                //ship_margin_top += 10;
-
-                Gameplay_UI.move_spaceships(ship_index, ship_margin_top[ship_index]);
-                    
-                let lose_check = Boundaries.check_collision(Gameplay_UI.spaceships[ship_index].getBoundingClientRect().bottom, Gameplay_UI.gun.getBoundingClientRect().top);
-
-                if(lose_check == true)
-                {
-                    clearInterval(1);
-
-                    //alert("GAME OVER!!!");
-
-                    document.location.reload();
-                }  
-            }
 
             //for(let index = 0; index < Gameplay_UI.spaceships.length; index++)          
             //timer_arr[0] = setInterval(function(){ //checks for spaceship to gun collision
@@ -92,6 +75,27 @@ const Main_Game =
                 move_ship(1);
             },Speed_Controller.spaceship_speed_ctrl(2000))*/
             
+            const projectile = function() //to be used in spacebar press and mouse click events
+            {
+                const move_projectile = setInterval(function(){
+
+                    projectile_margin_bottom += 8
+                    Gameplay_UI.fire_projectile(projectile_margin_bottom)
+
+                    let hit_check = Boundaries.check_collision(Gameplay_UI.spaceships[0].getBoundingClientRect().bottom, Gameplay_UI.gun_projectile.getBoundingClientRect().top + 16);
+
+                    if(hit_check == true)
+                    {
+                        alert("UFO HIT!!!");
+                        
+                        clearInterval(move_projectile);
+
+                        document.location.reload();
+                    }
+
+                },Speed_Controller.gun_projectile_speed_ctrl())    
+            }
+
             for(let interval_index = 0; interval_index < Gameplay_UI.spaceships.length; interval_index++)
             {
                 const move_ship = setInterval(function(){
@@ -106,35 +110,92 @@ const Main_Game =
                         clearInterval(move_ship);
 
                         //alert("GAME OVER!!!");
-                        (Math.random()*1 + 5)*100
+                        
                         document.location.reload();
                     }  
-                },Speed_Controller.spaceship_speed_ctrl((Math.random()*15 + 5)*1.5))
+                },Speed_Controller.spaceship_speed_ctrl(5000))
             }
+
+            console.log(Boundaries.check_remaining_distance_left());
             
+            document.addEventListener("keydown",function(event){
+
+                console.log(event)
+
+                let out_of_bounds_check_left = Boundaries.check_collision(Boundaries.check_remaining_distance_left(), Gameplay_UI.gun.getBoundingClientRect().left);
+
+                let out_of_bounds_check_right = Boundaries.check_collision(Gameplay_UI.gun.getBoundingClientRect().right, Boundaries.check_remaining_distance_right());
+
+                if(event.key == "ArrowLeft")
+                {
+                    //alert("Left arrow pressed!")
+                    if(out_of_bounds_check_left == true)
+                    {
+                        //alert("Gamescreen OOB left!");
+
+                        gun_margin_left += 48;
+
+                        Gameplay_UI.move_gun(gun_margin_left);
+                    }
+
+                    else
+                    {
+                        gun_margin_left -= 12;
+
+                        Gameplay_UI.move_gun(gun_margin_left);
+                    }   
+                }
+
+                if(event.key == "ArrowRight")
+                {
+                    //alert("Right arrow pressed!");
+                    if(out_of_bounds_check_right == true)
+                    {
+                        //alert("Gamescreen OOB right!");
+
+                        gun_margin_left -= 48;
+
+                        Gameplay_UI.move_gun(gun_margin_left);
+                    }
+                    
+                    else
+                    {
+                        gun_margin_left += 12;
+
+                        Gameplay_UI.move_gun(gun_margin_left);
+                    }   
+                }
+
+                if(event.key == " ")
+                {
+                    //alert("Spacebar pressed!")
+
+                    projectile(); 
+                }
+
+                console.log("ClientRect for gun after move ", Gameplay_UI.gun.getBoundingClientRect());
+
+            });
+
+            Gameplay_UI.gamescreen.addEventListener("click",function(event){
+
+                const element = event.target;
+
+                if(element.className == "spaceship")
+                {
+                    console.log(event.target);  
+                    
+                    alert("clicked!")
+
+                    Gameplay_UI.click_position_gun();
+                }
+                
+                
+            });
 
             Gameplay_UI.gun.addEventListener("click",function(){ //checks for projectile to spaceship collision
 
-                const move_projectile = setInterval(function(){
-
-                    projectile_margin_bottom += 8
-                    Gameplay_UI.move_projectile(projectile_margin_bottom)
-
-                    let hit_check = Boundaries.check_collision(Gameplay_UI.spaceships[0].getBoundingClientRect().bottom, Gameplay_UI.gun_projectile.getBoundingClientRect().top + 16);
-
-                    if(hit_check == true)
-                    {
-                        alert("UFO HIT!!!");
-                        
-                        clearInterval(move_projectile);
-
-                        document.location.reload();
-                    }
-
-                },Speed_Controller.gun_projectile_speed_ctrl())
-                
-
-                
+                projectile();  
             });
         });
     }

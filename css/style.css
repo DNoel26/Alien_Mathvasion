@@ -8,14 +8,40 @@
 
 :root
 {
-    --gun_bg_colour: yellow;
-    --spaceship_bg_colour: blue;
+    --gun_bg_colour: none;
+    --spaceship_bg_colour: none;
     --game_bg_colour: black;
     --txt_colour_white: white;
     --txt_colour_black: black;
     --txt_colour_red: red;
     --txt_colour_gun: rgba(4, 0, 255, 0.993);
     --txt_colour_spaceship: rgb(255, 0, 0);
+}
+
+/* ----- All keyframe animations below ----- */
+
+@keyframes spaceship
+{
+    from {width: 10%;}
+    to {width: 98%;}
+}
+
+@keyframes spaceship_numbers
+{
+    from {font-size: 0.12rem;}
+    to {font-size: 1.2rem;}
+}
+
+@keyframes gunner
+{
+    from {width: 5%; bottom: 0;}
+    to {width: 10%; bottom: 2.5%;}
+}
+
+@keyframes gunner_projectile
+{
+    from {width: 5%; bottom: 5%;}
+    to {width: 10%; bottom: 2.5%;}
 }
 
 /* ----- Gameplay CSS below ----- */
@@ -48,10 +74,12 @@ main
     background-repeat: no-repeat;
     background-size: cover;
     align-self: center;
+    z-index: 1;
 }
 
 .spaceship
 {
+    /*animation: spaceship 1.5s;*/  
     display: grid;
     justify-self: center; /*Ask Kadeem about justify again*/
     background-color: var(--spaceship_bg_colour);
@@ -65,10 +93,18 @@ main
     border-radius: 5px;
     height: 150px;
     width: 98%;
+    z-index: 3;
+    cursor: crosshair;
+}
+
+.spaceship > *
+{
+    pointer-events: none;
 }
 
 .spaceship > h3
 {
+    /*animation: spaceship_numbers 1.5s;*/
     max-width: 100%;
     font-size: 1.2rem;
     word-spacing: 0.6rem;
@@ -76,6 +112,7 @@ main
     align-self: center;
     padding-bottom: 30%;
     color: var(--txt_colour_spaceship);
+    z-index: 2;
    /*padding: 10px 60px; /*Ask Kadeem how to get padding size to be exactly equal for each bubble, no matter the bubble content*/
 }
 
@@ -87,6 +124,7 @@ main
 
 #bot_gun_div img
 {
+    /*animation: gunner_projectile 1s;*/
     position: absolute;
     width: 10%;
     bottom: 2.5%;
@@ -96,6 +134,7 @@ main
 
 #gun
 {
+    /*animation: gunner 1s;*/
     display: grid;
     position: absolute;
     bottom: 2.5%;
@@ -110,6 +149,12 @@ main
     background-position: center;
     color: var(--txt_colour_gun);
     z-index: 2;
+    cursor: pointer;
+}
+
+#gun > *
+{
+    pointer-events: none;
 }
 
 #gun h3

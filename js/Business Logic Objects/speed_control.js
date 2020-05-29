@@ -6,7 +6,7 @@ const Speed_Controller = //to be used in Set Intervals timer arg
     {
         if(mtd_speed == undefined)
         {
-            return 3000 //default value in ms  
+            return (Math.random()*5 + 8)*1.5 //default value in ms  
         }
         
         else
@@ -28,13 +28,13 @@ const Speed_Controller = //to be used in Set Intervals timer arg
         }
     },
 
-    speed_tester(i)
+    /*speed_tester(i)
     {
         for(i = 0; i < Gameplay_UI.spaceships.length; i++)
         {
             return (Math.random()*5)*10
         }
-    }
+    }*/
 }
 
 export default Speed_Controller;
