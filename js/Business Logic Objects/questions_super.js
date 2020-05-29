@@ -7,19 +7,21 @@ class Question
     hard_mode = true;
     min_incorrect_ans; //varies for easy/hard mode
     max_incorrect_ans; // same as above
+    max_first_num = 25;
+    max_second_num = 9;
 
     //random first and second numbers to be stored in objects for later reference
     get_rand_first_num()
     {
-        return Math.floor(Math.random()*25 + 1);
+        return Math.floor(Math.random()*this.max_first_num + 1);
     }
 
     get_rand_second_num()
     {
-        return Math.floor(Math.random()*9 + 1);
+        return Math.floor(Math.random()*this.max_second_num + 1);
     }
 
-    check_repeat_incorrect_val(num)
+    check_repeat_incorrect_val(num) //for use within this class
     {
         let repeat_val = false;
 
@@ -43,7 +45,7 @@ class Question
         }
     }
 
-    position_meth(fn_val)
+    position_meth(fn_val) //for use within this class
     {
         return this.correct_ans.position = fn_val;
     }

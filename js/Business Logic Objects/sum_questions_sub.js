@@ -1,4 +1,5 @@
 import Question from "./questions_super.js";
+import Gameplay_UI from "../UI Logic Objects/gameplayUI.js";
 
 class Sum_Question extends Question
 {
@@ -27,7 +28,7 @@ class Sum_Question extends Question
 
         console.log(this.check_repeat_incorrect_val(num));
 
-        while(num == this.correct_ans.val || this.check_repeat_incorrect_val(num) == true || num < this.min_incorrect_ans || num > this.max_incorrect_ans)
+        while(num == this.correct_ans.val || this.check_repeat_incorrect_val(num) == true || this.correct_ans.val <= this.incorrect_ans[mtd_i].first_num || this.correct_ans.val <= this.incorrect_ans[mtd_i].second_num || num < this.min_incorrect_ans || num > this.max_incorrect_ans)
         {
             this.incorrect_ans[mtd_i].first_num = this.get_rand_first_num();
             this.incorrect_ans[mtd_i].second_num = this.get_rand_second_num();
@@ -39,7 +40,7 @@ class Sum_Question extends Question
         return `${this.incorrect_ans[mtd_i].first_num} + ${this.incorrect_ans[mtd_i].second_num}`;
     };
 
-    populate_incorrect_ans_arr_sum() //need to call this method separately
+    populate_incorrect_ans_arr_sum(mtd_i) //need to call this method separately
     {
         let i = 0;
         //this.populate_correct_ans();
@@ -49,9 +50,9 @@ class Sum_Question extends Question
             this.min_incorrect_ans = this.correct_ans.val - 10;
             this.max_incorrect_ans = this.correct_ans.val + 10; 
 
-            for(i=0; i<4; i++)
+            for(i=0; i<Gameplay_UI.spaceships.length-1; i++)
             {
-                this.get_incorrect_ques_sum(i);
+                this.get_incorrect_ques_sum(mtd_i);
                 //const sum = this.incorrect_ans[i].val;
                 //console.log(`sum for incorrect array [${i}] = ${sum}`)
             }  
@@ -61,7 +62,7 @@ class Sum_Question extends Question
         {
             if(this.correct_ans.val > 5 && this.correct_ans.val < 31) //IMPORTANT - this prevents crashing if sum values are too low or too high
             {
-                this.min_incorrect_ans = this.correct_ans.val - 3;
+                this.min_incorrect_ans = this.correct_ans.val - 4;
                 this.max_incorrect_ans = this.correct_ans.val + 3;
             }
 
@@ -77,14 +78,13 @@ class Sum_Question extends Question
                 this.max_incorrect_ans = this.correct_ans.val + 3;
             }
 
-            for(i=0; i<4; i++)
+            for(i=0; i<Gameplay_UI.spaceships.length-1; i++)
             {
                 this.get_incorrect_ques_sum(i);
                 //const sum = this.incorrect_ans[i].val;
                 //console.log(`sum for incorrect array [${i}] = ${sum}`)
             }       
         };
-
         //console.log(this.incorrect_ans)
     };
         

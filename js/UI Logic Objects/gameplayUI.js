@@ -1,25 +1,21 @@
-import Question from "../Business Logic Objects/questions_super.js"
-import Sum_Question from "../Business Logic Objects/sum_questions_sub.js"
-import Diff_Question from "../Business Logic Objects/difference_questions_sub.js"
-//import Main_Game from "../gameapp.js"
 
 const Gameplay_UI =
 {
     spaceships : document.querySelectorAll(".spaceship"),
     gun : document.querySelector("#gun"),
     gamescreen : document.querySelector("#gamescreen_section"),
+    gun_projectile : document.querySelector("#gun_projectile"),
     //rand_diff_block : document.createElement("h3")
 
     display_spaceship_num(mtd_i, mtd_ship_color, mtd_ans_obj) //this is called within populate_spaceship method
     {
-        const rand_sum_block = document.createElement("h3");
+        const rand_sum_display = document.createElement("h3");
             
-        this.spaceships[mtd_i].style.backgroundColor = mtd_ship_color;
-        this.spaceships[mtd_i].style.marginTop = 0;
+        this.spaceships[mtd_i].style.backgroundColor = mtd_ship_color; //only for testing, comment out here and in argument otherwise
             
-        rand_sum_block.innerHTML = `${mtd_ans_obj.first_num} + ${mtd_ans_obj.second_num}`;
+        rand_sum_display.innerHTML = `${mtd_ans_obj.first_num} + ${mtd_ans_obj.second_num}`;
 
-        this.spaceships[mtd_i].appendChild(rand_sum_block);    
+        this.spaceships[mtd_i].appendChild(rand_sum_display);    
     },
 
     populate_spaceship(mtd_ques) //must call populate correct and incorrect answers (Sum and Diff) before this method
@@ -44,10 +40,34 @@ const Gameplay_UI =
                 {
                     this.display_spaceship_num(i, "green", mtd_ques.incorrect_ans[i]);
                 }
-            }
-            
+            }    
         }
-    }
+    },
+
+    populate_gun(mtd_ques)
+    {
+        const correct_ans_display = document.createElement("h3");
+
+        correct_ans_display.innerHTML = mtd_ques.correct_ans.val;
+        this.gun.appendChild(correct_ans_display);
+        console.log(this.gun.childNodes)
+        this.gun.removeChild(this.gun.childNodes[1])
+    },
+
+    move_spaceships(mtd_i, mtd_margin) //initialise mtd_margin as 0 in app module
+    {
+        /*let i = 0;
+        
+        for(i=0; i<this.spaceships.length; i++)
+        {*/
+        console.log(this.spaceships[mtd_i].style.marginTop = mtd_margin[mtd_i] + "px");  
+        //}
+    },
+
+    move_projectile(mtd_margin)
+    {
+        this.gun_projectile.style.marginBottom = mtd_margin + "px";
+    },
 }
 
 export default Gameplay_UI

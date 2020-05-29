@@ -8,12 +8,14 @@
 
 :root
 {
-    --gun_bg_colour: red;
+    --gun_bg_colour: yellow;
     --spaceship_bg_colour: blue;
     --game_bg_colour: black;
     --txt_colour_white: white;
     --txt_colour_black: black;
     --txt_colour_red: red;
+    --txt_colour_gun: rgba(4, 0, 255, 0.993);
+    --txt_colour_spaceship: rgb(255, 0, 0);
 }
 
 /* ----- Gameplay CSS below ----- */
@@ -21,44 +23,59 @@
 body
 {
     max-width: 100%;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 1.1rem;
+    line-height: 16px;
 }
 
 main
 {
-    max-width: 50vw;
-    margin: 50px auto 0 auto;
-    height: 80vh;
+    display: grid;
+    max-width: 100%;
+    height: 100vh;
+    margin: 0 auto 0 auto;
     background-color: var(--game_bg_colour);
 }
 
 #gamescreen_section
-{
+{   
     display: grid;
-    max-width: 100%;
+    width: 60%;
+    height: 95%;
+    margin: 0 auto 0 auto;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    height: 100%;
+    background-image: url("../img/space_bg_gameplay_gif.gif");
+    background-repeat: no-repeat;
+    background-size: cover;
+    align-self: center;
 }
 
 .spaceship
 {
     display: grid;
     justify-self: center; /*Ask Kadeem about justify again*/
-    max-width: 158px;
     background-color: var(--spaceship_bg_colour);
     color: var(--txt_colour_white);
+    background-image: url("../img/spaceship_art_2.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
     margin-top: 0;
     border: none;
     border-radius: 5px;
-    height: 50px;
-    width: 50px;
+    height: 150px;
+    width: 98%;
 }
 
 .spaceship > h3
 {
     max-width: 100%;
-    font-size: 0.9rem;
+    font-size: 1.2rem;
+    word-spacing: 0.6rem;
     text-align: center;
     align-self: center;
+    padding-bottom: 30%;
+    color: var(--txt_colour_spaceship);
    /*padding: 10px 60px; /*Ask Kadeem how to get padding size to be exactly equal for each bubble, no matter the bubble content*/
 }
 
@@ -68,18 +85,40 @@ main
     /*margin-top: 500px;*/
 }
 
-#gun
+#bot_gun_div img
 {
     position: absolute;
-    bottom: 150px;
-    max-width: 80px;
-    text-align: center;
-    margin: 0 auto 0 auto;
-    padding: 10px 10px;
-    background-color: var(--gun_bg_colour);
-    color: var(--txt_colour_white);
+    width: 10%;
+    bottom: 2.5%;
+    left: 21%; /*211.17px;*/
+    z-index: 1;
 }
 
+#gun
+{
+    display: grid;
+    position: absolute;
+    bottom: 2.5%;
+    left: 21%; /*210.6px;*/
+    width: 10%;
+    height: 22%;
+    text-align: center;
+    background-color: var(--gun_bg_colour);
+    background-image: url("../img/gunship_art.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    color: var(--txt_colour_gun);
+    z-index: 2;
+}
+
+#gun h3
+{
+    align-self: center;
+    max-width: 100%;
+    font-size: 1.8rem;
+    padding-bottom: 35%;
+}
 /*.spaceship
 {
     display: grid;
