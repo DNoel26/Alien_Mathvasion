@@ -73,6 +73,7 @@ main
     background-image: url("../img/space_bg_gameplay_gif.gif");
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: center;
     align-self: center;
     z-index: 1;
 }

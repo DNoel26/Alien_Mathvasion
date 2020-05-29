@@ -113,7 +113,7 @@ const Main_Game =
                         
                         document.location.reload();
                     }  
-                },Speed_Controller.spaceship_speed_ctrl(5000))
+                },Speed_Controller.spaceship_speed_ctrl())
             }
 
             console.log(Boundaries.check_remaining_distance_left());
@@ -181,16 +181,29 @@ const Main_Game =
 
                 const element = event.target;
 
-                if(element.className == "spaceship")
+                for(let click_index = 1; click_index < Gameplay_UI.spaceships.length + 1; click_index++)
+                {
+                    if(element.id == `ship_${click_index}`)
+                    {
+                        const click_position = 21 + (click_index - 1)*12;
+                                        
+                        Gameplay_UI.click_position_gun(click_position);
+
+                        projectile();
+                    }  
+                }
+
+                /*if(element.className == "spaceship")
                 {
                     console.log(event.target);  
                     
                     alert("clicked!")
 
-                    Gameplay_UI.click_position_gun();
-                }
-                
-                
+                    
+                    
+
+                    projectile();
+                }*/     
             });
 
             Gameplay_UI.gun.addEventListener("click",function(){ //checks for projectile to spaceship collision

@@ -80,9 +80,8 @@ const Gameplay_UI =
         this.gun.style.position = "absolute";
         this.gun_projectile.style.position = "absolute";
 
-        //this.gun.style.left = mtd_margin + "px";
-        this.gun_projectile.style.left = mtd_margin + "px";
-        this.gun.style.left = "500px";
+        this.gun.style.left = mtd_margin + "%";
+        this.gun_projectile.style.left = mtd_margin + "%";
 
         //this.gun.style.top = "absolute";
         //this.gun_projectile.style.top = "absolute";
