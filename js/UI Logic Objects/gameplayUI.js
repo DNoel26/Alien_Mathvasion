@@ -26,32 +26,35 @@ const Gameplay_UI =
         {
             if(i == mtd_ques.correct_ans.position)
             {
-                this.display_spaceship_num(i, "red", mtd_ques.correct_ans); //color argument must be passed as string here
+                this.display_spaceship_num(i, "unset", mtd_ques.correct_ans); //color argument must be passed as string here
             }
             
             else
             {
                 if(i == (this.spaceships.length - 1) && mtd_ques.correct_ans.position != (this.spaceships.length - 1)) //if correct ans is not in last spaceship, one incorrect ans spaceship disappears, this fixes that issue
                 {
-                    this.display_spaceship_num(i, "green", mtd_ques.incorrect_ans[mtd_ques.correct_ans.position]);
+                    this.display_spaceship_num(i, "unset", mtd_ques.incorrect_ans[mtd_ques.correct_ans.position]);
                 }
 
                 else 
                 {
-                    this.display_spaceship_num(i, "none", mtd_ques.incorrect_ans[i]);
+                    this.display_spaceship_num(i, "unset", mtd_ques.incorrect_ans[i]);
                 }
             }    
         }
     },
 
-    populate_gun(mtd_ques)
+    depopulate_spaceship()
     {
-        const correct_ans_display = document.createElement("h3");
+        let i = 0;
 
-        correct_ans_display.innerHTML = mtd_ques.correct_ans.val;
-        this.gun.appendChild(correct_ans_display);
-        console.log(this.gun.childNodes)
-        this.gun.removeChild(this.gun.childNodes[1])
+        for(i=0; i < this.spaceships.length; i++)
+        {
+            //this.spaceships[i].removeChild(this.spaceships[i].childNodes[0])
+            let display_val = this.spaceships[i].children[0];
+            display_val.remove();
+            this.spaceships[i].style.backgroundColor = "unset";
+        };
     },
 
     move_spaceships(mtd_i, mtd_margin) //initialise mtd_margin as 0 in app module
@@ -60,13 +63,42 @@ const Gameplay_UI =
         
         for(i=0; i<this.spaceships.length; i++)
         {*/
-        this.spaceships[mtd_i].style.marginTop = mtd_margin[mtd_i] + "px";  
+        this.spaceships[mtd_i].style.marginTop = mtd_margin[mtd_i] + "%";  
         //}
+    }, //RETURN LATER TO CONVERT THESE TO % OR VH UNITS !!!
+
+    reset_spaceships()
+    {
+        let i = 0;
+
+        for(i=0; i < this.spaceships.length; i++)
+        {
+            this.spaceships[i].style.marginTop = 0;         
+        }
+    },
+
+    populate_gun(mtd_ques)
+    {
+        const correct_ans_display = document.createElement("h3");
+        
+        correct_ans_display.innerHTML = mtd_ques.correct_ans.val;
+        this.gun.appendChild(correct_ans_display);
+    },
+
+    depopulate_gun()
+    {
+        let display_val = this.gun.children[0];
+        display_val.remove();
     },
 
     fire_projectile(mtd_margin)
     {
-        this.gun_projectile.style.marginBottom = mtd_margin + "px";
+        this.gun_projectile.style.marginBottom = mtd_margin + "%";
+    },
+
+    reset_projectile()
+    {
+        this.gun_projectile.style.marginBottom = 0;    
     },
 
     move_gun(mtd_margin) //to be used with keyboard events
@@ -75,17 +107,20 @@ const Gameplay_UI =
         this.gun_projectile.style.marginLeft = mtd_margin + "%";
     },
 
+    reset_gun()
+    {
+        this.gun.style.left = 0;
+        this.gun_projectile.style.left = 0;
+    },
+
     click_position_gun(mtd_margin) //to be used with click/touch events
     {
-        this.gun.style.position = "absolute";
-        this.gun_projectile.style.position = "absolute";
-
-        this.gun.style.left = mtd_margin + "%";
-        this.gun_projectile.style.left = mtd_margin + "%";
-
-        //this.gun.style.top = "absolute";
-        //this.gun_projectile.style.top = "absolute";
+        this.gun.style.marginLeft = mtd_margin + "%";
+        this.gun_projectile.style.marginLeft = mtd_margin + "%";
     }
 }
 
+// ----- ASK KADEEM ABOUT ABSOLUTELY POSITIONING THE GUN WITH RESPECT TO THE GAMESCREEN -----
+
 export default Gameplay_UI
+

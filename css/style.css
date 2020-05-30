@@ -32,6 +32,12 @@
     to {font-size: 1.2rem;}
 }
 
+@keyframes gunner_number
+{
+    from {font-size: 0.18rem;}
+    to {font-size: 1.8rem;}
+}
+
 @keyframes gunner
 {
     from {width: 5%; bottom: 0;}
@@ -63,11 +69,18 @@ main
     background-color: var(--game_bg_colour);
 }
 
+audio
+{
+    position: absolute;
+    top: 0;
+    visibility: hidden;
+}
+
 #gamescreen_section
 {   
     display: grid;
-    width: 60%;
-    height: 95%;
+    width: 60vw;
+    height: 95vh;
     margin: 0 auto 0 auto;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     background-image: url("../img/space_bg_gameplay_gif.gif");
@@ -80,7 +93,7 @@ main
 
 .spaceship
 {
-    /*animation: spaceship 1.5s;*/  
+    animation: spaceship 1.5s;  
     display: grid;
     justify-self: center; /*Ask Kadeem about justify again*/
     background-color: var(--spaceship_bg_colour);
@@ -92,7 +105,7 @@ main
     margin-top: 0;
     border: none;
     border-radius: 5px;
-    height: 150px;
+    height: 15vh;
     width: 98%;
     z-index: 3;
     cursor: crosshair;
@@ -105,7 +118,7 @@ main
 
 .spaceship > h3
 {
-    /*animation: spaceship_numbers 1.5s;*/
+    animation: spaceship_numbers 0.75s;
     max-width: 100%;
     font-size: 1.2rem;
     word-spacing: 0.6rem;
@@ -125,7 +138,7 @@ main
 
 #bot_gun_div img
 {
-    /*animation: gunner_projectile 1s;*/
+    animation: gunner_projectile 1s;
     position: absolute;
     width: 10%;
     bottom: 2.5%;
@@ -135,7 +148,7 @@ main
 
 #gun
 {
-    /*animation: gunner 1s;*/
+    animation: gunner 1s;
     display: grid;
     position: absolute;
     bottom: 2.5%;
@@ -159,7 +172,8 @@ main
 }
 
 #gun h3
-{
+{   
+    animation: gunner_number 0.75s;
     align-self: center;
     max-width: 100%;
     font-size: 1.8rem;
