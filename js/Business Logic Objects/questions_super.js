@@ -3,8 +3,8 @@ class Question
 {
     correct_ans = {first_num : 0, second_num : 0, val : 0, position : 0}; //first and second num values to be used as references for spaceship innerHTML
     incorrect_ans = []; //get_incorrect_ques to populate this as object array with similar properties to correct_ans
-    easy_mode = false;
-    hard_mode = true;
+    //easy_mode = false;
+    //hard_mode = true;
     min_incorrect_ans; //varies for easy/hard mode
     max_incorrect_ans; // same as above
     max_first_num = 25;

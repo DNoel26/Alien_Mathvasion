@@ -1,5 +1,6 @@
 import Question from "./questions_super.js";
 import Gameplay_UI from "../UI Logic Objects/gameplayUI.js";
+import Game_Rules from "./game_rules.js";
 
 class Sum_Question extends Question
 {
@@ -45,7 +46,7 @@ class Sum_Question extends Question
         let i = 0;
         //this.populate_correct_ans();
                 
-        if(this.easy_mode == true && this.hard_mode == false)
+        if(Game_Rules.easy_mode == true && Game_Rules.hard_mode == false)
         {
             this.min_incorrect_ans = this.correct_ans.val - 10;
             this.max_incorrect_ans = this.correct_ans.val + 10; 
@@ -58,7 +59,7 @@ class Sum_Question extends Question
             }  
         }
                 
-        else if(this.easy_mode == false && this.hard_mode == true)
+        else if(Game_Rules.easy_mode == false && Game_Rules.hard_mode == true)
         {
             if(this.correct_ans.val > 5 && this.correct_ans.val < 31) //IMPORTANT - this prevents crashing if sum values are too low or too high
             {

@@ -2,7 +2,7 @@
 const Game_Rules = 
 {
     easy_mode : false,
-    hard_mode : false,
+    hard_mode : true,
     level : [1,2],
     combo_set : false,
     combo_multiplier : 1.5,
@@ -33,7 +33,5 @@ const Game_Rules =
         }
     },
 }
-
-
 
 export default Game_Rules;

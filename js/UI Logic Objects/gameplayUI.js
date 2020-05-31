@@ -67,13 +67,22 @@ const Gameplay_UI =
         //}
     }, //RETURN LATER TO CONVERT THESE TO % OR VH UNITS !!!
 
-    reset_spaceships()
+    reset_spaceships(e)
     {
         let i = 0;
 
         for(i=0; i < this.spaceships.length; i++)
         {
-            this.spaceships[i].style.marginTop = 0;         
+            if(e == null)
+            {
+                this.spaceships[i].style.marginTop = 0;
+            } 
+            
+            this.spaceships[i].children[0].style.visibility = "visible";
+            this.spaceships[i].style.backgroundImage = 'url("../img/spaceship_art_2.png")';
+            
+            this.spaceships[i].style.animationName = "shake_2";
+            this.spaceships[i].style.animationDuration = "4s";
         }
     },
 
@@ -117,6 +126,29 @@ const Gameplay_UI =
     {
         this.gun.style.marginLeft = mtd_margin + "%";
         this.gun_projectile.style.marginLeft = mtd_margin + "%";
+    },
+
+    correct_ship_hit()
+    {
+        let i = 0;
+        
+        for(i=0; i < this.spaceships.length; i++)
+        {
+            this.spaceships[i].style.backgroundImage = 'url("../img/spaceship-explosion-gif-edited-unscreen.gif")';
+            
+            this.spaceships[i].children[0].style.visibility = "hidden";
+        }    
+    },
+
+    incorrect_ship_hit()
+    {
+        let i = 0;
+        
+        for(i=0; i < this.spaceships.length; i++)
+        {
+            this.spaceships[i].style.animationName = "shake";
+            this.spaceships[i].style.animationDuration = "0.8s";
+        }     
     }
 }
 

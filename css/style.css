@@ -28,14 +28,14 @@
 
 @keyframes spaceship_numbers
 {
-    from {font-size: 0.12rem;}
-    to {font-size: 1.2rem;}
+    from {font-size: 0.12em;}
+    to {font-size: 1.2em;}
 }
 
 @keyframes gunner_number
 {
-    from {font-size: 0.18rem;}
-    to {font-size: 1.8rem;}
+    from {font-size: 0.18em;}
+    to {font-size: 1.8em;}
 }
 
 @keyframes gunner
@@ -50,6 +50,29 @@
     to {width: 10%; bottom: 2.5%;}
 }
 
+@keyframes shake 
+{
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-5deg); }
+    20% { transform: translate(-3px, 0px) rotate(5deg); }
+    30% { transform: translate(3px, 2px) rotate(5deg); }
+    40% { transform: translate(1px, -1px) rotate(5deg); }
+    50% { transform: translate(-1px, 2px) rotate(-5deg); }
+    60% { transform: translate(-3px, 1px) rotate(5deg); }
+    70% { transform: translate(3px, 1px) rotate(-5deg); }
+    80% { transform: translate(-1px, -1px) rotate(5deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-5deg); }
+  }
+
+  @keyframes shake_2 
+  {
+    10%, 90% { transform: translate3d(-2%, 0, 0); }
+    20%, 80% { transform: translate3d(2%, 0, 0); }
+    30%, 50%, 70% { transform: translate3d(-2%, 0, 0); }
+    40%, 60% { transform: translate3d(2%, 0, 0); }
+  }
+
 /* ----- Gameplay CSS below ----- */
 
 body
@@ -63,17 +86,26 @@ body
 main
 {
     display: grid;
+    grid-template-columns: 19.5vw 1fr 19.5vw;
     max-width: 100%;
     height: 100vh;
     margin: 0 auto 0 auto;
     background-color: var(--game_bg_colour);
 }
 
+#bg_audio_1, #bg_audio_2
+{
+    position: absolute;
+    left: 0.1vw;
+    top: 92vh;
+    display: none;
+}
+
 audio
 {
     position: absolute;
     top: 0;
-    visibility: hidden;
+    display: none;
 }
 
 #gamescreen_section
@@ -91,9 +123,54 @@ audio
     z-index: 1;
 }
 
+.side_of_gamescreen
+{
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr;
+    background-color: unset;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: var(--txt_colour_white);
+    grid-template-rows: auto;
+    margin-top: 5vh;
+}
+
+#left_section_gamescreen > div
+{
+    /*background-image: url("../img/spaceship_interior_left_2.jpg");
+    background-position: 94%;*/ 
+    grid-row: 1;
+    grid-column: 1;
+} 
+
+.side_of_gamescreen > div > img
+{
+    max-width: 100%;
+    height: 90vh;
+    margin-top: 2.5vh;
+} 
+
+#right_section_gamescreen > div
+{
+    /*background-image: url("../img/spaceship_interior_right_2.jpg");
+    background-position: 13%;*/
+    grid-row: 1;
+    grid-column: 1;
+}
+
+#right_section_gamescreen > div > img
+{
+    max-width: 100%;
+    max
+} 
+
 .spaceship
 {
-    animation: spaceship 1.5s;  
+    animation: spaceship 1.5s;
+    animation: shake_2 4s;
+    /*animation: shake 0.8s;*/
+    animation-iteration-count: infinite;  
     display: grid;
     justify-self: center; /*Ask Kadeem about justify again*/
     background-color: var(--spaceship_bg_colour);
@@ -120,7 +197,7 @@ audio
 {
     animation: spaceship_numbers 0.75s;
     max-width: 100%;
-    font-size: 1.2rem;
+    font-size: 1.2em;
     word-spacing: 0.6rem;
     text-align: center;
     align-self: center;
@@ -139,6 +216,7 @@ audio
 #bot_gun_div img
 {
     animation: gunner_projectile 1s;
+    animation: shake_2 4s;
     position: absolute;
     width: 10%;
     bottom: 2.5%;
@@ -149,6 +227,7 @@ audio
 #gun
 {
     animation: gunner 1s;
+    animation: shake_2 4s;
     display: grid;
     position: absolute;
     bottom: 2.5%;
@@ -176,7 +255,7 @@ audio
     animation: gunner_number 0.75s;
     align-self: center;
     max-width: 100%;
-    font-size: 1.8rem;
+    font-size: 1.8em;
     padding-bottom: 35%;
 }
 /*.spaceship

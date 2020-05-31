@@ -17,6 +17,8 @@ class Sound
         const sound = document.createElement("audio");
         sound.setAttribute("src",this.source);
         sound.setAttribute("controls","controls");
+        sound.setAttribute("allow","autoplay");
+        sound.setAttribute("muted","muted");
         sound.setAttribute("id",this.audio_id);
         document.body.appendChild(sound);
 
