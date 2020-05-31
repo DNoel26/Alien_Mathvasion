@@ -6,8 +6,8 @@ import Boundaries from "./Business Logic Objects/boundaries.js";
 import Speed_Controller from "./Business Logic Objects/speed_control.js";
 import Sound from "./UI Logic Objects/soundUI.js";
 
-console.log("Game_App Linked")
-console.log(new KeyboardEvent('keydown'))
+console.log("Game_App Linked");
+console.log(new KeyboardEvent('keydown'));
     
 const Main_Game =
 {
@@ -30,7 +30,7 @@ const Main_Game =
         console.log("Original ClientRect for gun ", Gameplay_UI.gun.getBoundingClientRect());
         console.log("Original ClientRect for gun projectile ", Gameplay_UI.gun_projectile.getBoundingClientRect());
 
-        //document.addEventListener("DOMContentLoaded",function(){
+        document.addEventListener("DOMContentLoaded",function(){
             
             //let ship_margin_top = [0,0,0,0,0]; //unit in %
             let projectile_margin_bottom = 0; //unit in %
@@ -230,7 +230,7 @@ const Main_Game =
 
                 const projectile_interval_id = setInterval(function(){
 
-                    projectile_margin_bottom += 0.5; //unit in %
+                    projectile_margin_bottom += 48; //unit in %
                     Gameplay_UI.fire_projectile(projectile_margin_bottom);
 
                     fire_rate_stop();
@@ -400,10 +400,10 @@ const Main_Game =
 
             Gameplay_UI.gun.addEventListener("mousedown", set_int_projectile); //checks for projectile to spaceship collision 
             //click gun to fire projectile at current position 
-        //}); //----- END OF DOCUMENT LOAD LISTENER -----//
+        }); //----- END OF DOCUMENT LOAD LISTENER -----//
     }
 }
 
-setTimeout(Main_Game.game_init,1000);
+Main_Game.game_init();
 
 export default Main_Game;

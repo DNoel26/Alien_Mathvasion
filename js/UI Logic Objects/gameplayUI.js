@@ -102,7 +102,7 @@ const Gameplay_UI =
 
     fire_projectile(mtd_margin)
     {
-        this.gun_projectile.style.marginBottom = mtd_margin + "%";
+        this.gun_projectile.style.marginBottom = mtd_margin + "px";
     },
 
     reset_projectile()

@@ -6,7 +6,7 @@ const Speed_Controller = //to be used in Set Intervals timer arg
     {
         if(mtd_speed == undefined)
         {
-            return (Math.random()*5 + 10)*5 //default value is (Math.random()*5 + 10)*5 in ms  
+            return (Math.random()*5 + 10)*2 //default value is (Math.random()*5 + 10)*5 in ms  
         }
         
         else
