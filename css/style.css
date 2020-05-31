@@ -128,15 +128,13 @@ audio
     display: grid;
     grid-template-rows: 1fr;
     grid-template-columns: 1fr;
-    background-color: unset;
+    /*background-color: unset;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: cover;*/
     color: var(--txt_colour_white);
-    grid-template-rows: auto;
-    margin-top: 5vh;
 }
 
-#left_section_gamescreen > div
+#left_section_gamescreen > div, #right_section_gamescreen > div
 {
     /*background-image: url("../img/spaceship_interior_left_2.jpg");
     background-position: 94%;*/ 
@@ -147,23 +145,21 @@ audio
 .side_of_gamescreen > div > img
 {
     max-width: 100%;
-    height: 90vh;
-    margin-top: 2.5vh;
+    height: 95vh;
+    margin-top: 2vh;
+    opacity: 60%;
+    z-index: 0;
 } 
 
-#right_section_gamescreen > div
+#left_data_div, #right_data_div
 {
     /*background-image: url("../img/spaceship_interior_right_2.jpg");
     background-position: 13%;*/
-    grid-row: 1;
-    grid-column: 1;
+    display: grid;
+    position: relative;
+    z-index: 1;
+    margin: 5vh auto 0 auto;
 }
-
-#right_section_gamescreen > div > img
-{
-    max-width: 100%;
-    max
-} 
 
 .spaceship
 {
