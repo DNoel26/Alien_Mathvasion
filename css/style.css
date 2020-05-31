@@ -28,14 +28,16 @@
 
 @keyframes spaceship_numbers
 {
-    from {font-size: 0.12em;}
-    to {font-size: 1.2em;}
+    0% {font-size: 1rem;}
+    50% {font-size: 2rem;}
+    100% {font-size: 1rem;}
 }
 
 @keyframes gunner_number
 {
-    from {font-size: 0.18em;}
-    to {font-size: 1.8em;}
+    0% {font-size: 1rem;}
+    50% {font-size: 2rem;}
+    100% {font-size: 1rem;}
 }
 
 @keyframes gunner
@@ -48,6 +50,15 @@
 {
     from {width: 5%; bottom: 5%;}
     to {width: 10%; bottom: 2.5%;}
+}
+
+@keyframes buttons
+{
+    0% {font-size: 1rem;}
+    25% {font-size: 1.05rem;}
+    50% {font-size: 1rem;}
+    75% {font-size: 0.95rem;}
+    100% {font-size: 1rem;}
 }
 
 @keyframes shake 
@@ -79,7 +90,9 @@ body
 {
     max-width: 100%;
     font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: 1.1rem;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1rem;
+    letter-spacing: 0.1rem;
     line-height: 16px;
 }
 
@@ -97,7 +110,7 @@ main
 {
     position: absolute;
     left: 0.1vw;
-    top: 92vh;
+    top: 93vh;
     display: none;
 }
 
@@ -161,6 +174,28 @@ audio
     margin: 5vh auto 0 auto;
 }
 
+.side_of_gamescreen h1
+{
+    font-size: 1rem;
+    text-align: center;
+}
+
+.side_of_gamescreen button
+{
+    animation: buttons 3s;
+    animation-iteration-count: infinite;
+    max-height: 45%;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 1rem;
+    border: none;
+    border-style: ridge;
+    border-radius: 12px;
+    border-width: 8px;
+    width: 100%;
+    position: relative;
+}
+
 .spaceship
 {
     animation: spaceship 1.5s;
@@ -191,13 +226,13 @@ audio
 
 .spaceship > h3
 {
-    animation: spaceship_numbers 0.75s;
+    animation: spaceship_numbers 3s;
+    animation-iteration-count: infinite;
     max-width: 100%;
-    font-size: 1.2em;
-    word-spacing: 0.6rem;
+    font-size: 1rem;
     text-align: center;
     align-self: center;
-    padding-bottom: 30%;
+    padding-bottom: 22%;
     color: var(--txt_colour_spaceship);
     z-index: 2;
    /*padding: 10px 60px; /*Ask Kadeem how to get padding size to be exactly equal for each bubble, no matter the bubble content*/
@@ -224,6 +259,7 @@ audio
 {
     animation: gunner 1s;
     animation: shake_2 4s;
+    animation-iteration-count: infinite;
     display: grid;
     position: absolute;
     bottom: 2.5%;
@@ -248,11 +284,14 @@ audio
 
 #gun h3
 {   
-    animation: gunner_number 0.75s;
+    animation: gunner_number 3s;
+    animation-iteration-count: infinite;
     align-self: center;
+    justify-self: center;
     max-width: 100%;
-    font-size: 1.8em;
-    padding-bottom: 35%;
+    font-size: 1rem;
+    padding-bottom: 33%;
+    padding-left: 2%;
 }
 /*.spaceship
 {

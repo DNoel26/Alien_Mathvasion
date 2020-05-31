@@ -13,7 +13,7 @@ const Gameplay_UI =
             
         this.spaceships[mtd_i].style.backgroundColor = mtd_ship_color; //only for testing, comment out here and in argument otherwise
             
-        rand_sum_display.innerHTML = `${mtd_ans_obj.first_num} + ${mtd_ans_obj.second_num}`;
+        rand_sum_display.innerHTML = `${mtd_ans_obj.first_num}+${mtd_ans_obj.second_num}`;
 
         this.spaceships[mtd_i].appendChild(rand_sum_display);    
     },

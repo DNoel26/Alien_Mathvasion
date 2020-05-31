@@ -30,7 +30,7 @@ const Main_Game =
         console.log("Original ClientRect for gun ", Gameplay_UI.gun.getBoundingClientRect());
         console.log("Original ClientRect for gun projectile ", Gameplay_UI.gun_projectile.getBoundingClientRect());
 
-        document.addEventListener("DOMContentLoaded",function(){
+        //document.addEventListener("DOMContentLoaded",function(){
             
             //let ship_margin_top = [0,0,0,0,0]; //unit in %
             let projectile_margin_bottom = 0; //unit in %
@@ -113,7 +113,7 @@ const Main_Game =
                 Gameplay_UI.populate_gun(Sum);
             };
 
-            function depopulate_all()
+            function depopulate_all() 
             {
                 Gameplay_UI.reset_projectile();
 
@@ -121,21 +121,21 @@ const Main_Game =
                 Gameplay_UI.depopulate_gun();
             };
 
-            function fire_rate_stop()
+            function fire_rate_stop() //stops all gunner functionalities for the user
             {
                 document.removeEventListener("keydown", event_gun_keydown);
-                Gameplay_UI.gamescreen.removeEventListener("click", event_gun_click);
-                Gameplay_UI.gun.removeEventListener("click", set_int_projectile);
+                Gameplay_UI.gamescreen.removeEventListener("mousedown", event_gun_click);
+                Gameplay_UI.gun.removeEventListener("mousedown", set_int_projectile);
             };
 
-            function fire_rate_restart()
+            function fire_rate_restart() //restarts all gunner functionalities for the user
             {
                 document.addEventListener("keydown", event_gun_keydown);
-                Gameplay_UI.gamescreen.addEventListener("click", event_gun_click); 
-                Gameplay_UI.gun.addEventListener("click", set_int_projectile);
+                Gameplay_UI.gamescreen.addEventListener("mousedown", event_gun_click); 
+                Gameplay_UI.gun.addEventListener("mousedown", set_int_projectile);
             };
 
-            function set_int_spaceships()
+            function set_int_spaceships() //main gameplay timer start and end function
             {
                 let ship_margin_top = [0,0,0,0,0];
                 fire_rate_restart(); 
@@ -153,7 +153,14 @@ const Main_Game =
 
                         Gameplay_UI.move_spaceships(interval_index, ship_margin_top); //ship_margin_top index is called within function
                         
-                        let lose_check = Boundaries.check_collision(Gameplay_UI.spaceships[interval_index].getBoundingClientRect().bottom, Gameplay_UI.gun.getBoundingClientRect().top);
+                        let stop_user_check = Boundaries.check_collision(Gameplay_UI.spaceships[interval_index].getBoundingClientRect().bottom, Gameplay_UI.gun.getBoundingClientRect().top)
+
+                        if(stop_user_check == true)
+                        {
+                            fire_rate_stop();    
+                        }
+
+                        let lose_check = Boundaries.check_collision(Gameplay_UI.spaceships[interval_index].getBoundingClientRect().bottom, Gameplay_UI.gun.getBoundingClientRect().top+24);
 
                         if(lose_check == true)
                         {
@@ -210,7 +217,7 @@ const Main_Game =
                         //console.log("Shifting ClientRect for spaceships ", Gameplay_UI.spaceships[0].getBoundingClientRect());
                         //console.log("Shifting ClientRect for gun ", Gameplay_UI.gun.getBoundingClientRect());
 
-                    },Speed_Controller.spaceship_speed_ctrl()); //this for loop controls speeds of spaceships
+                    },Speed_Controller.spaceship_speed_ctrl(50)); //this for loop controls speeds of spaceships
                 }; 
             };    
                 
@@ -223,7 +230,7 @@ const Main_Game =
 
                 const projectile_interval_id = setInterval(function(){
 
-                    projectile_margin_bottom += 0.2; //unit in %
+                    projectile_margin_bottom += 0.5; //unit in %
                     Gameplay_UI.fire_projectile(projectile_margin_bottom);
 
                     fire_rate_stop();
@@ -301,7 +308,7 @@ const Main_Game =
                 },Speed_Controller.gun_projectile_speed_ctrl());    
             }; //function for firing projectile
 
-            function event_gun_keydown(event)
+            function event_gun_keydown(event) //controls the gun with the keyboard and checks for out of bounds
             {
                 console.log(event);
 
@@ -359,7 +366,7 @@ const Main_Game =
                 console.log("ClientRect for gun after move ", Gameplay_UI.gun.getBoundingClientRect());
             }; //function for moving gun/projectile left and right and shooting projectile
 
-            function event_gun_click(event)
+            function event_gun_click(event) //On mouse click, moves both the gun and fires the projectile simulaneously
             {
                 const element = event.target;
 
@@ -389,14 +396,14 @@ const Main_Game =
 
             document.addEventListener("keydown", event_gun_keydown); //keyboard events
 
-            Gameplay_UI.gamescreen.addEventListener("click", event_gun_click); //code for clicking or touching spaceships and firing projectile simultaneously
+            Gameplay_UI.gamescreen.addEventListener("mousedown", event_gun_click); //code for clicking or touching spaceships and firing projectile simultaneously
 
-            Gameplay_UI.gun.addEventListener("click", set_int_projectile); //checks for projectile to spaceship collision 
+            Gameplay_UI.gun.addEventListener("mousedown", set_int_projectile); //checks for projectile to spaceship collision 
             //click gun to fire projectile at current position 
-        });
+        //}); //----- END OF DOCUMENT LOAD LISTENER -----//
     }
 }
 
-Main_Game.game_init();
+setTimeout(Main_Game.game_init,1000);
 
 export default Main_Game;
