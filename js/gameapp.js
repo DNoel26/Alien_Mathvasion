@@ -217,7 +217,7 @@ const Main_Game =
                         //console.log("Shifting ClientRect for spaceships ", Gameplay_UI.spaceships[0].getBoundingClientRect());
                         //console.log("Shifting ClientRect for gun ", Gameplay_UI.gun.getBoundingClientRect());
 
-                    },Speed_Controller.spaceship_speed_ctrl(50)); //this for loop controls speeds of spaceships
+                    },Speed_Controller.spaceship_speed_ctrl()); //this for loop controls speeds of spaceships
                 }; 
             };    
                 
