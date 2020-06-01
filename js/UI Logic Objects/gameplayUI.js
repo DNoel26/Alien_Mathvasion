@@ -250,16 +250,16 @@ const Gameplay_UI =
         }
     },
 
-    hit_display()
+    hit_display(hit)
     {
         this.hit_disp = this.gamescreen_sides[1].children[1].children[1].children[1];
-        this.hit_disp.innerHTML = "TEST"
+        this.hit_disp.innerHTML = hit;
     },
 
-    miss_display()
+    miss_display(miss)
     {
         this.miss_disp = this.gamescreen_sides[1].children[1].children[2].children[1];
-        this.miss_disp.innerHTML = "TEST"
+        this.miss_disp.innerHTML = miss;
     },
 
     combo_display()

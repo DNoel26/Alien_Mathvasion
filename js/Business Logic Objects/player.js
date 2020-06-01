@@ -26,6 +26,16 @@ class Player
         return this.full_name = `${this.first_name} ${this.last_name}`;
     }
 
+    get_hit_count()
+    {
+        return this.hit_count++;
+    }
+
+    get_miss_count()
+    {
+        return this.miss_count++;
+    }
+
     get_score()
     {   
         this.player_score = Game_Rules.score_incr

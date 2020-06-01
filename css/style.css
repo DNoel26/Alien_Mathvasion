@@ -218,7 +218,7 @@ audio
     height: 40%;
 }
 
-.side_of_gamescreen button:hover, .side_of_gamescreen button:focus, .side_of_gamescreen button:active
+.side_of_gamescreen button:focus, .side_of_gamescreen button:hover, .side_of_gamescreen button:active
 {
     background-color: var(--button_bg_colour);
     color: var(--txt_colour_data);

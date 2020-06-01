@@ -36,6 +36,8 @@ const Main_Game =
 
         document.addEventListener("DOMContentLoaded",function(){
             
+            let test_counter = 0;
+            let test_miss_counter = 0;
             let BLEH; //GENERIC TEST VARIABLE ONLY
             let ship_margin_top = [0,0,0,0,0];
             let projectile_margin_bottom = 0; //unit in %
@@ -52,7 +54,6 @@ const Main_Game =
             console.log(Game_Rules.easy_mode, Game_Rules.hard_mode);
             Game_Rules.set_easy_mode();
             //Game_Rules.set_hard_mode();
-            
 
             let spaceship_interval_id = [];
             
@@ -122,11 +123,14 @@ const Main_Game =
             Gameplay_UI.level_display();
             Gameplay_UI.difficulty_display();
             //Gameplay_UI.timer_display();
-            Gameplay_UI.hit_display();
-            Gameplay_UI.miss_display();
+            Gameplay_UI.hit_display(Player_1.hit_count);
+            Gameplay_UI.miss_display(Player_1.miss_count);
             Gameplay_UI.combo_display();
             Gameplay_UI.current_score_display();
             Gameplay_UI.highest_score_display();
+
+            console.log(Player_1.hit_count + "hits")
+            console.log(Player_1.miss_count + "misses")
 
             // ---------- LOAD GAME BELOW HERE ---------- //
 
@@ -135,8 +139,8 @@ const Main_Game =
             fire_rate_stop();
             load_level_1()
             
-            Player_1.player_hit_count
             
+          
             
             /*.then(function(){
                         
@@ -164,6 +168,8 @@ const Main_Game =
                     //alert("NOW LOADED!!!!");    
                 }
                 
+
+
                 Operation_Timer.get_countdown(counter);
                 console.log(Operation_Timer.countdown, counter)
                 
@@ -175,11 +181,11 @@ const Main_Game =
                     
                     counter++;
 
-                    console.log("WWWWWWWW" + Operation_Timer.get_countdown(counter));
+                    //console.log("WWWWWWWW" + Operation_Timer.get_countdown(counter));
                     Gameplay_UI.timer_display(Operation_Timer.countdown, Operation_Timer.limit); 
                     
                     //Sum_Timer.countdown = Sum_Timer.limit - counter;
-                    console.log(Operation_Timer.countdown, counter);
+                    //console.log(Operation_Timer.countdown, counter);
                     
                     //right_display.children[0].children[1].innerHTML = Sum_Timer.get_countdown(counter);
                     Operation_Timer.elapsed = Operation_Timer.countdown;
@@ -212,7 +218,11 @@ const Main_Game =
                     alert("DONE 3")
                 }
             })
-    
+            
+                                                    console.log("Player hit " + Player_1.hit_count);
+                                                                
+                                                    console.log(`HIT HIT HIT HIT   ${test_counter}`);
+
             // ---------- TIMER FUNCTIONS ABOVE HERE ---------- //
 
             //placeholder
@@ -226,6 +236,9 @@ const Main_Game =
                     setTimeout(resolve,load_game_wait_time)
                 }).then(function(){
                     
+                    //Gameplay_UI.miss_display(Player_1.miss_count)
+                    //Gameplay_UI.hit_display(Player_1.hit_count)
+
                     Game_Rules.set_game_loaded();
 
                     //rand_bg_music_sel(); //---------- AUDIO---  
@@ -283,6 +296,7 @@ const Main_Game =
                 {
                     clearInterval(spaceship_interval_id[i]);    
                 }
+                
                 bg_music_pause();
                         
                 //set_int_spaceships();
@@ -485,8 +499,8 @@ const Main_Game =
                 let hit_check = false;
                 let within_bounds_check = false;
                 
-                Game_Rules.hit = false;
-                Game_Rules.miss = false;
+                //Game_Rules.hit = false;
+                //Game_Rules.miss = false;
 
                 fire_rate_stop();
 
@@ -494,7 +508,7 @@ const Main_Game =
 
                 const projectile_interval_id = setInterval(function(){
 
-                    projectile_margin_bottom += 10; //unit in vh
+                    projectile_margin_bottom += 1.5; //unit in vh
                     Gameplay_UI.fire_projectile(projectile_margin_bottom);
 
                     for(let hit_index = 0; hit_index < Gameplay_UI.spaceships.length; hit_index++)
@@ -527,7 +541,21 @@ const Main_Game =
 
                         Miss_Sound.play_music(); //----------AUDIO---
 
-                        Game_Rules.hit = true;
+                                                /*Game_Rules.hit = true;
+                                                if(Game_Rules.hit == true)
+                                                {
+                                                    Player_1.hit_count++;
+                                                }*/
+                        
+                        //test_miss_counter++
+
+                        //Gameplay_UI.miss_display(Player_1.miss_count);
+                        //Player_1.miss_count = test_miss_counter;
+                        Player_1.get_miss_count();
+                        Gameplay_UI.miss_display(Player_1.miss_count);
+                        
+                        console.log(Player_1.hit_count + "hits 2")
+                        console.log(Player_1.miss_count + "misses 2")
 
                         setTimeout(function(){
 
@@ -550,6 +578,18 @@ const Main_Game =
                         };
 
                         explosion();
+                                                        //Player_1.get_hit_count()
+                                                        console.log("PLAYER HIT HIT HIT HIT + " + Player_1.hit_count)
+                                                        test_counter++
+
+                                                        console.log(`HITTTTTT    ${test_counter}`)
+
+                        //Player_1.hit_count = test_counter;
+                        //Gameplay_UI.hit_display(Player_1.hit_count);
+                        Player_1.get_hit_count();
+                        Gameplay_UI.hit_display(Player_1.hit_count);
+                        console.log(Player_1.hit_count + "hits 3")
+                        console.log(Player_1.miss_count + "misses 3")
 
                         function explosion()  //resets ships after explosion timer expires
                         {
@@ -674,8 +714,23 @@ const Main_Game =
 
             // ---------- GAME APP / MAIN GAME FUNCTIONS ABOVE HERE ---------- //
 
+            Gameplay_UI.restart_button.addEventListener("mousedown", function(){
 
+                document.location.reload();
+            });
 
+            Gameplay_UI.end_button.addEventListener("mousedown", function(){
+
+                if(confirm("Return to homepage?"))
+                {
+                    location.href = "../index.html";    
+                }
+                
+                else
+                {
+                    alert("Resuming game")
+                }
+            });
             //document.addEventListener("keydown", event_gun_keydown); //keyboard events
 
             //Gameplay_UI.gamescreen.addEventListener("mousedown", event_gun_click); //code for clicking or touching spaceships and firing projectile simultaneously
