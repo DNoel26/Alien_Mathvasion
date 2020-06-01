@@ -1,28 +1,34 @@
+import Game_Rules from "./game_rules.js";
 
 class Player
 {
     first_name;
     last_name;
-    gamer_tag;
-    player_score = 0;
-    player_hits = 0;
-    player_misses = 0;
-    player_combo = 0;
-    player_highscore;
-    player_difficulty;
-    player_report = {};
+    full_name;
+    tag;
+    score = 0;
+    hit_count = 0;
+    miss_count = 0;
+    combo = 0;
+    highscore;
+    difficulty_completed;
+    report = {};
 
-    constructor(fn,ln,gt,pd)
+    constructor(fn,ln,pt)
     {
         this.first_name = fn;
         this.last_name = ln;
-        this.gamer_tag = gt;
-        this.player_difficulty = pd;
+        this.player_tag = pt;
     }
 
     get_full_name()
     {
-        return this.first_name + this.last_name + (this.gamer_tag);
+        return this.full_name = `${this.first_name} ${this.last_name}`;
+    }
+
+    get_score()
+    {   
+        this.player_score = Game_Rules.score_incr
     }
 }
 

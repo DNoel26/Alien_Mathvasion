@@ -1,3 +1,4 @@
+import Game_Rules from "../Business Logic Objects/game_rules.js";
 
 const Gameplay_UI =
 {
@@ -5,6 +6,22 @@ const Gameplay_UI =
     gun : document.querySelector("#gun"),
     gamescreen : document.querySelector("#gamescreen_section"),
     gun_projectile : document.querySelector("#gun_projectile"),
+    gamescreen_sides : document.querySelectorAll(".side_of_gamescreen"),
+    settings : document.querySelector("#settings_button")
+    restart_button : document.querySelector("#restart_button"),
+    end_button : document.querySelector("#end_button"),
+    save_button : document.querySelector("#save_button"),
+    player_name_disp : undefined,
+    player_tag_disp : undefined,
+    level_disp : undefined,
+    difficulty_disp : undefined,
+    timer_disp : undefined,
+    hit_disp : undefined,
+    miss_disp : undefined,
+    combo_disp : undefined,
+    current_score_disp : undefined,
+    highest_score_disp : undefined,
+
     //rand_diff_block : document.createElement("h3")
 
     display_spaceship_num(mtd_i, mtd_ship_color, mtd_ans_obj) //this is called within populate_spaceship method
@@ -60,7 +77,7 @@ const Gameplay_UI =
         
         for(i=0; i<this.spaceships.length; i++)
         {*/
-        this.spaceships[mtd_i].style.marginTop = mtd_margin[mtd_i] + "%";  
+        this.spaceships[mtd_i].style.marginTop = mtd_margin[mtd_i] + "vh";  
         //}
     }, //RETURN LATER TO CONVERT THESE TO % OR VH UNITS !!!
 
@@ -102,7 +119,7 @@ const Gameplay_UI =
 
     fire_projectile(mtd_margin)
     {
-        this.gun_projectile.style.marginBottom = mtd_margin + "%";
+        this.gun_projectile.style.marginBottom = mtd_margin + "vh";
     },
 
     reset_projectile()
@@ -151,6 +168,144 @@ const Gameplay_UI =
             this.spaceships[i].style.animationDuration = "0.8s";
             this.spaceships[i].children[0].style.visibility = "hidden";
         }     
+    },
+
+    player_name_display(name)
+    {
+        this.player_name_disp = this.gamescreen_sides[0].children[1].children[0].children[1];
+
+        this.player_name_disp.innerHTML = name;
+    },
+
+    player_tag_display(tag)
+    {
+        this.player_tag_disp = this.gamescreen_sides[0].children[1].children[1].children[1];
+
+        this.player_tag_disp.innerHTML = tag;
+    },
+
+    level_display()
+    {
+        this.level_disp = this.gamescreen_sides[0].children[1].children[2].children[1]
+
+        if(Game_Rules.level_1 == true)
+        {
+            this.level_disp.innerHTML = "1 of 2";
+        }
+
+        else if(Game_Rules.level_2 == true)
+        {
+            this.level_disp.innerHTML = "2 of 2";
+        }    
+    },
+
+    difficulty_display()
+    {
+        this.difficulty_disp = this.gamescreen_sides[0].children[1].children[3].children[1];
+
+        if(Game_Rules.easy_mode == true)
+        {
+            this.difficulty_disp.innerHTML = "Easy";      
+        }
+
+        else if(Game_Rules.hard_mode == true)
+        {
+            this.difficulty_disp.innerHTML = "Hard"; 
+        }
+    },
+
+    timer_display(mtd_countdown_interval, mtd_countdown_initial)
+    {       
+        this.timer_disp = this.gamescreen_sides[1].children[1].children[0].children[1]; //applying .children to this gives the array of divs holding h3 & h2 tags
+
+        /*player_name_disp : gamescreen_sides[0].children[1].children[0].children[1],
+        player_tag_disp : Gameplay_UI.gamescreen_sides[0].children[1].children[0].children[1],
+        level_disp : Gameplay_UI.gamescreen_sides[0].children[1].children[0].children[1],
+        difficulty_disp : Gameplay_UI.gamescreen_sides[0].children[1].children[0].children[1],
+        timer_disp : Gameplay_UI.gamescreen_sides[1].children[1].children[0].children[1],
+        hit_disp : Gameplay_UI.gamescreen_sides[1].children[1].children[0].children[2],
+        miss_disp : Gameplay_UI.gamescreen_sides[1].children[1].children[0].children[3],
+        combo_disp : Gameplay_UI.gamescreen_sides[1].children[1].children[0].children[4],
+        current_score_disp : Gameplay_UI.gamescreen_sides[1].children[1].children[0].children[5],
+        highest_score_disp : Gameplay_UI.gamescreen_sides[1].children[1].children[0].children[6],*/
+
+        if(mtd_countdown_interval == mtd_countdown_initial)
+        {
+            this.timer_disp.innerHTML = mtd_countdown_initial;    
+        }
+    
+        else if(Game_Rules.loaded == true)
+        { 
+            this.timer_disp.innerHTML = mtd_countdown_interval;
+
+            if(mtd_countdown_interval <= 0)
+            {
+                this.timer_disp.innerHTML = "Time's Up!";   
+            }
+        }
+
+        else
+        {
+            this.timer_disp.innerHTML = mtd_countdown_initial;
+        }
+    },
+
+    hit_display()
+    {
+        this.hit_disp = this.gamescreen_sides[1].children[1].children[1].children[1];
+        this.hit_disp.innerHTML = "TEST"
+    },
+
+    miss_display()
+    {
+        this.miss_disp = this.gamescreen_sides[1].children[1].children[2].children[1];
+        this.miss_disp.innerHTML = "TEST"
+    },
+
+    combo_display()
+    {
+        this.combo_disp = this.gamescreen_sides[1].children[1].children[3].children[1];
+        this.combo_disp.innerHTML = "TEST"
+    },
+
+    current_score_display()
+    {
+        this.current_score_disp = this.gamescreen_sides[1].children[1].children[4].children[1];
+        this.current_score_disp.innerHTML = "TEST"
+    },
+
+    highest_score_display()
+    {
+        this.highest_score_disp = this.gamescreen_sides[1].children[1].children[5].children[1];
+        this.highest_score_disp.innerHTML = "TEST"
+    },
+
+    display_level_popup()
+    {
+        this.level_disp_gamescreen = document.createElement("h1");
+        this.level_disp_gamescreen.setAttribute("id","level_display");
+        this.gamescreen.appendChild(this.level_disp_gamescreen);
+
+        if(Game_Rules.level_1 == true)
+        {
+            this.level_disp_gamescreen.innerHTML = "Level 1 Start!!!"
+        }
+
+        else
+        {
+            this.level_disp_gamescreen.innerHTML = "Level 2 Start!!!"
+        };
+        
+        this.level_disp_gamescreen.style.position = "absolute";
+        this.level_disp_gamescreen.style.left = 34.5 + "vw";
+        this.level_disp_gamescreen.style.top = 24 + "vh";
+        this.level_disp_gamescreen.style.color = "gold";
+        this.level_disp_gamescreen.style.fontSize = 2 + "rem";
+    },
+
+    remove_level_popup()
+    {
+        this.level_disp_gamescreen.style.display = "none";
     }
 }
 

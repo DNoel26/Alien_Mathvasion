@@ -47,16 +47,31 @@ class Sum_Question extends Question
         //this.populate_correct_ans();
                 
         if(Game_Rules.easy_mode == true && Game_Rules.hard_mode == false)
-        {
-            this.min_incorrect_ans = this.correct_ans.val - 10;
-            this.max_incorrect_ans = this.correct_ans.val + 10; 
+        {   
+            if(this.correct_ans.val > 8 && this.correct_ans.val < 28)
+            {
+                this.min_incorrect_ans = this.correct_ans.val - 6;
+                this.max_incorrect_ans = this.correct_ans.val + 6; 
+            }
+
+            else if(this.correct_ans.val <= 8)
+            {
+                this.min_incorrect_ans = this.correct_ans.val - 6;
+                this.max_incorrect_ans = this.correct_ans.val + 9;
+            }
+
+            else
+            {
+                this.min_incorrect_ans = this.correct_ans.val - 9;
+                this.max_incorrect_ans = this.correct_ans.val + 6;
+            }
 
             for(i=0; i<Gameplay_UI.spaceships.length-1; i++)
             {
-                this.get_incorrect_ques_sum(mtd_i);
+                this.get_incorrect_ques_sum(i);
                 //const sum = this.incorrect_ans[i].val;
                 //console.log(`sum for incorrect array [${i}] = ${sum}`)
-            }  
+            }       
         }
                 
         else if(Game_Rules.easy_mode == false && Game_Rules.hard_mode == true)
