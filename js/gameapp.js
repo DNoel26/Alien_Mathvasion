@@ -52,8 +52,8 @@ const Main_Game =
             Game_Rules.combo_set = false;
 
             console.log(Game_Rules.easy_mode, Game_Rules.hard_mode);
-            Game_Rules.set_easy_mode();
-            //Game_Rules.set_hard_mode();
+            //Game_Rules.set_easy_mode();
+            Game_Rules.set_hard_mode();
 
             let spaceship_interval_id = [];
             
@@ -62,7 +62,7 @@ const Main_Game =
             Game_Rules.set_level(); //default value is level 1 = true
             //console.log(Game_Rules.level_1, Game_Rules.level_2)
             Gameplay_UI.display_level_popup();
-            let game_test_speed = 5000; //default value = null, generic variable used to change spaceship move speeds FOR TESTING PURPOSES ONLY
+            let game_test_speed = null; //default value = null, generic variable used to change spaceship move speeds FOR TESTING PURPOSES ONLY
             //Speed_Controller.spaceship_speed_ctrl(game_test_speed);
             //let SPECIAL;
 
@@ -181,13 +181,12 @@ const Main_Game =
                     
                     counter++;
 
-                    //console.log("WWWWWWWW" + Operation_Timer.get_countdown(counter));
+                    console.log("WWWWWWWW" + Operation_Timer.get_countdown(counter));
                     Gameplay_UI.timer_display(Operation_Timer.countdown, Operation_Timer.limit); 
                     
                     //Sum_Timer.countdown = Sum_Timer.limit - counter;
-                    //console.log(Operation_Timer.countdown, counter);
+                    console.log(Operation_Timer.countdown, counter);
                     
-                    //right_display.children[0].children[1].innerHTML = Sum_Timer.get_countdown(counter);
                     Operation_Timer.elapsed = Operation_Timer.countdown;
 
                     if(Operation_Timer.countdown == 0)
