@@ -7,7 +7,7 @@ const Gameplay_UI =
     gamescreen : document.querySelector("#gamescreen_section"),
     gun_projectile : document.querySelector("#gun_projectile"),
     gamescreen_sides : document.querySelectorAll(".side_of_gamescreen"),
-    settings : document.querySelector("#settings_button")
+    settings : document.querySelector("#settings_button"),
     restart_button : document.querySelector("#restart_button"),
     end_button : document.querySelector("#end_button"),
     save_button : document.querySelector("#save_button"),
