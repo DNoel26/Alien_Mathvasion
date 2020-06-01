@@ -507,7 +507,7 @@ const Main_Game =
 
                 const projectile_interval_id = setInterval(function(){
 
-                    projectile_margin_bottom += 1.5; //unit in vh
+                    projectile_margin_bottom += 7; //unit in vh
                     Gameplay_UI.fire_projectile(projectile_margin_bottom);
 
                     for(let hit_index = 0; hit_index < Gameplay_UI.spaceships.length; hit_index++)
