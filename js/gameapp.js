@@ -62,7 +62,7 @@ const Main_Game =
             Game_Rules.set_level(); //default value is level 1 = true
             //console.log(Game_Rules.level_1, Game_Rules.level_2)
             Gameplay_UI.display_level_popup();
-            let game_test_speed = 9000; //default value = null, generic variable used to change spaceship move speeds FOR TESTING PURPOSES ONLY
+            let game_test_speed = null; //default value = null, generic variable used to change spaceship move speeds FOR TESTING PURPOSES ONLY
             //Speed_Controller.spaceship_speed_ctrl(game_test_speed);
             //let SPECIAL;
 

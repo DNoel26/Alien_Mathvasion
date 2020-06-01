@@ -132,9 +132,9 @@ audio
 {   
     display: grid;
     max-width: 60vw;
-    max-height: 95vh;
+    max-height: 100vh;
     width: 60vw;
-    height: 95vh;
+    height: 100vh;
     margin: 0 auto 0 auto;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     background-image: url("../img/space_bg_gameplay_gif.gif");
@@ -168,7 +168,7 @@ audio
 .side_of_gamescreen > div > img
 {
     max-width: 100%;
-    max-height: 95vh;
+    max-height: 100vh;
     height: 95vh;
     margin-top: 2vh;
     opacity: 35%;
