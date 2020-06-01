@@ -5,6 +5,8 @@ import Gameplay_UI from "./UI Logic Objects/gameplayUI.js";
 import Boundaries from "./Business Logic Objects/boundaries.js";
 import Speed_Controller from "./Business Logic Objects/speed_control.js";
 import Sound from "./UI Logic Objects/soundUI.js";
+import Input_Device from "./Database Logic Objects/input_device.js";
+import Timer from "./Business Logic Objects/timer.js";
 
 console.log("Game_App Linked");
 console.log(new KeyboardEvent('keydown'));
@@ -32,12 +34,15 @@ const Main_Game =
 
         document.addEventListener("DOMContentLoaded",function(){
             
+            let BLEH; //GENERIC TEST VARIABLE ONLY
             //let ship_margin_top = [0,0,0,0,0]; //unit in %
             let projectile_margin_bottom = 0; //unit in %
             let gun_margin_left = 0; //unit in %
             let index = 0; 
-            let bg_vol_ctrl = 0.3; 
-            const no_reset_move = ""; //generic variable to be declared in Gameplay_UI.reset_spaceships() method, prevents ships from returning to the top on reset
+            let bg_vol_ctrl = 0.2;
+            let load_game_wait_time = 1200; //default value = 1200 ms
+            const no_reset_move = ""; //default value must not be changed from "", generic variable to be declared in Gameplay_UI.reset_spaceships() method, prevents ships from returning to the top on reset
+            let game_test_speed = 5000; //default value = null, generic variable used to change spaceship move speeds FOR TESTING PURPOSES ONLY
 
             let spaceship_interval_id = [];
 
@@ -65,15 +70,41 @@ const Main_Game =
 
             const Sum = new Sum_Question();
             const Diff = new Diff_Question();
-            
-            rand_bg_music_sel();  
 
-            start_sum_population(); 
+            const Sum_Timer = new Timer(5);
+            const Diff_Timer = new Timer(60);
+
+            // ---------- TIMER FUNCTIONS BELOW HERE ---------- //
+            
+            //set
+
+            // ---------- TIMER FUNCTIONS ABOVE HERE ---------- //
+
+            load_game(); //starts game (level 1) after a short timer
 
             //start_diff_population();
 
             // ---------- GAME APP / MAIN GAME FUNCTIONS BELOW HERE ---------- //
             
+            function load_game()
+            {
+                return new Promise(function(resolve){
+                    
+                    setTimeout(resolve,load_game_wait_time)
+                }).then(function(){
+
+                    //rand_bg_music_sel(); //---------- AUDIO---  
+
+                    start_sum_population();
+                    
+                    set_int_spaceships();
+
+                }).catch(function(){
+
+                    alert("Game failed to initialize! Please refresh the page.")
+                })
+            };
+
             function rand_bg_music_sel()
             {
                 let sel = Math.floor(Math.random()*2 + 1);
@@ -164,12 +195,12 @@ const Main_Game =
 
                         if(lose_check == true)
                         {
+                            Gameplay_UI.gamescreen.children[5].style.visibility = "hidden";
+                            
                             clearInterval(spaceship_interval_id[interval_index]);
 
                             fire_rate_stop();
 
-                            Gameplay_UI.gamescreen.children[5].style.visibility = "hidden";
-                            
                             for(let i=0; i < Gameplay_UI.spaceships.length; i++)
                             {
                                 Gameplay_UI.gamescreen.children[i].children[0].style.visibility = "hidden";
@@ -180,7 +211,29 @@ const Main_Game =
 
                             Gameplay_UI.gamescreen.style.backgroundImage = 'url("../img/game_over_explosion_gif.gif")';
 
-                            //Bg_Music.pause_music(); //----------AUDIO---
+                            Bg_Music.pause_music(); //----------AUDIO---
+                            Bg_Music_2.pause_music(); //----------AUDIO---
+
+                            function game_over()
+                            {
+                                return new Promise(function(resolve){
+
+                                    setTimeout(resolve,2000);
+                                }).then(function(){
+
+                                    Game_Over_Sound.play_music()
+
+                                    setTimeout(function(){
+
+                                        document.location.reload()
+                                    },5000)
+                                }).catch(function(){
+
+                                    alert("Browser has crashed! Please refresh the page.")
+                                })
+                            };
+
+                            game_over();
 
                             /*let game_over_timer_1 = new Promise(function(resolve){
 
@@ -217,7 +270,7 @@ const Main_Game =
                         //console.log("Shifting ClientRect for spaceships ", Gameplay_UI.spaceships[0].getBoundingClientRect());
                         //console.log("Shifting ClientRect for gun ", Gameplay_UI.gun.getBoundingClientRect());
 
-                    },Speed_Controller.spaceship_speed_ctrl()); //this for loop controls speeds of spaceships
+                    },Speed_Controller.spaceship_speed_ctrl(game_test_speed)); //this for loop controls speeds of spaceships
                 }; 
             };    
                 
@@ -226,14 +279,15 @@ const Main_Game =
                 projectile_margin_bottom = 0;
                 let hit_check = false;
                 let within_bounds_check = false;
+                
+                fire_rate_stop();
+
                 Fire_Projectile_Sound.play_music(); //----------AUDIO---
 
                 const projectile_interval_id = setInterval(function(){
 
-                    projectile_margin_bottom += 48; //unit in %
+                    projectile_margin_bottom += 1; //unit in %
                     Gameplay_UI.fire_projectile(projectile_margin_bottom);
-
-                    fire_rate_stop();
 
                     for(let hit_index = 0; hit_index < Gameplay_UI.spaceships.length; hit_index++)
                     {
@@ -247,7 +301,7 @@ const Main_Game =
 
                     within_bounds_check = Boundaries.check_within_bounds(Gameplay_UI.spaceships[Sum.correct_ans.position].getBoundingClientRect().left, Gameplay_UI.spaceships[Sum.correct_ans.position].getBoundingClientRect().right, Gameplay_UI.gun_projectile.getBoundingClientRect().left, Gameplay_UI.gun_projectile.getBoundingClientRect().right);
                     
-                    if(hit_check == true)
+                    if(hit_check == true) //ALL ANSWER HITS
                     {
                         //alert("UFO HIT!!!");                       
                         clearInterval(projectile_interval_id);
@@ -257,35 +311,38 @@ const Main_Game =
                         depopulate_all();
                         
                         start_sum_population();
-
-                        fire_rate_restart();
                     }
 
-                    if(within_bounds_check == false && hit_check == true)
+                    if(within_bounds_check == false && hit_check == true) //WRONG ANSWER HIT
                     {
-                        Gameplay_UI.incorrect_ship_hit();
+                        Gameplay_UI.incorrect_ship_hit_animate();
 
                         Miss_Sound.play_music(); //----------AUDIO---
 
                         setTimeout(function(){
 
                             Gameplay_UI.reset_spaceships(no_reset_move);
-                        },500)
+
+                            fire_rate_restart();
+                        },1000)
                     }
 
-                    if(within_bounds_check == true && hit_check == true)
+                    if(within_bounds_check == true && hit_check == true) //RIGHT ANSWER HIT
                     {
-                        Gameplay_UI.correct_ship_hit();
+                        Gameplay_UI.correct_ship_hit_animate();
  
                         //alert("RIGHT ANSWER!!!");
                         Hit_Sound.play_music(); //----------AUDIO---
+                             
                         for(let int_index = 0; int_index < Gameplay_UI.spaceships.length; int_index++)
                         {
                             clearInterval(spaceship_interval_id[int_index]); 
                         };
 
-                        function explosion() { //resets ships after explosion timer expires
+                        explosion();
 
+                        function explosion()  //resets ships after explosion timer expires
+                        {
                             return new Promise(function(resolve){
 
                                 setTimeout(resolve,700);
@@ -293,16 +350,19 @@ const Main_Game =
                             }).then(function(){
 
                                 //alert("TIME DONE")
-                                
-                                fire_rate_stop(); 
+                                fire_rate_stop();
 
                                 Gameplay_UI.reset_spaceships();
                         
-                                set_int_spaceships(); 
+                                set_int_spaceships();
+                                
+                                setTimeout(fire_rate_restart,1000);
                             })
-                        };
+                            .catch(function(){
 
-                        explosion();                       
+                                alert("PROBLEM")
+                            })
+                        };                       
                     };
 
                 },Speed_Controller.gun_projectile_speed_ctrl());    
@@ -356,9 +416,14 @@ const Main_Game =
                     };
                 };
 
-                if(event.key == " ")
+                if(event.key == " " && Input_Device.gamekey.spacebar == false)
                 {
+                    Input_Device.gamekey.spacebar = true;
                     //alert("Spacebar pressed!")
+                    setTimeout(function(){
+                        
+                        Input_Device.gamekey.spacebar = false;
+                    },1000);
 
                     set_int_projectile(); 
                 };
@@ -368,6 +433,14 @@ const Main_Game =
 
             function event_gun_click(event) //On mouse click, moves both the gun and fires the projectile simulaneously
             {
+                /*Input_Device.gamekey.left_click = true;
+
+                setTimeout(function(){
+
+                    Input_Device.gamekey.left_click = false;
+
+                },1000);*/
+                
                 const element = event.target;
 
                 if(element.className == "spaceship")
@@ -381,18 +454,15 @@ const Main_Game =
                     if(element.id == `ship_${click_index}`)
                     {                                              
                         gun_margin_left = 21 + (click_index - 1)*12;
-                                                               
+                                                            
                         Gameplay_UI.click_position_gun(gun_margin_left);
 
                         set_int_projectile();
                     }  
-                };
-  
+                };    
             }; //function for moving gun/projectile and shooting projectile simultaneously on mouse click/screentouch
 
             // ---------- GAME APP / MAIN GAME FUNCTIONS ABOVE HERE ---------- //
-            
-            set_int_spaceships();
 
             document.addEventListener("keydown", event_gun_keydown); //keyboard events
 

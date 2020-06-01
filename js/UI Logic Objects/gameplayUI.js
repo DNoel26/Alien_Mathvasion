@@ -10,11 +10,8 @@ const Gameplay_UI =
     display_spaceship_num(mtd_i, mtd_ship_color, mtd_ans_obj) //this is called within populate_spaceship method
     {
         const rand_sum_display = document.createElement("h3");
-            
-        this.spaceships[mtd_i].style.backgroundColor = mtd_ship_color; //only for testing, comment out here and in argument otherwise
-            
+        this.spaceships[mtd_i].style.backgroundColor = mtd_ship_color; //only for testing, comment out here and in argument otherwise 
         rand_sum_display.innerHTML = `${mtd_ans_obj.first_num}+${mtd_ans_obj.second_num}`;
-
         this.spaceships[mtd_i].appendChild(rand_sum_display);    
     },
 
@@ -73,23 +70,26 @@ const Gameplay_UI =
 
         for(i=0; i < this.spaceships.length; i++)
         {
-            if(e == null)
+            if(e == undefined)
             {
                 this.spaceships[i].style.marginTop = 0;
             } 
-            
-            this.spaceships[i].children[0].style.visibility = "visible";
+
+            this.spaceships[i].style.animationName = "spaceship, shake_2";
+            this.spaceships[i].style.animationDuration = "1s, 4s";
+            this.spaceships[i].style.animationDelay = "0s, 2.5s";
+            this.spaceships[i].style.animationIterationCount = "1, infinite";
             this.spaceships[i].style.backgroundImage = 'url("../img/spaceship_art_2.png")';
-            
-            this.spaceships[i].style.animationName = "shake_2";
-            this.spaceships[i].style.animationDuration = "4s";
+            this.spaceships[i].children[0].style.visibility = "visible";
+            /*this.spaceships[i].style.animationName = "spaceship";
+            this.spaceships[i].style.animationDuration = "1s";
+            this.spaceships[i].style.animationIterationCount = "1";*/
         }
     },
 
     populate_gun(mtd_ques)
     {
         const correct_ans_display = document.createElement("h3");
-        
         correct_ans_display.innerHTML = mtd_ques.correct_ans.val;
         this.gun.appendChild(correct_ans_display);
     },
@@ -102,7 +102,7 @@ const Gameplay_UI =
 
     fire_projectile(mtd_margin)
     {
-        this.gun_projectile.style.marginBottom = mtd_margin + "px";
+        this.gun_projectile.style.marginBottom = mtd_margin + "%";
     },
 
     reset_projectile()
@@ -128,19 +128,20 @@ const Gameplay_UI =
         this.gun_projectile.style.marginLeft = mtd_margin + "%";
     },
 
-    correct_ship_hit()
+    correct_ship_hit_animate()
     {
         let i = 0;
         
         for(i=0; i < this.spaceships.length; i++)
         {
+            this.spaceships[i].style.animationName = "shake";
+            this.spaceships[i].style.animationDuration = "0.1s";
             this.spaceships[i].style.backgroundImage = 'url("../img/spaceship-explosion-gif-edited-unscreen.gif")';
-            
             this.spaceships[i].children[0].style.visibility = "hidden";
         }    
     },
 
-    incorrect_ship_hit()
+    incorrect_ship_hit_animate()
     {
         let i = 0;
         
@@ -148,6 +149,7 @@ const Gameplay_UI =
         {
             this.spaceships[i].style.animationName = "shake";
             this.spaceships[i].style.animationDuration = "0.8s";
+            this.spaceships[i].children[0].style.visibility = "hidden";
         }     
     }
 }
