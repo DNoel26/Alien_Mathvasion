@@ -94,7 +94,8 @@
 
 body
 {
-    max-width: 100%;
+    max-width: 100vw;
+    max-height: 100vh;
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-family: 'Press Start 2P', cursive; 
     font-size: 1rem;
@@ -105,9 +106,9 @@ body
 main
 {
     display: grid;
-    grid-template-columns: 19.5vw 1fr 19.5vw;
+    grid-template-columns: 19vw 1fr 19vw;
     max-width: 100%;
-    height: 100vh;
+    max-height: 100vh;
     margin: 0 auto 0 auto;
     background-color: var(--game_bg_colour);
 }
@@ -130,6 +131,8 @@ audio
 #gamescreen_section
 {   
     display: grid;
+    max-width: 60vw;
+    max-height: 95vh;
     width: 60vw;
     height: 95vh;
     margin: 0 auto 0 auto;
@@ -151,6 +154,7 @@ audio
     background-repeat: no-repeat;
     background-size: cover;*/
     color: var(--txt_colour_white);
+    max-width: 100%;
 }
 
 #left_section_gamescreen > div, #right_section_gamescreen > div
@@ -164,6 +168,7 @@ audio
 .side_of_gamescreen > div > img
 {
     max-width: 100%;
+    max-height: 95vh;
     height: 95vh;
     margin-top: 2vh;
     opacity: 35%;
