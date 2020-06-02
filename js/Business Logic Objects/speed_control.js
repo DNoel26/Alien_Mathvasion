@@ -12,7 +12,7 @@ const Speed_Controller = //to be used in Set Intervals timer arg
 
         else if(Game_Rules.easy_mode == true && mtd_speed == undefined)
         {
-            return (Math.random()*5 + 10)*7    
+            return (Math.random()*5 + 10)*3    
         }
         
         else

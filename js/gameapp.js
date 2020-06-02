@@ -52,8 +52,8 @@ const Main_Game =
             Game_Rules.combo_set = false;
 
             console.log(Game_Rules.easy_mode, Game_Rules.hard_mode);
-            //Game_Rules.set_easy_mode();
-            Game_Rules.set_hard_mode();
+            Game_Rules.set_easy_mode();
+            //Game_Rules.set_hard_mode();
 
             let spaceship_interval_id = [];
             
@@ -240,7 +240,7 @@ const Main_Game =
 
                     Game_Rules.set_game_loaded();
 
-                    //rand_bg_music_sel(); //---------- AUDIO---  
+                    rand_bg_music_sel(); //---------- AUDIO---  
                     
                     start_sum_population();
                     
