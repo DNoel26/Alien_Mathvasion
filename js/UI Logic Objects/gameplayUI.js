@@ -12,7 +12,7 @@ const Gameplay_UI =
     restart_button : document.querySelector("#restart_button"),
     end_button : document.querySelector("#end_button"),
     save_button : document.querySelector("#save_button"),
-    save_exit_report_button : document.querySelector("#save_exit_report_button"),
+    //save_exit_report_button : document.querySelector("#save_exit_report_button"),
     player_name_disp : undefined,
     player_tag_disp : undefined,
     level_disp : undefined,
@@ -33,7 +33,15 @@ const Gameplay_UI =
     {
         const rand_sum_display = document.createElement("h3");
         this.spaceships[mtd_i].style.backgroundColor = mtd_ship_color; //only for testing, comment out here and in argument otherwise 
-        rand_sum_display.innerHTML = `${mtd_ans_obj.first_num}+${mtd_ans_obj.second_num}`;
+        if(Game_Rules.level_1 == true)
+        {
+            rand_sum_display.innerHTML = `${mtd_ans_obj.first_num}+${mtd_ans_obj.second_num}`;
+        }
+
+        else if(Game_Rules.level_2 == true)
+        {
+            rand_sum_display.innerHTML = `${mtd_ans_obj.first_num}-${mtd_ans_obj.second_num}`;
+        }
         this.spaceships[mtd_i].appendChild(rand_sum_display);   
     },
 
@@ -243,9 +251,16 @@ const Gameplay_UI =
         { 
             this.timer_disp.innerHTML = mtd_countdown_interval;
 
+            if(mtd_countdown_interval < 4)
+            {
+                this.timer_disp.style.fontSize = 1.4 + "rem";
+                this.timer_disp.style.animationName = "none"
+            }
+
             if(mtd_countdown_interval <= 0)
             {
-                this.timer_disp.innerHTML = "Time's Up!";   
+                this.timer_disp.innerHTML = "Time's Up!";
+  
             }
         }
 
@@ -373,8 +388,8 @@ const Gameplay_UI =
         
 
         this.report_disp_data[9] = document.createElement("button");
-        this.save_exit_report_button = this.report_disp_data[9];
         this.report_disp_data[9].setAttribute("class","buttons");
+        this.report_disp_data[9].setAttribute("id","save_exit_report_button");
         this.gamescreen.appendChild(this.report_disp_data[9]);   
         this.report_disp_data[9].style.zIndex = 13; 
         this.report_disp_data[9].innerHTML = "Save and Exit Game"
@@ -384,7 +399,8 @@ const Gameplay_UI =
         this.report_disp_data[9].style.animationIterationCount = "1";
         this.report_disp_data[9].style.width = "30%";
         this.report_disp_data[9].style.height = "100%";
-        this.report_disp_data[i].style.userSelect = ""; 
+        //this.report_disp_data[9].style.userSelect = "";
+        //this.save_exit_report_button = this.report_disp_data[9]; 
      },
 
     remove_report()

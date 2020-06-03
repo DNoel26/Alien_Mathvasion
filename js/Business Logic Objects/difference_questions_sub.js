@@ -6,11 +6,15 @@ class Diff_Question extends Question
 {
     populate_correct_ans_diff() //need to call this method separately
     {
-        this.correct_ans.first_num = this.get_rand_first_num();
-        this.correct_ans.second_num = this.get_rand_second_num();
-        //console.log(`first num ${this.correct_ans.first_num} + second num ${this.correct_ans.second_num}`)
-        //console.log(this.incorrect_ans[0].val)
-        return this.correct_ans.val = parseInt(this.correct_ans.first_num - this.correct_ans.second_num);
+        do
+        {
+            this.correct_ans.first_num = this.get_rand_first_num();
+            this.correct_ans.second_num = this.get_rand_second_num();
+            //console.log(`first num ${this.correct_ans.first_num} + second num ${this.correct_ans.second_num}`)
+            //console.log(this.incorrect_ans[0].val)
+            return this.correct_ans.val = parseInt(this.correct_ans.first_num - this.correct_ans.second_num);    
+        }while(this.correct_ans.first_num <= this.correct_ans.second_num)
+        
     };
 
     get_incorrect_ques_diff(mtd_i) //called in populate_incorrect_ans_arr_sum method
@@ -29,7 +33,7 @@ class Diff_Question extends Question
 
         console.log(this.check_repeat_incorrect_val(num));
 
-        while(num == this.correct_ans.val || this.incorrect_ans[mtd_i].first_num <= this.incorrect_ans[mtd_i].second_num || this.check_repeat_incorrect_val(num) == true || this.correct_ans.val >= this.incorrect_ans[mtd_i].first_num || num < this.min_incorrect_ans || num > this.max_incorrect_ans)
+        while(num == this.correct_ans.val) //|| this.incorrect_ans[mtd_i].first_num <= this.incorrect_ans[mtd_i].second_num || this.check_repeat_incorrect_val(num) == true || this.correct_ans.val >= this.incorrect_ans[mtd_i].first_num || num < this.min_incorrect_ans || num > this.max_incorrect_ans)
         {
             this.incorrect_ans[mtd_i].first_num = this.get_rand_first_num();
             this.incorrect_ans[mtd_i].second_num = this.get_rand_second_num();
@@ -47,22 +51,22 @@ class Diff_Question extends Question
                 
         if(Game_Rules.easy_mode == true && Game_Rules.hard_mode == false)
         {   
-            if(this.correct_ans.val < 4)
+            if(this.correct_ans.val < 6)
             {
-                this.min_incorrect_ans = this.correct_ans.val - 3;
-                this.max_incorrect_ans = this.correct_ans.val + 9; 
+                this.min_incorrect_ans = this.correct_ans.val - 2;
+                this.max_incorrect_ans = this.correct_ans.val + 10; 
             }
 
-            else if(this.correct_ans.val >= 4 && this.correct_ans.val <= 20)
+            else if(this.correct_ans.val >= 6 && this.correct_ans.val <= 18)
             {
-                this.min_incorrect_ans = this.correct_ans.val - 6;
-                this.max_incorrect_ans = this.correct_ans.val + 6;
+                this.min_incorrect_ans = this.correct_ans.val - 7;
+                this.max_incorrect_ans = this.correct_ans.val + 7;
             }
 
             else
             {
-                this.min_incorrect_ans = this.correct_ans.val - 9;
-                this.max_incorrect_ans = this.correct_ans.val + 3;
+                this.min_incorrect_ans = this.correct_ans.val - 10;
+                this.max_incorrect_ans = this.correct_ans.val + 2;
             }
 
             for(i=0; i<Gameplay_UI.spaceships.length-1; i++)
@@ -73,22 +77,22 @@ class Diff_Question extends Question
                 
         else if(Game_Rules.easy_mode == false && Game_Rules.hard_mode == true)
         {
-            if(this.correct_ans.val < 4) //IMPORTANT - this prevents crashing if diff values are too low or too high
-            {
-                this.min_incorrect_ans = this.correct_ans.val - 2;
-                this.max_incorrect_ans = this.correct_ans.val + 4; 
-            }
-
-            else if(this.correct_ans.val >= 4 && this.correct_ans.val <= 20)
+            if(this.correct_ans.val < 6) //IMPORTANT - this prevents crashing if diff values are too low or too high
             {
                 this.min_incorrect_ans = this.correct_ans.val - 3;
-                this.max_incorrect_ans = this.correct_ans.val + 3;
+                this.max_incorrect_ans = this.correct_ans.val + 7; 
+            }
+
+            else if(this.correct_ans.val >= 6 && this.correct_ans.val <= 18)
+            {
+                this.min_incorrect_ans = this.correct_ans.val - 5;
+                this.max_incorrect_ans = this.correct_ans.val + 5;
             }
 
             else
             {
-                this.min_incorrect_ans = this.correct_ans.val - 4;
-                this.max_incorrect_ans = this.correct_ans.val + 2;
+                this.min_incorrect_ans = this.correct_ans.val - 7;
+                this.max_incorrect_ans = this.correct_ans.val + 3;
             }
 
             for(i=0; i<Gameplay_UI.spaceships.length-1; i++)

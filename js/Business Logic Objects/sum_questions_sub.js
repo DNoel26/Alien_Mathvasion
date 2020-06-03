@@ -78,8 +78,8 @@ class Sum_Question extends Question
         {
             if(this.correct_ans.val > 5 && this.correct_ans.val < 31) //IMPORTANT - this prevents crashing if sum values are too low or too high
             {
-                this.min_incorrect_ans = this.correct_ans.val - 3;
-                this.max_incorrect_ans = this.correct_ans.val + 3;
+                this.min_incorrect_ans = this.correct_ans.val - 4;
+                this.max_incorrect_ans = this.correct_ans.val + 4;
             }
 
             else if(this.correct_ans.val <= 5)

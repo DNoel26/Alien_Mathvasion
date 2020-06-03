@@ -17,226 +17,14 @@ const Main_Game =
 {
     game_init()
     {
-        
-        
-        //Gameplay_UI.restart();
-        Gameplay_UI.spaceships;
-        Gameplay_UI.gamescreen;
-        Gameplay_UI.gun;
-        console.log("Original Client height height of viewport is " + document.documentElement.clientHeight);
-        console.log("Original Client width of viewport is " + document.documentElement.clientWidth);
-
-        console.log("Original Client height of gamescreen section is " + Gameplay_UI.gamescreen.clientHeight);
-        console.log("Original Client width of gamescreen section is " + Gameplay_UI.gamescreen.clientWidth);
-        console.log("Original ClientRect for gamescreen ", Gameplay_UI.gamescreen.getBoundingClientRect());
-        console.log("Original ClientRect for spaceship 1 ", Gameplay_UI.spaceships[0].getBoundingClientRect());
-        console.log("Original ClientRect for spaceship 2 ", Gameplay_UI.spaceships[1].getBoundingClientRect());
-        console.log("Original ClientRect for spaceship 3 ", Gameplay_UI.spaceships[2].getBoundingClientRect());
-        console.log("Original ClientRect for spaceship 4 ", Gameplay_UI.spaceships[3].getBoundingClientRect());
-        console.log("Original ClientRect for spaceship 5 ", Gameplay_UI.spaceships[4].getBoundingClientRect());
-        console.log("Original ClientRect for gun ", Gameplay_UI.gun.getBoundingClientRect());
-        console.log("Original ClientRect for gun projectile ", Gameplay_UI.gun_projectile.getBoundingClientRect());
-
-        //Gameplay_UI.display_report_screen("Status Report");
-
-        document.addEventListener("DOMContentLoaded",function(){
-            
-            Gameplay_UI.restart_button.addEventListener("mousedown", function(){
-
-                document.location.reload();
-            });
-
-            // -----INITIALIZE BELOW----- //         
-
-            let test_counter = 0;
-            let test_miss_counter = 0;
-            let BLEH; //GENERIC TEST VARIABLE ONLY
-            let ship_margin_top = [0,0,0,0,0];
-            let projectile_margin_bottom = 0; //unit in %
-            let gun_margin_left = 0; //unit in %
-            let game_index = 0; 
-            let bg_vol_ctrl = 0.3;  
-            let load_game_wait_time = 1200           ; //default value = 1200 ms
-            const no_reset_move = ""; //default value must not be changed from "", generic variable to be declared in Gameplay_UI.reset_spaceships() method, prevents ships from returning to the top on reset
-
-            Game_Rules.hit = false;
-            Game_Rules.miss = false;
-            Game_Rules.combo_set = false;
-
-            console.log(Game_Rules.easy_mode, Game_Rules.hard_mode);
-            Game_Rules.set_easy_mode();
-            Game_Rules.set_hard_mode();
-
-            let spaceship_interval_id = [];
-            
-            //Game_Rules.level_2 = true;
-            //console.log(Game_Rules.level_1, Game_Rules.level_2)
-
-            Game_Rules.set_level(); //default value is level 1 = true
-
-            //console.log(Game_Rules.level_1, Game_Rules.level_2)
-
-            Gameplay_UI.display_level_popup();
-
-            let game_test_speed = 5000 ; //default value = null, generic variable used to change spaceship move speeds FOR TESTING PURPOSES ONLY
-            //Speed_Controller.spaceship_speed_ctrl(game_test_speed);
-            //let SPECIAL;
-
-            console.log(Game_Rules.easy_mode, Game_Rules.hard_mode);
-
-            const Bg_Music = new Sound("../media/Deep_Torvus_3_trim_1.mp3","bg_audio_1");
-            Bg_Music.add_sound();
-            Bg_Music.audio_control.loop = true;
-            Bg_Music.audio_control.volume = bg_vol_ctrl;
-
-            const Bg_Music_2 = new Sound("../media/Phendrana_Depths_Remix_trim_1.mp3","bg_audio_2");
-            Bg_Music_2.add_sound();
-            Bg_Music_2.audio_control.loop = true;
-            Bg_Music_2.audio_control.volume = bg_vol_ctrl-0.1;   
-
-            const Fire_Projectile_Sound = new Sound("../media/fire_projectile_trim.mp3","fire_projectile_sound");
-            Fire_Projectile_Sound.add_sound();
-
-            const Hit_Sound = new Sound("../media/ship_hit.mp3","hit_sound");
-            Hit_Sound.add_sound();
-
-            const Miss_Sound = new Sound("../media/incorrect_ans_trim.mp3","miss_sound");
-            Miss_Sound.add_sound();
-
-            const Game_Over_Sound = new Sound("../media/game_over_2.mp3","game_over_sound");
-            Game_Over_Sound.add_sound();
-
-            const Sum = new Sum_Question();
-            const Diff = new Diff_Question();
-            let Operation; 
-
-            const Sum_Timer = new Timer(90);
-            const Diff_Timer = new Timer(60);
-            let Operation_Timer; // Operation to be equated to Sum or Diff depending on situation
-            
-            const Player_1 = new Player("Darnell", "Noel", "DN26")
-            Player_1.get_full_name();
-            Player_1.set_difficulty();
-
-            Gameplay_UI.player_name_display(Player_1.get_full_name());
-            Gameplay_UI.player_tag_display(Player_1.tag)
-            Gameplay_UI.level_display();
-            Gameplay_UI.difficulty_display();
-            //Gameplay_UI.timer_display();
-            Gameplay_UI.hit_display(Player_1.total_hits);
-            Gameplay_UI.miss_display(Player_1.total_misses);
-            Gameplay_UI.combo_display(Player_1.combo);
-            Gameplay_UI.current_score_display(Player_1.score);
-            Gameplay_UI.highest_score_display(Player_1.high_score);
-
-            Player_1.get_total_hit_miss();
-            Player_1.get_total_hit_percent();
-
-            /*Gameplay_UI.display_report_screen(
-                "Status Report",
-                Player_1.get_full_name(),
-                Player_1.tag,
-                Player_1.difficulty_completed,
-                Player_1.hit_count[0],
-                Player_1.hit_count[1],
-                Player_1.miss_count[0],
-                Player_1.miss_count[1],
-                Player_1.combo,
-                Player_1.high_score,
-                Player_1.score
-            );*/
-            
-            // ----- INITIALIZE ABOVE ----- //
-
-            if(Game_Rules.level_1)
-            {
-                Operation = Sum;
-                Operation_Timer = Sum_Timer;
-            }
-
-            else
-            {
-                Operation = Diff;
-                Operation_Timer = Diff_Timer;    
-            };
-
-            while(projectile_margin_bottom > 0)
-            {
-                fire_rate_stop();
-            };
-
-            console.log(Player_1.hit_count + "hits")
-            console.log(Player_1.miss_count + "misses")
-
-            Operation_Timer.elapsed = 0;
-
-            // ---------- LOAD GAME BELOW HERE ---------- //
-
-            console.log("GAME IS LOADED = " + Game_Rules.loaded);
-
-            fire_rate_stop();
-            load_level_1()
-             
-            /*.then(function(){
-                        
-               if(Game_Rules.loaded == true)
-            {
-                alert("NOW LOADED!!!!")
-            } 
-            });*/ //starts game (level 1) after a short timer
-            
-            // ---------- LOAD GAME ABOVE HERE ---------- //
-
-            console.log(Game_Rules.SPECIAL.then(function (){console.log(Game_Rules.loaded)}))
-
-            //start_diff_population();
-
-            // ---------- TIMER FUNCTIONS BELOW HERE ---------- //
-
-            Game_Rules.SPECIAL.then(function(){ //--- FUNCTION EXECUTES AFTER LEVEL 1 LOADS
-
-                if(Game_Rules.loaded == true)
-                {
-                    //alert("NOW LOADED!!!!");    
-                }
-                
-                level_execute_control_function();
-
-                /*console.log(Operation_Timer.elapsed)
-
-                if(Operation.countdown == 0)
-                {
-                    alert("DONE 2")
-                }
-
-                if(Operation_Timer.countdown == 0)
-                {
-                    alert("DONE 3")
-                }*/
-            Game_Rules.SPECIAL_2.then(function(){
-
-                level_execute_control_function();
-            })
-
-            })
-            
-            
-
-                                                    console.log("Player hit " + Player_1.hit_count);
-                                                                
-                                                    console.log(`HIT HIT HIT HIT   ${test_counter}`);
-
-            // ---------- TIMER FUNCTIONS ABOVE HERE ---------- //
-
-            //placeholder
 
             // ---------- GAME APP / MAIN GAME FUNCTIONS BELOW HERE ---------- //
             
             function load_level_1() 
             {
-                return Game_Rules.SPECIAL = new Promise(function(resolve){ //Main functions for gameplay after game load complete
+                return level_1_promise = new Promise(function(resolve){ //Main functions for gameplay after game load complete
                     
-                    setTimeout(resolve,load_game_wait_time)
+                    setTimeout(resolve(),load_game_wait_time)
                 }).then(function(){
                     
                     //Gameplay_UI.miss_display(Player_1.miss_count)
@@ -246,7 +34,8 @@ const Main_Game =
 
                     rand_bg_music_sel(); //---------- AUDIO--- RUNS MAIN BACKGROUND AUDIO
                     
-                    start_sum_population();
+                    //start_sum_population();
+                    start_diff_population();
                     
                     setTimeout(function(){
 
@@ -271,10 +60,12 @@ const Main_Game =
 
             function load_level_2()
             {
-                return Game_Rules.SPECIAL_2 = new Promise(function(resolve){ //Main functions for gameplay after game load complete
+                return level_2_promise = new Promise(function(resolve){ //Main functions for gameplay after game load complete
                     
                     setTimeout(resolve,load_game_wait_time*3)
                 }).then(function(){
+
+                    Game_Rules.set_level();
 
                     rand_bg_music_sel(); //---------- AUDIO--- RUNS MAIN BACKGROUND AUDIO
                     
@@ -290,6 +81,20 @@ const Main_Game =
                     console.log("LEVEL 2 IS LOADED = " + Game_Rules.loaded);
 
                     Gameplay_UI.remove_level_popup();
+
+                    Gameplay_UI.player_name_display(Player_1.get_full_name());
+                    Gameplay_UI.player_tag_display(Player_1.tag)
+                    Gameplay_UI.level_display();
+                    Gameplay_UI.difficulty_display();
+                    //Gameplay_UI.timer_display();
+                    Gameplay_UI.hit_display(Player_1.total_hits);
+                    Gameplay_UI.miss_display(Player_1.total_misses);
+                    Gameplay_UI.combo_display(Player_1.combo);
+                    Gameplay_UI.current_score_display(Player_1.score);
+                    Gameplay_UI.highest_score_display(Player_1.high_score);
+
+                    level_execute_control_function();
+
                 }).catch(function(){
 
                     alert("Level 2 failed to initialize! Please refresh the page and click resume.");
@@ -298,7 +103,7 @@ const Main_Game =
                     fire_rate_stop();
                     game_test_speed = 10000;
                 })
-            }
+            };
 
             function level_execute_control_function()
             {
@@ -329,8 +134,8 @@ const Main_Game =
                     if(Operation_Timer.countdown == 0)
                     {
                         //alert("DONE");
-
                         time_up_function(level_countdown);
+                        
 
                         //if(Game_Rules.level_1 == true)
                         //{
@@ -341,6 +146,8 @@ const Main_Game =
                         //}   
                     }
                 },1000);
+
+                //alert("ROUND 1 IS DONE")
             };
 
             function time_up_function(fn_lvl_count)
@@ -363,39 +170,43 @@ const Main_Game =
                 bg_music_pause();
                         
                 //set_int_spaceships();
+                setTimeout(function(){
+
+                    if(Game_Rules.level_1 == true)
+                    {
+                        alert("LEVEL 1 COMPLETE!");
+
+                        Game_Rules.level_1 = false;
+                        Game_Rules.level_2 = true;
+                        Game_Rules.set_level();
+                        
+                        Gameplay_UI.display_level_popup();
+
+                        load_level_2();
+                    }
+
+                    else if(Game_Rules.level_2 == true)
+                    {
+                        alert("LEVEL 2 COMPLETE!");
+
+                        Gameplay_UI.display_report_screen(
+                            "Status Report",
+                            Player_1.get_full_name(),
+                            Player_1.tag,
+                            Player_1.difficulty_completed,
+                            Player_1.hit_count[0],
+                            Player_1.hit_count[1],
+                            Player_1.miss_count[0],
+                            Player_1.miss_count[1],
+                            Player_1.combo,
+                            Player_1.high_score,
+                            Player_1.score
+                        );
+                        //display score report
+                    }
+
+                },3000);
                 
-                if(Game_Rules.level_1 == true)
-                {
-                    alert("LEVEL 1 COMPLETE!");
-
-                    Game_Rules.level_1 = false;
-                    Game_Rules.level_2 = true;
-                    Game_Rules.set_level();
-                    
-                    Gameplay_UI.display_level_popup();
-
-                    load_level_2();
-                }
-
-                else if(Game_Rules.level_2 == true)
-                {
-                    alert("LEVEL 2 COMPLETE!");
-
-                    Gameplay_UI.display_report_screen(
-                        "Status Report",
-                        Player_1.get_full_name(),
-                        Player_1.tag,
-                        Player_1.difficulty_completed,
-                        Player_1.hit_count[0],
-                        Player_1.hit_count[1],
-                        Player_1.miss_count[0],
-                        Player_1.miss_count[1],
-                        Player_1.combo,
-                        Player_1.high_score,
-                        Player_1.score
-                    );
-                    //display score report
-                }
             };
 
             function rand_bg_music_sel()
@@ -614,7 +425,7 @@ const Main_Game =
 
                         depopulate_all();
                         
-                        start_sum_population();
+                        start_diff_population();
                     }
 
                     if(within_bounds_check == false && hit_check == true) //WRONG ANSWER HIT
@@ -817,25 +628,267 @@ const Main_Game =
 
             // ---------- GAME APP / MAIN GAME FUNCTIONS ABOVE HERE ---------- //
 
+            //Gameplay_UI.restart();
+        Gameplay_UI.spaceships;
+        Gameplay_UI.gamescreen;
+        Gameplay_UI.gun;
+        console.log("Original Client height height of viewport is " + document.documentElement.clientHeight);
+        console.log("Original Client width of viewport is " + document.documentElement.clientWidth);
 
-            Gameplay_UI.end_button.addEventListener("mousedown", function(){
+        console.log("Original Client height of gamescreen section is " + Gameplay_UI.gamescreen.clientHeight);
+        console.log("Original Client width of gamescreen section is " + Gameplay_UI.gamescreen.clientWidth);
+        console.log("Original ClientRect for gamescreen ", Gameplay_UI.gamescreen.getBoundingClientRect());
+        console.log("Original ClientRect for spaceship 1 ", Gameplay_UI.spaceships[0].getBoundingClientRect());
+        console.log("Original ClientRect for spaceship 2 ", Gameplay_UI.spaceships[1].getBoundingClientRect());
+        console.log("Original ClientRect for spaceship 3 ", Gameplay_UI.spaceships[2].getBoundingClientRect());
+        console.log("Original ClientRect for spaceship 4 ", Gameplay_UI.spaceships[3].getBoundingClientRect());
+        console.log("Original ClientRect for spaceship 5 ", Gameplay_UI.spaceships[4].getBoundingClientRect());
+        console.log("Original ClientRect for gun ", Gameplay_UI.gun.getBoundingClientRect());
+        console.log("Original ClientRect for gun projectile ", Gameplay_UI.gun_projectile.getBoundingClientRect());
 
-                if(confirm("Return to homepage?"))
+        //Gameplay_UI.display_report_screen("Status Report");
+
+        Gameplay_UI.restart_button.addEventListener("click", function(){
+
+            document.location.reload();
+        });
+
+        Gameplay_UI.end_button.addEventListener("click", function(){
+
+            if(confirm("Return to homepage?"))
+            {
+                location.href = "../index.html";    
+            }
+            
+            else
+            {
+                alert("Resuming game")
+            }
+        });
+
+        document.addEventListener("click", function(event){
+
+                const element = event.target;
+    
+                if(element.id == "save_exit_report_button")
                 {
-                    location.href = "../index.html";    
+                    //alert("OW");
+                    
+                    document.location.reload();    
                 }
-                
+    
                 else
                 {
-                    alert("Resuming game")
+    
                 }
-            });
+            },true);
 
-            Gameplay_UI.save_exit_report_button.addEventListener("mousedown", function(){
+        document.addEventListener("DOMContentLoaded",function(){
 
-                //alert("OW");
-                document.location.reload();
-            });
+            // -----INITIALIZE BELOW----- //         
+
+            let test_counter = 0;
+            let test_miss_counter = 0;
+            let BLEH; //GENERIC TEST VARIABLE ONLY
+            let ship_margin_top = [0,0,0,0,0];
+            let projectile_margin_bottom = 0; //unit in %
+            let gun_margin_left = 0; //unit in %
+            let game_index = 0; 
+            let bg_vol_ctrl = 0.3;  
+            let load_game_wait_time = 1200           ; //default value = 1200 ms
+            const no_reset_move = ""; //default value must not be changed from "", generic variable to be declared in Gameplay_UI.reset_spaceships() method, prevents ships from returning to the top on reset
+
+            let level_1_promise;
+            let level_2_promise;
+
+            Game_Rules.hit = false;
+            Game_Rules.miss = false;
+            Game_Rules.combo_set = false;
+
+            console.log(Game_Rules.easy_mode, Game_Rules.hard_mode);
+            //Game_Rules.set_easy_mode();
+            Game_Rules.set_hard_mode();
+
+            let spaceship_interval_id = [];
+            
+            //Game_Rules.level_2 = true;
+            //console.log(Game_Rules.level_1, Game_Rules.level_2)
+
+            Game_Rules.set_level(); //default value is level 1 = true
+
+            //console.log(Game_Rules.level_1, Game_Rules.level_2)
+
+            Gameplay_UI.display_level_popup();
+
+            let game_test_speed = 5000 ; //default value = null, generic variable used to change spaceship move speeds FOR TESTING PURPOSES ONLY
+            //Speed_Controller.spaceship_speed_ctrl(game_test_speed);
+            //let SPECIAL;
+
+            console.log(Game_Rules.easy_mode, Game_Rules.hard_mode);
+
+            const Bg_Music = new Sound("../media/Deep_Torvus_3_trim_1.mp3","bg_audio_1");
+            Bg_Music.add_sound();
+            Bg_Music.audio_control.loop = true;
+            Bg_Music.audio_control.volume = bg_vol_ctrl;
+
+            const Bg_Music_2 = new Sound("../media/Phendrana_Depths_Remix_trim_1.mp3","bg_audio_2");
+            Bg_Music_2.add_sound();
+            Bg_Music_2.audio_control.loop = true;
+            Bg_Music_2.audio_control.volume = bg_vol_ctrl-0.1;   
+
+            const Fire_Projectile_Sound = new Sound("../media/fire_projectile_trim.mp3","fire_projectile_sound");
+            Fire_Projectile_Sound.add_sound();
+
+            const Hit_Sound = new Sound("../media/ship_hit.mp3","hit_sound");
+            Hit_Sound.add_sound();
+
+            const Miss_Sound = new Sound("../media/incorrect_ans_trim.mp3","miss_sound");
+            Miss_Sound.add_sound();
+
+            const Game_Over_Sound = new Sound("../media/game_over_2.mp3","game_over_sound");
+            Game_Over_Sound.add_sound();
+
+            const Sum = new Sum_Question();
+            const Diff = new Diff_Question();
+            let Operation; 
+
+            const Sum_Timer = new Timer(7);
+            const Diff_Timer = new Timer(11);
+            let Operation_Timer; // Operation to be equated to Sum or Diff depending on situation
+            
+            const Player_1 = new Player("Darnell", "Noel", "DN26")
+            Player_1.get_full_name();
+            Player_1.set_difficulty();
+
+            Gameplay_UI.player_name_display(Player_1.get_full_name());
+            Gameplay_UI.player_tag_display(Player_1.tag)
+            Gameplay_UI.level_display();
+            Gameplay_UI.difficulty_display();
+            //Gameplay_UI.timer_display();
+            Gameplay_UI.hit_display(Player_1.total_hits);
+            Gameplay_UI.miss_display(Player_1.total_misses);
+            Gameplay_UI.combo_display(Player_1.combo);
+            Gameplay_UI.current_score_display(Player_1.score);
+            Gameplay_UI.highest_score_display(Player_1.high_score);
+
+            Player_1.get_total_hit_miss();
+            Player_1.get_total_hit_percent();
+
+            /*Gameplay_UI.display_report_screen(
+                "Status Report",
+                Player_1.get_full_name(),
+                Player_1.tag,
+                Player_1.difficulty_completed,
+                Player_1.hit_count[0],
+                Player_1.hit_count[1],
+                Player_1.miss_count[0],
+                Player_1.miss_count[1],
+                Player_1.combo,
+                Player_1.high_score,
+                Player_1.score
+            );*/
+            
+            // ----- INITIALIZE ABOVE ----- //
+
+            //Game_Rules.level_2 = true;
+            if(Game_Rules.level_1 == true)
+            {
+                Operation = Sum;
+                Operation_Timer = Sum_Timer;
+            }
+
+            else if(Game_Rules.level_2 == true)
+            {
+                Operation = Diff;
+                Operation_Timer = Diff_Timer;    
+            };
+
+            while(projectile_margin_bottom > 0)
+            {
+                fire_rate_stop();
+            };
+
+            console.log(Player_1.hit_count + "hits")
+            console.log(Player_1.miss_count + "misses")
+
+            Operation_Timer.elapsed = 0;
+
+            // ---------- LOAD GAME BELOW HERE ---------- //
+
+            console.log("GAME IS LOADED = " + Game_Rules.loaded);
+
+            fire_rate_stop();
+            load_level_1();
+            
+            //load_level_2();
+            /*.then(function(){
+                        
+               if(Game_Rules.loaded == true)
+            {
+                alert("NOW LOADED!!!!")
+            } 
+            });*/ //starts game (level 1) after a short timer
+            
+            // ---------- LOAD GAME ABOVE HERE ---------- //
+
+            //console.log(Game_Rules.SPECIAL.then(function (){console.log(Game_Rules.loaded)})) // ?????????
+
+            //start_diff_population();
+
+            // ---------- TIMER FUNCTIONS BELOW HERE ---------- //
+
+            level_1_promise.then(function(){ //--- FUNCTION EXECUTES AFTER LEVEL 1 LOADS
+
+                if(Game_Rules.loaded == true)
+                {
+                    //alert("NOW LOADED!!!!");    
+                }
+                console.log(Operation_Timer, Operation)
+                console.log(level_1_promise)
+
+                level_execute_control_function();
+
+                /*console.log(Operation_Timer.elapsed)
+
+                if(Operation.countdown == 0)
+                {
+                    alert("DONE 2")
+                }
+
+                if(Operation_Timer.countdown == 0)
+                {
+                    alert("DONE 3")
+                }*/
+
+                //load_level_2() //--------------------------------------
+                
+                /*level_2_promise.then(function(){
+
+                    level_execute_control_function();
+                })*/
+            })
+            
+            
+
+                                                    console.log("Player hit " + Player_1.hit_count);
+                                                                
+                                                    console.log(`HIT HIT HIT HIT   ${test_counter}`);
+
+            // ---------- TIMER FUNCTIONS ABOVE HERE ---------- //
+
+            //placeholder
+
+
+
+
+
+
+
+
+
+
+
+
             //document.addEventListener("keydown", event_gun_keydown); //keyboard events
 
             //Gameplay_UI.gamescreen.addEventListener("mousedown", event_gun_click); //code for clicking or touching spaceships and firing projectile simultaneously

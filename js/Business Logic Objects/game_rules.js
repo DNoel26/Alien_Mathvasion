@@ -2,7 +2,7 @@
 const Game_Rules = 
 {
     SPECIAL : {}, //Stores post game load promise value
-    SPECIAL_2 : {},
+    SPECIAL_TWO : {},
     loaded : false,
     easy_mode : false,
     hard_mode : false,
