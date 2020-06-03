@@ -11,7 +11,7 @@ const Game_Rules =
     level_2 : false,
     hit : false,
     miss : false,
-    combo_set : false,
+    combo_bonus_start : 3,
     combo_multiplier : 1.5,
     score_incr : 0,
     score_decr : 0, 
@@ -55,7 +55,7 @@ const Game_Rules =
         this.score_decr = 20;
     },
 
-    track_hit()
+    /*track_hit()
     {
         if(this.hit == true)
         {
@@ -66,15 +66,15 @@ const Game_Rules =
         {
             this.score_decr--;
         }
-    },
+    },*/
 
-    set_score_bonus()
+    /*set_score_bonus()
     {
         if(hits + 5 == true && miss + 1 == false)
         {
 
         }
-    },
+    },*/
 }
 
 export default Game_Rules;

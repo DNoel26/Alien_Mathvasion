@@ -18,9 +18,9 @@ class Timer
         return this.elapsed = Date.now() - this.start_time;
     }*/
 
-    get_countdown(mtd_counter)
+    get_countdown()
     {
-        return this.countdown = this.limit - mtd_counter;
+        return this.countdown = this.limit - this.elapsed;
     }
 
     get_time_elapsed(mtd_count_var)

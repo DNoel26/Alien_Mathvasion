@@ -1,4 +1,5 @@
 import Game_Rules from "../Business Logic Objects/game_rules.js";
+import Player from "../Business Logic Objects/player.js";
 
 const Gameplay_UI =
 {
@@ -11,9 +12,13 @@ const Gameplay_UI =
     restart_button : document.querySelector("#restart_button"),
     end_button : document.querySelector("#end_button"),
     save_button : document.querySelector("#save_button"),
+    save_exit_report_button : document.querySelector("#save_exit_report_button"),
     player_name_disp : undefined,
     player_tag_disp : undefined,
     level_disp : undefined,
+    level_disp_gamescreen : undefined,
+    report_disp_gamescreen : undefined,
+    report_disp_data : [],
     difficulty_disp : undefined,
     timer_disp : undefined,
     hit_disp : undefined,
@@ -29,7 +34,7 @@ const Gameplay_UI =
         const rand_sum_display = document.createElement("h3");
         this.spaceships[mtd_i].style.backgroundColor = mtd_ship_color; //only for testing, comment out here and in argument otherwise 
         rand_sum_display.innerHTML = `${mtd_ans_obj.first_num}+${mtd_ans_obj.second_num}`;
-        this.spaceships[mtd_i].appendChild(rand_sum_display);    
+        this.spaceships[mtd_i].appendChild(rand_sum_display);   
     },
 
     populate_spaceship(mtd_ques) //must call populate correct and incorrect answers (Sum and Diff) before this method
@@ -141,8 +146,8 @@ const Gameplay_UI =
 
     click_position_gun(mtd_margin) //to be used with click/touch events
     {
-        this.gun.style.marginLeft = mtd_margin + "%";
-        this.gun_projectile.style.marginLeft = mtd_margin + "%";
+        this.gun.style.marginLeft = mtd_margin + "vw";
+        this.gun_projectile.style.marginLeft = mtd_margin + "vw";
     },
 
     correct_ship_hit_animate()
@@ -262,28 +267,29 @@ const Gameplay_UI =
         this.miss_disp.innerHTML = miss;
     },
 
-    combo_display()
+    combo_display(mtd_combo)
     {
         this.combo_disp = this.gamescreen_sides[1].children[1].children[3].children[1];
-        this.combo_disp.innerHTML = "TEST"
+        this.combo_disp.innerHTML = mtd_combo + "x";
     },
 
-    current_score_display()
+    current_score_display(mtd_score)
     {
         this.current_score_disp = this.gamescreen_sides[1].children[1].children[4].children[1];
-        this.current_score_disp.innerHTML = "TEST"
+        this.current_score_disp.innerHTML = mtd_score;
     },
 
-    highest_score_display()
+    highest_score_display(mtd_hiscore)
     {
         this.highest_score_disp = this.gamescreen_sides[1].children[1].children[5].children[1];
-        this.highest_score_disp.innerHTML = "TEST"
+        this.highest_score_disp.innerHTML = mtd_hiscore;
     },
 
     display_level_popup()
     {
         this.level_disp_gamescreen = document.createElement("h1");
-        this.level_disp_gamescreen.setAttribute("id","level_display");
+        this.level_disp_gamescreen.setAttribute("class","level_popup")
+        //this.level_disp_gamescreen.setAttribute("id","level_display");
         this.gamescreen.appendChild(this.level_disp_gamescreen);
 
         if(Game_Rules.level_1 == true)
@@ -301,12 +307,119 @@ const Gameplay_UI =
         this.level_disp_gamescreen.style.top = 24 + "vh";
         this.level_disp_gamescreen.style.color = "gold";
         this.level_disp_gamescreen.style.fontSize = 2 + "rem";
+        this.level_disp_gamescreen.style.userSelect = "none";
     },
 
     remove_level_popup()
     {
-        this.level_disp_gamescreen.style.display = "none";
-    }
+        this.gamescreen.removeChild(this.level_disp_gamescreen);
+        //this.level_disp_gamescreen.style.display = "none";
+    },
+
+    display_report_screen(mtd_msg_disp,mtd_name,mtd_tag,mtd_difficulty,mtd_lvl_1_hits,mtd_lvl_2_hits,mtd_lvl_1_misses,mtd_lvl_2_misses,mtd_combo,mtd_hi_score,mtd_score)
+    {
+        let i = 0;
+        
+        for(i = 0; i < this.gamescreen.children.length; i++)
+        {
+            this.gamescreen.children[i].style.display = "none";
+        }
+
+        this.gamescreen.style.display = "grid";
+        this.gamescreen.style.padding = "12vh 0 34vh 0";
+        this.gamescreen.style.gridTemplateRows = "auto";
+        this.gamescreen.style.gridTemplateColumns = "1fr";
+        this.gamescreen.style.alignItems = "center";
+
+        this.report_disp_gamescreen = document.createElement("img");
+        this.report_disp_gamescreen.setAttribute("src","../img/report_screen.jpg");
+        this.gamescreen.appendChild(this.report_disp_gamescreen);
+        
+        this.report_disp_gamescreen.style.position = "absolute";
+        this.report_disp_gamescreen.style.zIndex = 10;
+        this.report_disp_gamescreen.style.top = 0;
+        this.report_disp_gamescreen.style.left = 0;
+        this.report_disp_gamescreen.style.width = "100%";
+        this.report_disp_gamescreen.style.height = "100%";
+        this.report_disp_gamescreen.style.animationName = "report_fade_in";
+        this.report_disp_gamescreen.style.animationDuration = "3s";
+        this.report_disp_gamescreen.style.animationIterationCount = "1";
+        this.report_disp_gamescreen.style.userSelect = "none";
+        this.report_disp_gamescreen.style.pointerEvents = "none";
+
+        this.report_disp_data = []; 
+        
+        for(i = 0; i < 9; i++) //ASK KADEEM WHY WHILE LOOP DOESN'T WORK HERE
+        {
+            this.report_disp_data[i] = document.createElement("h3");
+            this.gamescreen.appendChild(this.report_disp_data[i]);
+            this.report_disp_data[i].style.color = "gold";  
+            this.report_disp_data[i].style.justifySelf = "center"; 
+            this.report_disp_data[i].style.userSelect = "none"; 
+            this.report_disp_data[i].style.zIndex = 12;
+            this.report_disp_data[i].style.animationName = "report_data";
+            this.report_disp_data[i].style.animationDuration = "6s";
+        }
+  
+        this.report_disp_data[0].innerHTML = mtd_msg_disp;
+        this.report_disp_data[1].innerHTML = `Player Name: ${mtd_name}`;
+        this.report_disp_data[2].innerHTML = `Player Tag: ${mtd_tag}`;
+        this.report_disp_data[3].innerHTML = `Difficulty Completed: ${mtd_difficulty}`;
+        this.report_disp_data[4].innerHTML = `Hits: ${mtd_lvl_1_hits} (Level 1), ${mtd_lvl_2_hits} (Level 2)`;
+        this.report_disp_data[5].innerHTML = `Misses: ${mtd_lvl_1_misses} (Level 1), ${mtd_lvl_2_misses} (Level 2)`;
+        this.report_disp_data[6].innerHTML = `Most Consecutive Hits: ${mtd_combo}`;
+        this.report_disp_data[7].innerHTML = `Highest Score Achieved This Game: ${mtd_hi_score}`;
+        this.report_disp_data[8].innerHTML = `Final Score: ${mtd_score}`;
+        
+
+        this.report_disp_data[9] = document.createElement("button");
+        this.save_exit_report_button = this.report_disp_data[9];
+        this.report_disp_data[9].setAttribute("class","buttons");
+        this.gamescreen.appendChild(this.report_disp_data[9]);   
+        this.report_disp_data[9].style.zIndex = 13; 
+        this.report_disp_data[9].innerHTML = "Save and Exit Game"
+        this.report_disp_data[9].style.justifySelf = "center"; 
+        this.report_disp_data[9].style.animationName = "report_data";
+        this.report_disp_data[9].style.animationDuration = "6s";
+        this.report_disp_data[9].style.animationIterationCount = "1";
+        this.report_disp_data[9].style.width = "30%";
+        this.report_disp_data[9].style.height = "100%";
+        this.report_disp_data[i].style.userSelect = ""; 
+     },
+
+    remove_report()
+    {
+        let i = 0;
+
+        this.gamescreen.style.display = "";
+        this.gamescreen.style.padding = "";
+        this.gamescreen.style.gridTemplateRows = "";
+        this.gamescreen.style.gridTemplateColumns = "";
+        this.gamescreen.style.alignItems = "";
+
+        for(i = 0; i < this.gamescreen.children.length; i++)
+        {
+            this.gamescreen.children[i].style.display = "";
+        }
+
+        this.gamescreen.removeChild(this.report_disp_gamescreen);
+
+        for(i = 0; i < this.report_disp_data.length; i++)
+        {
+            this.gamescreen.removeChild(this.report_disp_data[i]);   
+        }
+    },
+
+    /*player_name_disp : undefined,
+    player_tag_disp : undefined,
+    level_disp : undefined,
+    difficulty_disp : undefined,
+    timer_disp : undefined,
+    hit_disp : undefined,
+    miss_disp : undefined,
+    combo_disp : undefined,
+    current_score_disp : undefined,
+    highest_score_disp : undefined,*/
 }
 
 // ----- ASK KADEEM ABOUT ABSOLUTELY POSITIONING THE GUN WITH RESPECT TO THE GAMESCREEN -----

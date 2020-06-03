@@ -48,22 +48,22 @@ class Sum_Question extends Question
                 
         if(Game_Rules.easy_mode == true && Game_Rules.hard_mode == false)
         {   
-            if(this.correct_ans.val > 8 && this.correct_ans.val < 28)
+            if(this.correct_ans.val > 5 && this.correct_ans.val < 31)
             {
                 this.min_incorrect_ans = this.correct_ans.val - 6;
                 this.max_incorrect_ans = this.correct_ans.val + 6; 
             }
 
-            else if(this.correct_ans.val <= 8)
+            else if(this.correct_ans.val <= 5)
             {
-                this.min_incorrect_ans = this.correct_ans.val - 6;
+                this.min_incorrect_ans = this.correct_ans.val - 3;
                 this.max_incorrect_ans = this.correct_ans.val + 9;
             }
 
             else
             {
                 this.min_incorrect_ans = this.correct_ans.val - 9;
-                this.max_incorrect_ans = this.correct_ans.val + 6;
+                this.max_incorrect_ans = this.correct_ans.val + 3;
             }
 
             for(i=0; i<Gameplay_UI.spaceships.length-1; i++)
@@ -84,14 +84,14 @@ class Sum_Question extends Question
 
             else if(this.correct_ans.val <= 5)
             {
-                this.min_incorrect_ans = this.correct_ans.val - 3;
-                this.max_incorrect_ans = this.correct_ans.val + 6;
+                this.min_incorrect_ans = this.correct_ans.val - 2;
+                this.max_incorrect_ans = this.correct_ans.val + 4;
             }
 
             else
             {
-                this.min_incorrect_ans = this.correct_ans.val - 6;
-                this.max_incorrect_ans = this.correct_ans.val + 3;
+                this.min_incorrect_ans = this.correct_ans.val - 4;
+                this.max_incorrect_ans = this.correct_ans.val + 2;
             }
 
             for(i=0; i<Gameplay_UI.spaceships.length-1; i++)

@@ -12,11 +12,14 @@ import Player from "./Business Logic Objects/player.js";
 
 console.log("Game_App Linked");
 console.log(new KeyboardEvent('keydown'));
-    
+
 const Main_Game =
 {
     game_init()
     {
+        
+        
+        //Gameplay_UI.restart();
         Gameplay_UI.spaceships;
         Gameplay_UI.gamescreen;
         Gameplay_UI.gun;
@@ -34,15 +37,24 @@ const Main_Game =
         console.log("Original ClientRect for gun ", Gameplay_UI.gun.getBoundingClientRect());
         console.log("Original ClientRect for gun projectile ", Gameplay_UI.gun_projectile.getBoundingClientRect());
 
+        //Gameplay_UI.display_report_screen("Status Report");
+
         document.addEventListener("DOMContentLoaded",function(){
             
+            Gameplay_UI.restart_button.addEventListener("mousedown", function(){
+
+                document.location.reload();
+            });
+
+            // -----INITIALIZE BELOW----- //         
+
             let test_counter = 0;
             let test_miss_counter = 0;
             let BLEH; //GENERIC TEST VARIABLE ONLY
             let ship_margin_top = [0,0,0,0,0];
             let projectile_margin_bottom = 0; //unit in %
             let gun_margin_left = 0; //unit in %
-            let index = 0; 
+            let game_index = 0; 
             let bg_vol_ctrl = 0.3;  
             let load_game_wait_time = 1200           ; //default value = 1200 ms
             const no_reset_move = ""; //default value must not be changed from "", generic variable to be declared in Gameplay_UI.reset_spaceships() method, prevents ships from returning to the top on reset
@@ -53,16 +65,20 @@ const Main_Game =
 
             console.log(Game_Rules.easy_mode, Game_Rules.hard_mode);
             Game_Rules.set_easy_mode();
-            //Game_Rules.set_hard_mode();
+            Game_Rules.set_hard_mode();
 
             let spaceship_interval_id = [];
             
             //Game_Rules.level_2 = true;
             //console.log(Game_Rules.level_1, Game_Rules.level_2)
+
             Game_Rules.set_level(); //default value is level 1 = true
+
             //console.log(Game_Rules.level_1, Game_Rules.level_2)
+
             Gameplay_UI.display_level_popup();
-            let game_test_speed = null; //default value = null, generic variable used to change spaceship move speeds FOR TESTING PURPOSES ONLY
+
+            let game_test_speed = 5000 ; //default value = null, generic variable used to change spaceship move speeds FOR TESTING PURPOSES ONLY
             //Speed_Controller.spaceship_speed_ctrl(game_test_speed);
             //let SPECIAL;
 
@@ -96,8 +112,42 @@ const Main_Game =
 
             const Sum_Timer = new Timer(90);
             const Diff_Timer = new Timer(60);
-            let Operation_Timer;
+            let Operation_Timer; // Operation to be equated to Sum or Diff depending on situation
             
+            const Player_1 = new Player("Darnell", "Noel", "DN26")
+            Player_1.get_full_name();
+            Player_1.set_difficulty();
+
+            Gameplay_UI.player_name_display(Player_1.get_full_name());
+            Gameplay_UI.player_tag_display(Player_1.tag)
+            Gameplay_UI.level_display();
+            Gameplay_UI.difficulty_display();
+            //Gameplay_UI.timer_display();
+            Gameplay_UI.hit_display(Player_1.total_hits);
+            Gameplay_UI.miss_display(Player_1.total_misses);
+            Gameplay_UI.combo_display(Player_1.combo);
+            Gameplay_UI.current_score_display(Player_1.score);
+            Gameplay_UI.highest_score_display(Player_1.high_score);
+
+            Player_1.get_total_hit_miss();
+            Player_1.get_total_hit_percent();
+
+            /*Gameplay_UI.display_report_screen(
+                "Status Report",
+                Player_1.get_full_name(),
+                Player_1.tag,
+                Player_1.difficulty_completed,
+                Player_1.hit_count[0],
+                Player_1.hit_count[1],
+                Player_1.miss_count[0],
+                Player_1.miss_count[1],
+                Player_1.combo,
+                Player_1.high_score,
+                Player_1.score
+            );*/
+            
+            // ----- INITIALIZE ABOVE ----- //
+
             if(Game_Rules.level_1)
             {
                 Operation = Sum;
@@ -115,22 +165,10 @@ const Main_Game =
                 fire_rate_stop();
             };
 
-            const Player_1 = new Player("Darnell", "Noel", "DN26")
-            Player_1.get_full_name();
-
-            Gameplay_UI.player_name_display(Player_1.get_full_name());
-            Gameplay_UI.player_tag_display(Player_1.player_tag)
-            Gameplay_UI.level_display();
-            Gameplay_UI.difficulty_display();
-            //Gameplay_UI.timer_display();
-            Gameplay_UI.hit_display(Player_1.hit_count);
-            Gameplay_UI.miss_display(Player_1.miss_count);
-            Gameplay_UI.combo_display();
-            Gameplay_UI.current_score_display();
-            Gameplay_UI.highest_score_display();
-
             console.log(Player_1.hit_count + "hits")
             console.log(Player_1.miss_count + "misses")
+
+            Operation_Timer.elapsed = 0;
 
             // ---------- LOAD GAME BELOW HERE ---------- //
 
@@ -138,10 +176,7 @@ const Main_Game =
 
             fire_rate_stop();
             load_level_1()
-            
-            
-          
-            
+             
             /*.then(function(){
                         
                if(Game_Rules.loaded == true)
@@ -152,60 +187,22 @@ const Main_Game =
             
             // ---------- LOAD GAME ABOVE HERE ---------- //
 
-
             console.log(Game_Rules.SPECIAL.then(function (){console.log(Game_Rules.loaded)}))
 
             //start_diff_population();
 
             // ---------- TIMER FUNCTIONS BELOW HERE ---------- //
 
-            let counter = 0;
-
-            Game_Rules.SPECIAL.then(function(){
+            Game_Rules.SPECIAL.then(function(){ //--- FUNCTION EXECUTES AFTER LEVEL 1 LOADS
 
                 if(Game_Rules.loaded == true)
                 {
                     //alert("NOW LOADED!!!!");    
                 }
                 
+                level_execute_control_function();
 
-
-                Operation_Timer.get_countdown(counter);
-                console.log(Operation_Timer.countdown, counter)
-                
-                Operation_Timer.elapsed = Operation_Timer.countdown;
-
-                Gameplay_UI.timer_display(Operation_Timer.countdown, Operation_Timer.limit);
-                
-                const level_countdown = setInterval(function(){
-                    
-                    counter++;
-
-                    console.log("WWWWWWWW" + Operation_Timer.get_countdown(counter));
-                    Gameplay_UI.timer_display(Operation_Timer.countdown, Operation_Timer.limit); 
-                    
-                    //Sum_Timer.countdown = Sum_Timer.limit - counter;
-                    console.log(Operation_Timer.countdown, counter);
-                    
-                    Operation_Timer.elapsed = Operation_Timer.countdown;
-
-                    if(Operation_Timer.countdown == 0)
-                    {
-                        //alert("DONE");
-
-                        time_up_function(level_countdown);
-
-                        //if(Game_Rules.level_1 == true)
-                        //{
-                            //Game_Rules.level_1 = false;
-                            //Game_Rules.level_2 = true;
-
-                            Gameplay_UI.display_level_popup();   
-                        //}   
-                    }
-                },1000);
-
-                console.log(Operation_Timer.elapsed)
+                /*console.log(Operation_Timer.elapsed)
 
                 if(Operation.countdown == 0)
                 {
@@ -215,9 +212,16 @@ const Main_Game =
                 if(Operation_Timer.countdown == 0)
                 {
                     alert("DONE 3")
-                }
+                }*/
+            Game_Rules.SPECIAL_2.then(function(){
+
+                level_execute_control_function();
+            })
+
             })
             
+            
+
                                                     console.log("Player hit " + Player_1.hit_count);
                                                                 
                                                     console.log(`HIT HIT HIT HIT   ${test_counter}`);
@@ -240,7 +244,7 @@ const Main_Game =
 
                     Game_Rules.set_game_loaded();
 
-                    rand_bg_music_sel(); //---------- AUDIO---  
+                    rand_bg_music_sel(); //---------- AUDIO--- RUNS MAIN BACKGROUND AUDIO
                     
                     start_sum_population();
                     
@@ -269,10 +273,23 @@ const Main_Game =
             {
                 return Game_Rules.SPECIAL_2 = new Promise(function(resolve){ //Main functions for gameplay after game load complete
                     
-                    setTimeout(resolve,load_game_wait_time*2)
+                    setTimeout(resolve,load_game_wait_time*3)
                 }).then(function(){
 
+                    rand_bg_music_sel(); //---------- AUDIO--- RUNS MAIN BACKGROUND AUDIO
+                    
+                    start_diff_population();
+                    
+                    setTimeout(function(){
 
+                        set_int_spaceships();    
+                    },500)
+                    
+                    //alert("GAME LOADED!")
+
+                    console.log("LEVEL 2 IS LOADED = " + Game_Rules.loaded);
+
+                    Gameplay_UI.remove_level_popup();
                 }).catch(function(){
 
                     alert("Level 2 failed to initialize! Please refresh the page and click resume.");
@@ -283,14 +300,61 @@ const Main_Game =
                 })
             }
 
+            function level_execute_control_function()
+            {
+                Player_1.get_score();
+                Player_1.get_high_score();
+                //Gameplay_UI.remove_report(); //-----Use this to remove report following testing---
+
+                Operation_Timer.get_countdown();
+                console.log(Operation_Timer.countdown, Operation_Timer.elapsed)
+                
+                //Operation_Timer.elapsed = Operation_Timer.countdown;
+
+                Gameplay_UI.timer_display(Operation_Timer.countdown, Operation_Timer.limit);
+                
+                const level_countdown = setInterval(function(){
+                    
+                    //counter++;
+                    Operation_Timer.elapsed++;
+
+                    Operation_Timer.get_countdown();
+                    Gameplay_UI.timer_display(Operation_Timer.countdown, Operation_Timer.elapsed); 
+                    
+                    //Sum_Timer.countdown = Sum_Timer.limit - counter;
+                    //console.log(Operation_Timer.countdown, Operation_Timer.limit);
+                    
+                    //Operation_Timer.elapsed = Operation_Timer.countdown;
+
+                    if(Operation_Timer.countdown == 0)
+                    {
+                        //alert("DONE");
+
+                        time_up_function(level_countdown);
+
+                        //if(Game_Rules.level_1 == true)
+                        //{
+                            //Game_Rules.level_1 = false;
+                            //Game_Rules.level_2 = true;
+
+                            //Gameplay_UI.display_level_popup();   
+                        //}   
+                    }
+                },1000);
+            };
+
             function time_up_function(fn_lvl_count)
             {
                 clearInterval(fn_lvl_count);
 
+                Operation_Timer.elapsed = 0;
+
                 fire_rate_stop();
                 Gameplay_UI.reset_spaceships();
                 depopulate_all();
+
                 ship_margin_top = [0,0,0,0,0];
+
                 for(let i=0; i < Gameplay_UI.spaceships.length; i++)
                 {
                     clearInterval(spaceship_interval_id[i]);    
@@ -306,16 +370,33 @@ const Main_Game =
 
                     Game_Rules.level_1 = false;
                     Game_Rules.level_2 = true;
-                    //Gameplay_UI.display_level_popup();
+                    Game_Rules.set_level();
+                    
+                    Gameplay_UI.display_level_popup();
+
+                    load_level_2();
                 }
 
                 else if(Game_Rules.level_2 == true)
                 {
                     alert("LEVEL 2 COMPLETE!");
 
+                    Gameplay_UI.display_report_screen(
+                        "Status Report",
+                        Player_1.get_full_name(),
+                        Player_1.tag,
+                        Player_1.difficulty_completed,
+                        Player_1.hit_count[0],
+                        Player_1.hit_count[1],
+                        Player_1.miss_count[0],
+                        Player_1.miss_count[1],
+                        Player_1.combo,
+                        Player_1.high_score,
+                        Player_1.score
+                    );
                     //display score report
                 }
-            }
+            };
 
             function rand_bg_music_sel()
             {
@@ -353,13 +434,13 @@ const Main_Game =
             
             function start_diff_population()
             {
-                Sum.populate_correct_ans_sum();
-                Sum.populate_incorrect_ans_arr_sum();
-                Sum.select_correct_ans_position();
-                console.log(Sum);
+                Diff.populate_correct_ans_diff();
+                Diff.populate_incorrect_ans_arr_diff();
+                Diff.select_correct_ans_position();
+                console.log(Diff);
     
-                Gameplay_UI.populate_spaceship(Sum);
-                Gameplay_UI.populate_gun(Sum);
+                Gameplay_UI.populate_spaceship(Diff);
+                Gameplay_UI.populate_gun(Diff);
             };
 
             function depopulate_all() 
@@ -402,7 +483,7 @@ const Main_Game =
 
                         Gameplay_UI.move_spaceships(interval_index, ship_margin_top); //ship_margin_top index is called within function
                         
-                        let stop_user_check = Boundaries.check_collision(Gameplay_UI.spaceships[interval_index].getBoundingClientRect().bottom, Gameplay_UI.gun.getBoundingClientRect().top)
+                        let stop_user_check = Boundaries.check_collision(Gameplay_UI.spaceships[interval_index].getBoundingClientRect().bottom, Gameplay_UI.gun.getBoundingClientRect().top+12)
 
                         if(stop_user_check == true)
                         {
@@ -439,7 +520,9 @@ const Main_Game =
                                     setTimeout(resolve,2000);
                                 }).then(function(){
 
-                                    Game_Over_Sound.play_music()
+                                    Game_Over_Sound.play_music();
+
+                                    //Gameplay_UI.display_report_screen();
 
                                     setTimeout(function(){
 
@@ -537,6 +620,8 @@ const Main_Game =
                     if(within_bounds_check == false && hit_check == true) //WRONG ANSWER HIT
                     {
                         Gameplay_UI.incorrect_ship_hit_animate();
+                        Game_Rules.hit = false;
+                        Game_Rules.miss = true;
 
                         Miss_Sound.play_music(); //----------AUDIO---
 
@@ -551,8 +636,16 @@ const Main_Game =
                         //Gameplay_UI.miss_display(Player_1.miss_count);
                         //Player_1.miss_count = test_miss_counter;
                         Player_1.get_miss_count();
-                        Gameplay_UI.miss_display(Player_1.miss_count);
+                        Player_1.get_total_hit_miss();
+                        Gameplay_UI.miss_display(Player_1.total_misses);
                         
+                        Player_1.get_score();
+                        Player_1.get_high_score();
+                        //Player_1.get_combo();
+                        Gameplay_UI.current_score_display(Player_1.score);
+                        Gameplay_UI.highest_score_display(Player_1.high_score);
+                        Gameplay_UI.combo_display(Player_1.combo);
+
                         console.log(Player_1.hit_count + "hits 2")
                         console.log(Player_1.miss_count + "misses 2")
 
@@ -567,7 +660,9 @@ const Main_Game =
                     if(within_bounds_check == true && hit_check == true) //RIGHT ANSWER HIT
                     {
                         Gameplay_UI.correct_ship_hit_animate();
- 
+                        Game_Rules.hit = true;
+                        Game_Rules.miss = false;
+
                         //alert("RIGHT ANSWER!!!");
                         Hit_Sound.play_music(); //----------AUDIO---
                              
@@ -586,7 +681,16 @@ const Main_Game =
                         //Player_1.hit_count = test_counter;
                         //Gameplay_UI.hit_display(Player_1.hit_count);
                         Player_1.get_hit_count();
-                        Gameplay_UI.hit_display(Player_1.hit_count);
+                        Player_1.get_total_hit_miss();
+                        Gameplay_UI.hit_display(Player_1.total_hits);
+
+                        Player_1.get_score();
+                        Player_1.get_high_score();
+                        //Player_1.get_combo();
+                        Gameplay_UI.current_score_display(Player_1.score);
+                        Gameplay_UI.highest_score_display(Player_1.high_score);
+                        Gameplay_UI.combo_display(Player_1.combo);
+
                         console.log(Player_1.hit_count + "hits 3")
                         console.log(Player_1.miss_count + "misses 3")
 
@@ -702,7 +806,7 @@ const Main_Game =
                     
                     if(element.id == `ship_${click_index}`)
                     {                                              
-                        gun_margin_left = 21 + (click_index - 1)*12;
+                        gun_margin_left = 21 + (click_index - 1)*12; //units in vw
                                                             
                         Gameplay_UI.click_position_gun(gun_margin_left);
 
@@ -713,10 +817,6 @@ const Main_Game =
 
             // ---------- GAME APP / MAIN GAME FUNCTIONS ABOVE HERE ---------- //
 
-            Gameplay_UI.restart_button.addEventListener("mousedown", function(){
-
-                document.location.reload();
-            });
 
             Gameplay_UI.end_button.addEventListener("mousedown", function(){
 
@@ -729,6 +829,12 @@ const Main_Game =
                 {
                     alert("Resuming game")
                 }
+            });
+
+            Gameplay_UI.save_exit_report_button.addEventListener("mousedown", function(){
+
+                //alert("OW");
+                document.location.reload();
             });
             //document.addEventListener("keydown", event_gun_keydown); //keyboard events
 
