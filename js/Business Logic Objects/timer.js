@@ -4,9 +4,9 @@ class Timer
     start = false;
     end = false;
     start_time = 0;
-    elapsed;
+    elapsed = 0;
     limit;
-    countdown;
+    countdown = 0;
 
     constructor(lt)
     {

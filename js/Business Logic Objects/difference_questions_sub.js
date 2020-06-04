@@ -6,26 +6,22 @@ class Diff_Question extends Question
 {
     populate_correct_ans_diff() //need to call this method separately
     {
-        do
+        this.correct_ans.first_num = this.get_rand_first_num();
+        this.correct_ans.second_num = this.get_rand_second_num();
+
+        while(this.correct_ans.first_num <= this.correct_ans.second_num)
         {
             this.correct_ans.first_num = this.get_rand_first_num();
             this.correct_ans.second_num = this.get_rand_second_num();
-            //console.log(`first num ${this.correct_ans.first_num} + second num ${this.correct_ans.second_num}`)
-            //console.log(this.incorrect_ans[0].val)
-            return this.correct_ans.val = parseInt(this.correct_ans.first_num - this.correct_ans.second_num);    
-        }while(this.correct_ans.first_num <= this.correct_ans.second_num)
-        
+        }
+
+        return this.correct_ans.val = parseInt(this.correct_ans.first_num - this.correct_ans.second_num);    
     };
 
     get_incorrect_ques_diff(mtd_i) //called in populate_incorrect_ans_arr_sum method
     {
         let num;
         this.incorrect_ans[mtd_i] = {first_num : 0, second_num : 0, val : 54321};
-        
-        //console.log(this.incorrect_ans[mtd_i].val)
-        //console.log(this.incorrect_ans.includes(num));
-        //console.log(this.incorrect_ans);
-        //console.log(this.min_incorrect_ans, this.max_incorrect_ans);
         
         this.incorrect_ans[mtd_i].first_num = this.get_rand_first_num();
         this.incorrect_ans[mtd_i].second_num = this.get_rand_second_num();
@@ -49,7 +45,7 @@ class Diff_Question extends Question
     {
         let i = 0;
                 
-        if(Game_Rules.easy_mode == true && Game_Rules.hard_mode == false)
+        if(Game_Rules.easy_mode)
         {   
             if(this.correct_ans.val < 6)
             {
@@ -75,7 +71,7 @@ class Diff_Question extends Question
             }       
         }
                 
-        else if(Game_Rules.easy_mode == false && Game_Rules.hard_mode == true)
+        else if(Game_Rules.hard_mode)
         {
             if(this.correct_ans.val < 6) //IMPORTANT - this prevents crashing if diff values are too low or too high
             {

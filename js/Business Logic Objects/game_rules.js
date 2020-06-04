@@ -25,17 +25,17 @@ const Game_Rules =
     {
         if(this.level_1 == false && this.level_2 == false)
         {
-            this.level_1 = true;
+            return this.level_1 = true;
         }
 
         else if(this.level_1 == true)
         {
-            this.level_2 = false;
+            return this.level_2 = false;
         }
 
         else if(this.level_2 == true)
         {
-            this.level_1 = false;
+            return this.level_1 = false;
         }
     },
 

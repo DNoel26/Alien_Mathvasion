@@ -42,6 +42,7 @@ const Gameplay_UI =
         {
             rand_sum_display.innerHTML = `${mtd_ans_obj.first_num}-${mtd_ans_obj.second_num}`;
         }
+
         this.spaceships[mtd_i].appendChild(rand_sum_display);   
     },
 
@@ -53,14 +54,14 @@ const Gameplay_UI =
         {
             if(i == mtd_ques.correct_ans.position)
             {
-                this.display_spaceship_num(i, "unset", mtd_ques.correct_ans); //color argument must be passed as string here
+                this.display_spaceship_num(i, "red", mtd_ques.correct_ans); //color argument must be passed as string here
             }
             
             else
             {
                 if(i == (this.spaceships.length - 1) && mtd_ques.correct_ans.position != (this.spaceships.length - 1)) //if correct ans is not in last spaceship, one incorrect ans spaceship disappears, this fixes that issue
                 {
-                    this.display_spaceship_num(i, "unset", mtd_ques.incorrect_ans[mtd_ques.correct_ans.position]);
+                    this.display_spaceship_num(i, "blue", mtd_ques.incorrect_ans[mtd_ques.correct_ans.position]);
                 }
 
                 else 
@@ -100,11 +101,11 @@ const Gameplay_UI =
 
         for(i=0; i < this.spaceships.length; i++)
         {
-            if(e == undefined)
+            if(e == "")
             {
                 this.spaceships[i].style.marginTop = 0;
             } 
-
+            
             this.spaceships[i].style.animationName = "spaceship, shake_2";
             this.spaceships[i].style.animationDuration = "1s, 4s";
             this.spaceships[i].style.animationDelay = "0s, 2.5s";
@@ -300,28 +301,43 @@ const Gameplay_UI =
         this.highest_score_disp.innerHTML = mtd_hiscore;
     },
 
-    display_level_popup()
+    display_level_popup(e)
     {
         this.level_disp_gamescreen = document.createElement("h1");
         this.level_disp_gamescreen.setAttribute("class","level_popup")
         //this.level_disp_gamescreen.setAttribute("id","level_display");
         this.gamescreen.appendChild(this.level_disp_gamescreen);
 
-        if(Game_Rules.level_1 == true)
+        if(Game_Rules.level_1 == true && e == undefined)
         {
             this.level_disp_gamescreen.innerHTML = "Level 1 Start!!!"
         }
 
-        else
+        else if(Game_Rules.level_1 == true && e == "")
+        {
+            this.level_disp_gamescreen.innerHTML = "Level 1 Complete!!!"   
+        }
+
+        else if(Game_Rules.level_2 == true && e == undefined)
         {
             this.level_disp_gamescreen.innerHTML = "Level 2 Start!!!"
+        }
+
+        else if(Game_Rules.level_2 == true && e == "")
+        {
+            this.level_disp_gamescreen.innerHTML = "Level 2 Complete!!!"   
         };
         
         this.level_disp_gamescreen.style.position = "absolute";
-        this.level_disp_gamescreen.style.left = 34.5 + "vw";
+        this.level_disp_gamescreen.style.maxWidth = 50 + "%";
+        this.level_disp_gamescreen.style.marginLeft = "auto";
+        this.level_disp_gamescreen.style.marginRight = "auto";
+        this.level_disp_gamescreen.style.left = 0;
+        this.level_disp_gamescreen.style.right = 0;
+        this.level_disp_gamescreen.style.textAlign = "center";
         this.level_disp_gamescreen.style.top = 24 + "vh";
         this.level_disp_gamescreen.style.color = "gold";
-        this.level_disp_gamescreen.style.fontSize = 2 + "rem";
+        this.level_disp_gamescreen.style.fontSize = 1.6 + "rem";
         this.level_disp_gamescreen.style.userSelect = "none";
     },
 

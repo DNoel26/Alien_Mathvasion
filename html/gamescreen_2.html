@@ -1,0 +1,113 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alien Mathvasion</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <header>
+        
+    </header>
+    <main id="game_main">
+        <section class="side_of_gamescreen" id="left_section_gamescreen">
+            <div>
+                <img src="../img/spaceship_interior_left_2.jpg" alt="left side of spaceship cockpit">    
+            </div>
+            <div id="left_data_div">
+                <div>
+                    <h1>Player Name</h1>
+                    <h2>Not Entered</h2>    
+                </div>
+                <div>
+                    <h1>Player Tag</h1>
+                    <h2>Not Entered</h2>    
+                </div>    
+                <div>
+                    <h1>Level</h1>
+                    <h2>1 of 2</h2>    
+                </div>
+                <div>
+                    <h1>Difficulty Mode</h1>
+                    <h2>Easy</h2>    
+                </div>
+                <div>
+                    <button id="settings_button" class="buttons">Settings</button>    
+                </div>
+                <div>
+                    <button id="restart_button" class="buttons">Restart Game</button>    
+                </div>
+                <div>
+                    <a href="../index.html"><button id="end_button" class="buttons">End Game</button></a>     
+                </div>      
+            </div>
+        </section>
+        <section id="gamescreen_section">    <!--All h3 elements that act as spaceships are to be generated in js with random numbers-->
+            <div class="spaceship" id="ship_1">
+
+            </div>
+            <div class="spaceship" id="ship_2">
+    
+            </div>
+            <div class="spaceship" id="ship_3">
+
+            </div>
+            <div class="spaceship" id="ship_4">
+ 
+            </div>
+            <div class="spaceship" id="ship_5">
+
+            </div>
+            <div id="bot_gun_div">
+                <img src="../assets/lightning ball.png" id="gun_projectile">
+                <div id="gun">
+                    
+                </div>
+            </div>
+        </section>
+        <section class="side_of_gamescreen" id="right_section_gamescreen">
+            <div>
+                <img src="../img/spaceship_interior_right_2.jpg" alt="right side of spaceship cockpit">
+            </div>
+            <div id="right_data_div">
+                <div>
+                    <h1>Timer</h1>
+                    <h2>--</h2>    
+                </div>
+                <div>
+                    <h1>Hits</h1>
+                    <h2>0</h2>    
+                </div>
+                <div>
+                    <h1>Misses</h1>
+                    <h2>0</h2>    
+                </div>
+                <div>
+                    <h1>Combo Multiplier</h1>
+                    <h2>0x</h2>    
+                </div>
+                <div>
+                    <h1>Current Score</h1>
+                    <h2>0</h2>    
+                </div>
+                <div>
+                    <h1>Highest Score</h1>
+                    <h2>0</h2>    
+                </div>
+                <div>
+                    <button id="save_button" class="buttons">Save Game</button>    
+                </div>                  
+            </div>
+            
+        </section>
+
+    </main>
+    <footer>
+
+    </footer>
+    <script src="../js/GAMEAPP_V2.js" type="module" defer></script>
+</body>
+</html>

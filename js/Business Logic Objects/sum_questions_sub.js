@@ -8,8 +8,7 @@ class Sum_Question extends Question
     {
         this.correct_ans.first_num = this.get_rand_first_num();
         this.correct_ans.second_num = this.get_rand_second_num();
-        //console.log(`first num ${this.correct_ans.first_num} + second num ${this.correct_ans.second_num}`)
-        //console.log(this.incorrect_ans[0].val)
+
         return this.correct_ans.val = parseInt(this.correct_ans.first_num + this.correct_ans.second_num);
     };
 
@@ -18,16 +17,11 @@ class Sum_Question extends Question
         let num;
         this.incorrect_ans[mtd_i] = {first_num : 0, second_num : 0, val : 12345};
         
-        //console.log(this.incorrect_ans[mtd_i].val)
-        //console.log(this.incorrect_ans.includes(num));
-        //console.log(this.incorrect_ans);
-        //console.log(this.min_incorrect_ans, this.max_incorrect_ans);
-        
         this.incorrect_ans[mtd_i].first_num = this.get_rand_first_num();
         this.incorrect_ans[mtd_i].second_num = this.get_rand_second_num();
         num = parseInt(this.incorrect_ans[mtd_i].first_num + this.incorrect_ans[mtd_i].second_num);
 
-        console.log(this.check_repeat_incorrect_val(num));
+        this.check_repeat_incorrect_val(num);
 
         while(num == this.correct_ans.val || this.check_repeat_incorrect_val(num) == true || this.correct_ans.val <= this.incorrect_ans[mtd_i].first_num || num < this.min_incorrect_ans || num > this.max_incorrect_ans)
         {
@@ -46,7 +40,7 @@ class Sum_Question extends Question
         let i = 0;
         //this.populate_correct_ans();
                 
-        if(Game_Rules.easy_mode == true && Game_Rules.hard_mode == false)
+        if(Game_Rules.easy_mode == true)
         {   
             if(this.correct_ans.val > 5 && this.correct_ans.val < 31)
             {
@@ -69,12 +63,10 @@ class Sum_Question extends Question
             for(i=0; i<Gameplay_UI.spaceships.length-1; i++)
             {
                 this.get_incorrect_ques_sum(i);
-                //const sum = this.incorrect_ans[i].val;
-                //console.log(`sum for incorrect array [${i}] = ${sum}`)
             }       
         }
                 
-        else if(Game_Rules.easy_mode == false && Game_Rules.hard_mode == true)
+        else if(Game_Rules.hard_mode == true)
         {
             if(this.correct_ans.val > 5 && this.correct_ans.val < 31) //IMPORTANT - this prevents crashing if sum values are too low or too high
             {
@@ -97,11 +89,8 @@ class Sum_Question extends Question
             for(i=0; i<Gameplay_UI.spaceships.length-1; i++)
             {
                 this.get_incorrect_ques_sum(i);
-                //const sum = this.incorrect_ans[i].val;
-                //console.log(`sum for incorrect array [${i}] = ${sum}`)
             }       
         };
-        //console.log(this.incorrect_ans)
     };
         
 }

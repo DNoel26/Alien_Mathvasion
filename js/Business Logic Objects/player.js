@@ -13,6 +13,7 @@ class Player
     total_misses = 0;
     accuracy = 0;
     combo = 0;
+    max_combo = 0;
     high_score = 0;
     difficulty_completed;
     report = {};
@@ -22,17 +23,17 @@ class Player
         this.first_name = fn;
         this.last_name = ln;
         this.tag = pt;
-    }
+    };
 
     get_full_name()
     {
         return this.full_name = `${this.first_name} ${this.last_name}`;
-    }
+    };
 
     set_difficulty()
     {
         if(Game_Rules.easy_mode == true)
-        {
+        {           
             return this.difficulty_completed = "Easy";  
         }
 
@@ -40,7 +41,7 @@ class Player
         {
             return this.difficulty_completed = "Hard";  
         }
-    }
+    };
 
     get_hit_count()
     {
@@ -53,7 +54,7 @@ class Player
         {
             return this.hit_count[1]++;
         }   
-    }
+    };
 
     get_miss_count()
     {
@@ -66,18 +67,18 @@ class Player
         {
             return this.miss_count[1]++;
         }
-    }
+    };
 
     get_total_hit_miss()
     {
         this.total_hits = this.hit_count[0] + this.hit_count[1];
-        this.total_misses = this.miss_count[0] + this.miss_count[1]
-    }
+        this.total_misses = this.miss_count[0] + this.miss_count[1];
+    };
 
     get_total_hit_percent()
     {
-        this.accuracy = `${(this.total_hits / (this.total_hits + this.total_misses))}%`
-    }
+        this.accuracy = `${(this.total_hits / (this.total_hits + this.total_misses))}%`;
+    };
 
     get_score()
     {
@@ -106,7 +107,7 @@ class Player
                 this.score = 0;
             }
         }
-    }
+    };
 
     get_high_score()
     {
@@ -114,15 +115,15 @@ class Player
         {
             return this.high_score = this.score;    
         }  
-    }
+    };
 
-    /*get_combo()
+    get_max_combo()
     {
-        if(this.combo >= Game_Rules.combo_bonus_start)
+        if(this.combo > this.max_combo)
         {
-            this.score += Game_Rules.score_incr * Game_Rules.combo_multiplier;   
+            return this.max_combo = this.combo;   
         }
-    }*/
+    }
 }
 
 export default Player;
