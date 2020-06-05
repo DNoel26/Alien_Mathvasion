@@ -60,7 +60,7 @@ const Game_Rules =
 
     set_ext_randomizer()
     {
-        return this.rand_sel = Math.floor(Math.random()*4);
+        return this.rand_sel = Math.floor(Math.random()*1);
     },
 
     set_int_randomizer(min, max)

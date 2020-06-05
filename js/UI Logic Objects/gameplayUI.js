@@ -49,18 +49,19 @@ const Gameplay_UI =
         let i = 0;
         let rand_num_display = [];
         rand_num_display[i] = document.createElement("h3");
-        this.spaceships[i].style.backgroundColor = mtd_ship_color;
+        //this.spaceships[i].style.backgroundColor = mtd_ship_color;
 
         for(i=0; i < this.spaceships.length; i++)
         {
             rand_num_display[i] = document.createElement("h3");
-            rand_num_display[i].innerHTML = `${mtd_ques.first_num}${mtd_ques.operator}${mtd_ques.second_num}`
+            //rand_num_display[i].innerHTML = `${mtd_ques.first_num}${mtd_ques.operator}${mtd_ques.second_num}`
             this.spaceships[i].appendChild(rand_num_display[i]);
-        }
+        
 
-        /*if(i === mtd_ques.correct_ans.position)
+        if(i === mtd_ques.correct_ans.position)
             {
-                this.spaceships[i]
+                rand_num_display[i].innerHTML = `${mtd_ques.correct_ans.first_num}${mtd_ques.operator}${mtd_ques.correct_ans.second_num}`
+                this.spaceships[i].style.backgroundColor = "red";
                 //this.display_spaceship_num(i, "red", mtd_ques.correct_ans); //color argument must be passed as string here
             }
             
@@ -68,17 +69,18 @@ const Gameplay_UI =
             {
                 if(i === (this.spaceships.length - 1) && mtd_ques.correct_ans.position !== (this.spaceships.length - 1)) //if correct ans is not in last spaceship, one incorrect ans spaceship disappears, this fixes that issue
                 {
-                    
+                    rand_num_display[i].innerHTML = `${mtd_ques.incorrect_ans[mtd_ques.correct_ans.position].first_num}${mtd_ques.operator}${mtd_ques.incorrect_ans[mtd_ques.correct_ans.position].second_num}`
                     //this.display_spaceship_num(i, "blue", mtd_ques.incorrect_ans[mtd_ques.correct_ans.position]);
                 }
 
                 else 
                 {
-                    
+                    rand_num_display[i].innerHTML = `${mtd_ques.incorrect_ans[i].first_num}${mtd_ques.operator}${mtd_ques.incorrect_ans[i].second_num}`
+                    this.spaceships[i].style.backgroundColor = "blue";
                     //this.display_spaceship_num(i, "unset", mtd_ques.incorrect_ans[i]);
                 }
-            }    */
-
+            }    
+}
     },
 
     depopulate_spaceship()
@@ -353,6 +355,9 @@ const Gameplay_UI =
         this.level_disp_gamescreen.style.top = 24 + "vh";
         this.level_disp_gamescreen.style.color = "gold";
         this.level_disp_gamescreen.style.fontSize = 1.6 + "rem";
+        this.level_disp_gamescreen.style.animationName = "popup";
+        this.level_disp_gamescreen.style.animationIterationCount = "infinite";
+        this.level_disp_gamescreen.style.animationDuration = 0.75 + "s";
         this.level_disp_gamescreen.style.userSelect = "none";
         this.level_disp_gamescreen.style.zIndex = 50;
     },
@@ -458,6 +463,17 @@ const Gameplay_UI =
         }
     },
 
+    stop_all_game_animations()
+    {
+        let i=0;
+
+        for(i=0; i<this.spaceships.length; i++)
+        {
+            this.spaceships[i].style.animation = "none";
+        }
+
+        this.gun.style.animation = "none";
+    },
     /*player_name_disp : undefined,
     player_tag_disp : undefined,
     level_disp : undefined,

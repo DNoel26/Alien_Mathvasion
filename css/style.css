@@ -90,6 +90,13 @@
     40%, 60% { transform: translate3d(2%, 0, 0); }
 }
 
+@keyframes popup
+{
+    0% {font-size: 1.6rem;}
+    50% {font-size: 2.4rem;}
+    100% {font-size: 1.6rem;}    
+}
+
 @keyframes report_fade_in
 {
     0% {opacity: 0;}
