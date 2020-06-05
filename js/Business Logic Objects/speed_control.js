@@ -7,12 +7,12 @@ const Speed_Controller = //to be used in Set Intervals timer arg
     {
         if(Game_Rules.hard_mode === true && mtd_speed === null)
         {
-            return (Math.random()*8 + 5)//10//default value is (Math.random()*5 + 10)*1 in ms  
+            return (Math.random()*10 + 30)//10//default value is (Math.random()*5 + 10)*1 in ms  
         }
 
         else if(Game_Rules.easy_mode === true && mtd_speed === null)
         {
-            return 25//(Math.random()*5 + 10)*100 //default value is (Math.random()*5 + 10)*3 in ms      
+            return (Math.random()*10 + 60)//(Math.random()*5 + 10)*100 //default value is (Math.random()*5 + 10)*3 in ms      
         }
         
         else

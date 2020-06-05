@@ -60,7 +60,7 @@ const Game_Rules =
 
     set_ext_randomizer()
     {
-        return this.rand_sel = Math.floor(Math.random()*1);
+        return this.rand_sel = Math.floor(Math.random()*4);
     },
 
     set_int_randomizer(min, max)
@@ -86,29 +86,29 @@ const Game_Rules =
 
         else if(this.rand_sel === 1)
         {
-            this.ship_margin_incr[0] += this.set_int_randomizer(0.025,0.030);
-            this.ship_margin_incr[1] += this.set_int_randomizer(0.015,0.020);
-            this.ship_margin_incr[2] += this.set_int_randomizer(0.020,0.025);
-            this.ship_margin_incr[3] += this.set_int_randomizer(0.015,0.020);
-            this.ship_margin_incr[4] += this.set_int_randomizer(0.025,0.030);
+            this.ship_margin_incr[0] += 0.060;
+            this.ship_margin_incr[1] += 0.040;
+            this.ship_margin_incr[2] += 0.050;
+            this.ship_margin_incr[3] += 0.040;
+            this.ship_margin_incr[4] += 0.060;
         }
 
         else if(this.rand_sel === 2)
         {
-            this.ship_margin_incr[0] += this.set_int_randomizer(0.020,0.025);
-            this.ship_margin_incr[1] += this.set_int_randomizer(0.025,0.030);
-            this.ship_margin_incr[2] += this.set_int_randomizer(0.015,0.020);
-            this.ship_margin_incr[3] += this.set_int_randomizer(0.025,0.030);
-            this.ship_margin_incr[4] += this.set_int_randomizer(0.020,0.025);
+            this.ship_margin_incr[0] += 0.050;
+            this.ship_margin_incr[1] += 0.060;
+            this.ship_margin_incr[2] += 0.040;
+            this.ship_margin_incr[3] += 0.060;
+            this.ship_margin_incr[4] += 0.050;
         }    
 
         else if(this.rand_sel === 3)
         {
-            this.ship_margin_incr[0] += this.set_int_randomizer(0.015,0.030);
-            this.ship_margin_incr[1] += this.set_int_randomizer(0.015,0.030);
-            this.ship_margin_incr[2] += this.set_int_randomizer(0.015,0.030);
-            this.ship_margin_incr[3] += this.set_int_randomizer(0.015,0.030);
-            this.ship_margin_incr[4] += this.set_int_randomizer(0.015,0.030);
+            this.ship_margin_incr[0] += 0.075;
+            this.ship_margin_incr[1] += 0.075;
+            this.ship_margin_incr[2] += 0.075;
+            this.ship_margin_incr[3] += 0.075;
+            this.ship_margin_incr[4] += 0.075;
         }
     },
 

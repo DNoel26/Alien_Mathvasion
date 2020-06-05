@@ -61,7 +61,7 @@ const Gameplay_UI =
         if(i === mtd_ques.correct_ans.position)
             {
                 rand_num_display[i].innerHTML = `${mtd_ques.correct_ans.first_num}${mtd_ques.operator}${mtd_ques.correct_ans.second_num}`
-                this.spaceships[i].style.backgroundColor = "red";
+                this.spaceships[i].style.backgroundColor = "unset"; //SET COLOR FOR TESTING ONLY!!!
                 //this.display_spaceship_num(i, "red", mtd_ques.correct_ans); //color argument must be passed as string here
             }
             
@@ -76,7 +76,7 @@ const Gameplay_UI =
                 else 
                 {
                     rand_num_display[i].innerHTML = `${mtd_ques.incorrect_ans[i].first_num}${mtd_ques.operator}${mtd_ques.incorrect_ans[i].second_num}`
-                    this.spaceships[i].style.backgroundColor = "blue";
+                    this.spaceships[i].style.backgroundColor = "unset"; //SET COLOR FOR TESTING ONLY!!!
                     //this.display_spaceship_num(i, "unset", mtd_ques.incorrect_ans[i]);
                 }
             }    
@@ -423,7 +423,6 @@ const Gameplay_UI =
         this.report_disp_data[7].innerHTML = `Highest Score Achieved This Game: ${mtd_hi_score}`;
         this.report_disp_data[8].innerHTML = `Final Score: ${mtd_score}`;
         
-
         this.report_disp_data[9] = document.createElement("button");
         this.report_disp_data[9].setAttribute("class","buttons");
         this.report_disp_data[9].setAttribute("id","save_exit_report_button");
@@ -436,8 +435,8 @@ const Gameplay_UI =
         this.report_disp_data[9].style.animationIterationCount = "1";
         this.report_disp_data[9].style.width = "30%";
         this.report_disp_data[9].style.height = "100%";
-        //this.report_disp_data[9].style.userSelect = "";
-        //this.save_exit_report_button = this.report_disp_data[9]; 
+ 
+        console.log(this.report_disp_data[1].innerHTML.split(" "))
      },
 
     remove_report()
