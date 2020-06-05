@@ -4,6 +4,8 @@ import Game_Rules from "./game_rules.js";
 
 class Diff_Question extends Question
 {
+    operator = "-"
+
     populate_correct_ans_diff() //need to call this method separately
     {
         this.correct_ans.first_num = this.get_rand_first_num();

@@ -27,7 +27,7 @@ const Gameplay_UI =
     current_score_disp : undefined,
     highest_score_disp : undefined,
 
-    display_spaceship_num(mtd_i, mtd_ship_color, mtd_ans_obj) //this is called within populate_spaceship method
+    display_spaceship_num(mtd_i, mtd_ship_color, mtd_ans_obj, ) //this is called within populate_spaceship method
     {
         const rand_num_display = document.createElement("h3");
         this.spaceships[mtd_i].style.backgroundColor = mtd_ship_color; //only for testing, comment out here and in argument otherwise 
@@ -47,27 +47,38 @@ const Gameplay_UI =
     populate_spaceship(mtd_ques) //must call populate correct and incorrect answers (Sum and Diff) before this method
     {
         let i = 0;
+        let rand_num_display = [];
+        rand_num_display[i] = document.createElement("h3");
+        this.spaceships[i].style.backgroundColor = mtd_ship_color;
 
         for(i=0; i < this.spaceships.length; i++)
         {
-            if(i === mtd_ques.correct_ans.position)
+            rand_num_display[i] = document.createElement("h3");
+            rand_num_display[i].innerHTML = `${mtd_ques.first_num}${mtd_ques.operator}${mtd_ques.second_num}`
+            this.spaceships[i].appendChild(rand_num_display[i]);
+        }
+
+        /*if(i === mtd_ques.correct_ans.position)
             {
-                this.display_spaceship_num(i, "red", mtd_ques.correct_ans); //color argument must be passed as string here
+                this.spaceships[i]
+                //this.display_spaceship_num(i, "red", mtd_ques.correct_ans); //color argument must be passed as string here
             }
             
             else
             {
                 if(i === (this.spaceships.length - 1) && mtd_ques.correct_ans.position !== (this.spaceships.length - 1)) //if correct ans is not in last spaceship, one incorrect ans spaceship disappears, this fixes that issue
                 {
-                    this.display_spaceship_num(i, "blue", mtd_ques.incorrect_ans[mtd_ques.correct_ans.position]);
+                    
+                    //this.display_spaceship_num(i, "blue", mtd_ques.incorrect_ans[mtd_ques.correct_ans.position]);
                 }
 
                 else 
                 {
-                    this.display_spaceship_num(i, "unset", mtd_ques.incorrect_ans[i]);
+                    
+                    //this.display_spaceship_num(i, "unset", mtd_ques.incorrect_ans[i]);
                 }
-            }    
-        }
+            }    */
+
     },
 
     depopulate_spaceship()
@@ -343,6 +354,7 @@ const Gameplay_UI =
         this.level_disp_gamescreen.style.color = "gold";
         this.level_disp_gamescreen.style.fontSize = 1.6 + "rem";
         this.level_disp_gamescreen.style.userSelect = "none";
+        this.level_disp_gamescreen.style.zIndex = 50;
     },
 
     remove_level_popup()
@@ -400,8 +412,8 @@ const Gameplay_UI =
         this.report_disp_data[1].innerHTML = `Player Name: ${mtd_name}`;
         this.report_disp_data[2].innerHTML = `Player Tag: ${mtd_tag}`;
         this.report_disp_data[3].innerHTML = `Difficulty Completed: ${mtd_difficulty}`;
-        this.report_disp_data[4].innerHTML = `Hits: ${mtd_lvl_1_hits} (Level 1), ${mtd_lvl_2_hits} (Level 2)`;
-        this.report_disp_data[5].innerHTML = `Misses: ${mtd_lvl_1_misses} (Level 1), ${mtd_lvl_2_misses} (Level 2)`;
+        this.report_disp_data[4].innerHTML = `Hits: ${mtd_lvl_1_hits} (Level 1) + ${mtd_lvl_2_hits} (Level 2) = ${mtd_lvl_1_hits + mtd_lvl_2_hits} (Total)`;
+        this.report_disp_data[5].innerHTML = `Misses: ${mtd_lvl_1_misses} (Level 1) + ${mtd_lvl_2_misses} (Level 2) = ${mtd_lvl_1_misses + mtd_lvl_2_misses} (Total)`;
         this.report_disp_data[6].innerHTML = `Most Consecutive Hits: ${mtd_combo}`;
         this.report_disp_data[7].innerHTML = `Highest Score Achieved This Game: ${mtd_hi_score}`;
         this.report_disp_data[8].innerHTML = `Final Score: ${mtd_score}`;

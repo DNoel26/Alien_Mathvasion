@@ -6,7 +6,7 @@ class Timer
     start_time = 0;
     elapsed = 0;
     limit;
-    countdown = 0;
+    countdown = this.limit;
 
     constructor(lt)
     {
@@ -18,6 +18,12 @@ class Timer
         return this.elapsed = Date.now() - this.start_time;
     }*/
 
+    set_time_null()
+    {
+        this.countdown = null;
+        this.elapsed = null;
+    }
+
     restrict_countdown()
     {
         if(this.countdown <= 0 || this.countdown != true)
@@ -25,7 +31,15 @@ class Timer
             return this.countdown = 0;
         }
     };
-
+    
+    restrict_elapsed()
+    {
+        if(this.elapsed >= this.limit)
+        {
+            return this.elapsed = this.limit;
+        }   
+    };
+        
     get_countdown()
     {
         return this.countdown = parseFloat(this.limit - this.elapsed);
