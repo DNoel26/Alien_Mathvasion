@@ -32,7 +32,7 @@ class Player
 
     set_difficulty()
     {
-        if(Game_Rules.easy_mode == true)
+        if(Game_Rules.easy_mode === true)
         {           
             return this.difficulty_completed = "Easy";  
         }
@@ -45,7 +45,7 @@ class Player
 
     get_hit_count()
     {
-        if(Game_Rules.level_1 == true)
+        if(Game_Rules.level_1 === true)
         {
             return this.hit_count[0]++;    
         }
@@ -58,7 +58,7 @@ class Player
 
     get_miss_count()
     {
-        if(Game_Rules.level_1 == true)
+        if(Game_Rules.level_1 === true)
         {
             return this.miss_count[0]++;    
         }
@@ -82,7 +82,7 @@ class Player
 
     get_score()
     {
-        if(Game_Rules.hit == true && Game_Rules.miss == false)
+        if(Game_Rules.hit === true && Game_Rules.miss === false)
         {
             this.combo += 1;
 
@@ -97,7 +97,7 @@ class Player
             }  
         }
 
-        else if(Game_Rules.hit == false && Game_Rules.miss == true)
+        else if(Game_Rules.hit === false && Game_Rules.miss === true)
         {
             this.score -= Game_Rules.score_decr;
             this.combo = 0;

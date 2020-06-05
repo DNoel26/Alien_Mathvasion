@@ -29,7 +29,7 @@ class Diff_Question extends Question
 
         console.log(this.check_repeat_incorrect_val(num));
 
-        while(num == this.correct_ans.val) //|| this.incorrect_ans[mtd_i].first_num <= this.incorrect_ans[mtd_i].second_num || this.check_repeat_incorrect_val(num) == true || this.correct_ans.val >= this.incorrect_ans[mtd_i].first_num || num < this.min_incorrect_ans || num > this.max_incorrect_ans)
+        while(num === this.correct_ans.val) //|| this.incorrect_ans[mtd_i].first_num <= this.incorrect_ans[mtd_i].second_num || this.check_repeat_incorrect_val(num) == true || this.correct_ans.val >= this.incorrect_ans[mtd_i].first_num || num < this.min_incorrect_ans || num > this.max_incorrect_ans)
         {
             this.incorrect_ans[mtd_i].first_num = this.get_rand_first_num();
             this.incorrect_ans[mtd_i].second_num = this.get_rand_second_num();
@@ -45,7 +45,7 @@ class Diff_Question extends Question
     {
         let i = 0;
                 
-        if(Game_Rules.easy_mode)
+        if(Game_Rules.easy_mode === true)
         {   
             if(this.correct_ans.val < 6)
             {
@@ -71,7 +71,7 @@ class Diff_Question extends Question
             }       
         }
                 
-        else if(Game_Rules.hard_mode)
+        else if(Game_Rules.hard_mode === true)
         {
             if(this.correct_ans.val < 6) //IMPORTANT - this prevents crashing if diff values are too low or too high
             {

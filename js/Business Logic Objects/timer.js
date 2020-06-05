@@ -18,14 +18,22 @@ class Timer
         return this.elapsed = Date.now() - this.start_time;
     }*/
 
+    restrict_countdown()
+    {
+        if(this.countdown <= 0 || this.countdown != true)
+        {
+            return this.countdown = 0;
+        }
+    };
+
     get_countdown()
     {
-        return this.countdown = this.limit - this.elapsed;
-    }
+        return this.countdown = parseFloat(this.limit - this.elapsed);
+    };
 
     get_time_elapsed(mtd_count_var)
     {
-        return this.elapsed = mtd_count_var - this.start_time;
+        return this.elapsed = parseFloat(mtd_count_var - this.start_time);
     };
 
     start_timer()
@@ -36,7 +44,7 @@ class Timer
 
     end_timer()
     {
-        if(this.elapsed == this.limit)
+        if(this.elapsed === this.limit)
         {
             this.end = true;
             this.start = false;

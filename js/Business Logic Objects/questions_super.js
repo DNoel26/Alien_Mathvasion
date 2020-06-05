@@ -34,7 +34,7 @@ class Question
                 repeat_val = true;
             }
 
-        if(repeat_val == true)
+        if(repeat_val === true)
         {
             return true;
         }
@@ -54,22 +54,22 @@ class Question
     {
         let num = Math.floor(Math.random()*5);
         
-        if(num == 0)
+        if(num === 0)
         {
             this.position_meth(0); //reference to 1st spaceship (from left) i.e. spaceship[0]
         }
 
-        else if(num == 1)
+        else if(num === 1)
         {
             this.position_meth(1);
         }
 
-        else if(num == 2)
+        else if(num === 2)
         {
             this.position_meth(2);
         }
 
-        else if(num == 3)
+        else if(num === 3)
         {
             this.position_meth(3);
         }

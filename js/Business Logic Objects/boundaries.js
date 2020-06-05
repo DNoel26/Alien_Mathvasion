@@ -1,7 +1,7 @@
 import Gameplay_UI from "../UI Logic Objects/gameplayUI.js";
 
 const Boundaries =
-{
+{    
     check_collision(first_bound, second_bound)
     {      
         if(first_bound >= second_bound)

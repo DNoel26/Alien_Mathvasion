@@ -33,12 +33,12 @@ const Gameplay_UI =
     {
         const rand_sum_display = document.createElement("h3");
         this.spaceships[mtd_i].style.backgroundColor = mtd_ship_color; //only for testing, comment out here and in argument otherwise 
-        if(Game_Rules.level_1 == true)
+        if(Game_Rules.level_1 === true)
         {
             rand_sum_display.innerHTML = `${mtd_ans_obj.first_num}+${mtd_ans_obj.second_num}`;
         }
 
-        else if(Game_Rules.level_2 == true)
+        else if(Game_Rules.level_2 === true)
         {
             rand_sum_display.innerHTML = `${mtd_ans_obj.first_num}-${mtd_ans_obj.second_num}`;
         }
@@ -52,14 +52,14 @@ const Gameplay_UI =
 
         for(i=0; i < this.spaceships.length; i++)
         {
-            if(i == mtd_ques.correct_ans.position)
+            if(i === mtd_ques.correct_ans.position)
             {
                 this.display_spaceship_num(i, "red", mtd_ques.correct_ans); //color argument must be passed as string here
             }
             
             else
             {
-                if(i == (this.spaceships.length - 1) && mtd_ques.correct_ans.position != (this.spaceships.length - 1)) //if correct ans is not in last spaceship, one incorrect ans spaceship disappears, this fixes that issue
+                if(i === (this.spaceships.length - 1) && mtd_ques.correct_ans.position !== (this.spaceships.length - 1)) //if correct ans is not in last spaceship, one incorrect ans spaceship disappears, this fixes that issue
                 {
                     this.display_spaceship_num(i, "blue", mtd_ques.incorrect_ans[mtd_ques.correct_ans.position]);
                 }
@@ -85,27 +85,31 @@ const Gameplay_UI =
         };
     },
 
-    move_spaceships(mtd_i, mtd_margin) //initialise mtd_margin as 0 in app module
+    move_spaceships(mtd_i,mtd_margin) //initialise mtd_margin as 0 in app module
     {
-        /*let i = 0;
+        let i = 0;
         
-        for(i=0; i<this.spaceships.length; i++)
-        {*/
-        this.spaceships[mtd_i].style.marginTop = mtd_margin[mtd_i] + "vh";  
+        //for(i=0; i<this.spaceships.length; i++)
+        //{
+            this.spaceships[mtd_i].style.marginTop = mtd_margin + "vh";  
         //}
     }, //RETURN LATER TO CONVERT THESE TO % OR VH UNITS !!!
 
     reset_spaceships(e)
     {
         let i = 0;
+        
+        if(e === null)
+        {
+            for(i=0; i<this.spaceships.length; i++)
+            {
+                this.spaceships[i].style.marginTop = `${0}vh`;      
+            }   
+        };
 
         for(i=0; i < this.spaceships.length; i++)
         {
-            if(e == "")
-            {
-                this.spaceships[i].style.marginTop = 0;
-            } 
-            
+            //this.spaceships[i].style.marginTop += 10 + "vh"; 
             this.spaceships[i].style.animationName = "spaceship, shake_2";
             this.spaceships[i].style.animationDuration = "1s, 4s";
             this.spaceships[i].style.animationDelay = "0s, 2.5s";
@@ -143,8 +147,8 @@ const Gameplay_UI =
 
     move_gun(mtd_margin) //to be used with keyboard events
     {
-        this.gun.style.marginLeft = mtd_margin + "%";
-        this.gun_projectile.style.marginLeft = mtd_margin + "%";
+        this.gun.style.marginLeft = mtd_margin + "vw";
+        this.gun_projectile.style.marginLeft = mtd_margin + "vw";
     },
 
     reset_gun()
@@ -202,12 +206,12 @@ const Gameplay_UI =
     {
         this.level_disp = this.gamescreen_sides[0].children[1].children[2].children[1]
 
-        if(Game_Rules.level_1 == true)
+        if(Game_Rules.level_1 === true)
         {
             this.level_disp.innerHTML = "1 of 2";
         }
 
-        else if(Game_Rules.level_2 == true)
+        else if(Game_Rules.level_2 === true)
         {
             this.level_disp.innerHTML = "2 of 2";
         }    
@@ -217,12 +221,12 @@ const Gameplay_UI =
     {
         this.difficulty_disp = this.gamescreen_sides[0].children[1].children[3].children[1];
 
-        if(Game_Rules.easy_mode == true)
+        if(Game_Rules.easy_mode === true)
         {
             this.difficulty_disp.innerHTML = "Easy";      
         }
 
-        else if(Game_Rules.hard_mode == true)
+        else if(Game_Rules.hard_mode === true)
         {
             this.difficulty_disp.innerHTML = "Hard"; 
         }
@@ -243,12 +247,12 @@ const Gameplay_UI =
         current_score_disp : Gameplay_UI.gamescreen_sides[1].children[1].children[0].children[5],
         highest_score_disp : Gameplay_UI.gamescreen_sides[1].children[1].children[0].children[6],*/
 
-        if(mtd_countdown_interval == mtd_countdown_initial)
+        if(mtd_countdown_interval === mtd_countdown_initial)
         {
             this.timer_disp.innerHTML = mtd_countdown_initial;    
         }
     
-        else if(Game_Rules.loaded == true)
+        else if(Game_Rules.loaded === true)
         { 
             this.timer_disp.innerHTML = mtd_countdown_interval;
 
@@ -308,22 +312,22 @@ const Gameplay_UI =
         //this.level_disp_gamescreen.setAttribute("id","level_display");
         this.gamescreen.appendChild(this.level_disp_gamescreen);
 
-        if(Game_Rules.level_1 == true && e == undefined)
+        if(Game_Rules.level_1 === true && e !== null)
         {
             this.level_disp_gamescreen.innerHTML = "Level 1 Start!!!"
         }
 
-        else if(Game_Rules.level_1 == true && e == "")
+        else if(Game_Rules.level_1 === true && e === null)
         {
             this.level_disp_gamescreen.innerHTML = "Level 1 Complete!!!"   
         }
 
-        else if(Game_Rules.level_2 == true && e == undefined)
+        else if(Game_Rules.level_2 == true && e !== null)
         {
             this.level_disp_gamescreen.innerHTML = "Level 2 Start!!!"
         }
 
-        else if(Game_Rules.level_2 == true && e == "")
+        else if(Game_Rules.level_2 == true && e === null)
         {
             this.level_disp_gamescreen.innerHTML = "Level 2 Complete!!!"   
         };

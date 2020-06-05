@@ -23,7 +23,7 @@ class Sum_Question extends Question
 
         this.check_repeat_incorrect_val(num);
 
-        while(num == this.correct_ans.val || this.check_repeat_incorrect_val(num) == true || this.correct_ans.val <= this.incorrect_ans[mtd_i].first_num || num < this.min_incorrect_ans || num > this.max_incorrect_ans)
+        while(num === this.correct_ans.val || this.check_repeat_incorrect_val(num) === true || this.correct_ans.val <= this.incorrect_ans[mtd_i].first_num || num < this.min_incorrect_ans || num > this.max_incorrect_ans)
         {
             this.incorrect_ans[mtd_i].first_num = this.get_rand_first_num();
             this.incorrect_ans[mtd_i].second_num = this.get_rand_second_num();
@@ -40,7 +40,7 @@ class Sum_Question extends Question
         let i = 0;
         //this.populate_correct_ans();
                 
-        if(Game_Rules.easy_mode == true)
+        if(Game_Rules.easy_mode === true)
         {   
             if(this.correct_ans.val > 5 && this.correct_ans.val < 31)
             {
@@ -66,7 +66,7 @@ class Sum_Question extends Question
             }       
         }
                 
-        else if(Game_Rules.hard_mode == true)
+        else if(Game_Rules.hard_mode === true)
         {
             if(this.correct_ans.val > 5 && this.correct_ans.val < 31) //IMPORTANT - this prevents crashing if sum values are too low or too high
             {

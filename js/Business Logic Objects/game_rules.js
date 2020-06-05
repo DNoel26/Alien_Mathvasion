@@ -1,3 +1,4 @@
+import Gameplay_UI from "../UI Logic Objects/gameplayUI.js";
 
 const Game_Rules = 
 {
@@ -15,6 +16,8 @@ const Game_Rules =
     combo_multiplier : 1.5,
     score_incr : 0,
     score_decr : 0, 
+    ship_margin_incr : [0,0,0,0,0],
+    rand_sel : undefined,
 
     set_game_loaded()
     {
@@ -23,17 +26,17 @@ const Game_Rules =
 
     set_level()
     {
-        if(this.level_1 == false && this.level_2 == false)
+        if(this.level_1 === false && this.level_2 === false)
         {
             return this.level_1 = true;
         }
 
-        else if(this.level_1 == true)
+        else if(this.level_1 === true)
         {
             return this.level_2 = false;
         }
 
-        else if(this.level_2 == true)
+        else if(this.level_2 === true)
         {
             return this.level_1 = false;
         }
@@ -53,6 +56,70 @@ const Game_Rules =
         this.easy_mode = false;
         this.score_incr = 20;
         this.score_decr = 20;
+    },
+
+    set_ext_randomizer()
+    {
+        return this.rand_sel = Math.floor(Math.random()*1);
+    },
+
+    set_int_randomizer(min, max)
+    {
+        return Math.random() * (max - min) + min;
+    },
+
+    increase_ship_margin()
+    {
+        for(let i = 0; i < Gameplay_UI.spaceships.length; i++)
+        {
+            this.ship_margin_incr[i] += 0.05;   
+        }
+        
+        /*if(this.rand_sel === 0)
+        {
+            this.ship_margin_incr[0] += 0.040;
+            this.ship_margin_incr[1] += 0.050;
+            this.ship_margin_incr[2] += 0.060;
+            this.ship_margin_incr[3] += 0.050;
+            this.ship_margin_incr[4] += 0.040;
+        }
+
+        else if(this.rand_sel === 1)
+        {
+            this.ship_margin_incr[0] += this.set_int_randomizer(0.025,0.030);
+            this.ship_margin_incr[1] += this.set_int_randomizer(0.015,0.020);
+            this.ship_margin_incr[2] += this.set_int_randomizer(0.020,0.025);
+            this.ship_margin_incr[3] += this.set_int_randomizer(0.015,0.020);
+            this.ship_margin_incr[4] += this.set_int_randomizer(0.025,0.030);
+        }
+
+        else if(this.rand_sel === 2)
+        {
+            this.ship_margin_incr[0] += this.set_int_randomizer(0.020,0.025);
+            this.ship_margin_incr[1] += this.set_int_randomizer(0.025,0.030);
+            this.ship_margin_incr[2] += this.set_int_randomizer(0.015,0.020);
+            this.ship_margin_incr[3] += this.set_int_randomizer(0.025,0.030);
+            this.ship_margin_incr[4] += this.set_int_randomizer(0.020,0.025);
+        }    
+
+        else if(this.rand_sel === 3)
+        {
+            this.ship_margin_incr[0] += this.set_int_randomizer(0.015,0.030);
+            this.ship_margin_incr[1] += this.set_int_randomizer(0.015,0.030);
+            this.ship_margin_incr[2] += this.set_int_randomizer(0.015,0.030);
+            this.ship_margin_incr[3] += this.set_int_randomizer(0.015,0.030);
+            this.ship_margin_incr[4] += this.set_int_randomizer(0.015,0.030);
+        }*/
+    },
+
+    reset_ship_margin_incr()
+    {
+        let i = 0;
+
+        for(i = 0; i < Gameplay_UI.spaceships.length; i++)
+        {
+            this.ship_margin_incr[i] = 0;   
+        }     
     },
 
     /*track_hit()
