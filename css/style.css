@@ -30,14 +30,14 @@
 @keyframes spaceship_numbers
 {
     0% {font-size: 1rem;}
-    50% {font-size: 1.5rem;}
+    50% {font-size: 1.25rem;}
     100% {font-size: 1rem;}
 }
 
 @keyframes gunner_number
 {
     0% {font-size: 1rem;}
-    50% {font-size: 1.5rem;}
+    50% {font-size: 1.25rem;}
     100% {font-size: 1rem;}
 }
 
