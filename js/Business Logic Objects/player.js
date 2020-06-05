@@ -37,7 +37,7 @@ class Player
             return this.difficulty_completed = "Easy";  
         }
 
-        else if(Game_Rules.hard_mode == true)
+        else if(Game_Rules.hard_mode === true)
         {
             return this.difficulty_completed = "Hard";  
         }
@@ -50,7 +50,7 @@ class Player
             return this.hit_count[0]++;    
         }
 
-        else if(Game_Rules.level_2 == true)
+        else if(Game_Rules.level_2 === true)
         {
             return this.hit_count[1]++;
         }   
@@ -63,7 +63,7 @@ class Player
             return this.miss_count[0]++;    
         }
 
-        else if(Game_Rules.level_2 == true)
+        else if(Game_Rules.level_2 === true)
         {
             return this.miss_count[1]++;
         }

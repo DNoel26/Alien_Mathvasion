@@ -114,6 +114,8 @@ const Gameplay_UI =
             this.spaceships[i].style.animationIterationCount = "1, infinite";
             this.spaceships[i].style.backgroundImage = 'url("../img/spaceship_art_2.png")';
             this.spaceships[i].children[0].style.visibility = "visible";
+            
+            
             /*this.spaceships[i].style.animationName = "spaceship";
             this.spaceships[i].style.animationDuration = "1s";
             this.spaceships[i].style.animationIterationCount = "1";*/
