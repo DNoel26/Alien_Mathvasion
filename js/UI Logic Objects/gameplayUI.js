@@ -27,23 +27,21 @@ const Gameplay_UI =
     current_score_disp : undefined,
     highest_score_disp : undefined,
 
-    //rand_diff_block : document.createElement("h3")
-
     display_spaceship_num(mtd_i, mtd_ship_color, mtd_ans_obj) //this is called within populate_spaceship method
     {
-        const rand_sum_display = document.createElement("h3");
+        const rand_num_display = document.createElement("h3");
         this.spaceships[mtd_i].style.backgroundColor = mtd_ship_color; //only for testing, comment out here and in argument otherwise 
         if(Game_Rules.level_1 === true)
         {
-            rand_sum_display.innerHTML = `${mtd_ans_obj.first_num}+${mtd_ans_obj.second_num}`;
+            rand_num_display.innerHTML = `${mtd_ans_obj.first_num}+${mtd_ans_obj.second_num}`;
         }
 
         else if(Game_Rules.level_2 === true)
         {
-            rand_sum_display.innerHTML = `${mtd_ans_obj.first_num}-${mtd_ans_obj.second_num}`;
+            rand_num_display.innerHTML = `${mtd_ans_obj.first_num}-${mtd_ans_obj.second_num}`;
         }
 
-        this.spaceships[mtd_i].appendChild(rand_sum_display);   
+        this.spaceships[mtd_i].appendChild(rand_num_display);   
     },
 
     populate_spaceship(mtd_ques) //must call populate correct and incorrect answers (Sum and Diff) before this method

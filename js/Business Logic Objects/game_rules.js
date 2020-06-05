@@ -17,7 +17,7 @@ const Game_Rules =
     score_incr : 0,
     score_decr : 0, 
     ship_margin_incr : [0,0,0,0,0],
-    rand_sel : undefined,
+    rand_sel : 1,
 
     set_game_loaded()
     {
@@ -60,7 +60,7 @@ const Game_Rules =
 
     set_ext_randomizer()
     {
-        return this.rand_sel = Math.floor(Math.random()*1);
+        return this.rand_sel = Math.floor(Math.random()*4);
     },
 
     set_int_randomizer(min, max)
@@ -70,12 +70,12 @@ const Game_Rules =
 
     increase_ship_margin()
     {
-        for(let i = 0; i < Gameplay_UI.spaceships.length; i++)
+        /*for(let i = 0; i < Gameplay_UI.spaceships.length; i++)
         {
             this.ship_margin_incr[i] += 0.05;   
-        }
+        }*/
         
-        /*if(this.rand_sel === 0)
+        if(this.rand_sel === 0)
         {
             this.ship_margin_incr[0] += 0.040;
             this.ship_margin_incr[1] += 0.050;
@@ -109,7 +109,7 @@ const Game_Rules =
             this.ship_margin_incr[2] += this.set_int_randomizer(0.015,0.030);
             this.ship_margin_incr[3] += this.set_int_randomizer(0.015,0.030);
             this.ship_margin_incr[4] += this.set_int_randomizer(0.015,0.030);
-        }*/
+        }
     },
 
     reset_ship_margin_incr()
