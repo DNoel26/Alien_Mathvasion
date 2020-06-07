@@ -101,6 +101,11 @@ const Main_Game =
             Bg_Music_3.audio_control.loop = true;
             Bg_Music_3.audio_control.volume = bg_vol_ctrl;
 
+            const Alien_theme = new Sound("../media/alien_spaceship_start_theme.mp3","bg_audio_theme");
+            Alien_theme.add_sound();
+            Alien_theme.audio_control.loop = true;
+            Alien_theme.audio_control.volume = 0.1;
+
             const Fire_Projectile_Sound = new Sound("../media/fire_projectile_trim.mp3","fire_projectile_sound");
             Fire_Projectile_Sound.add_sound();
 
@@ -824,7 +829,7 @@ const Main_Game =
             // ---------- INITIALIZE CLASSES ABOVE HERE ---------- //
 
             // ---------- START LEVEL 1 BELOW ---------- //
-            
+
             Gameplay_UI.difficulty_button_settings();
 
             //Game_Rules.set_easy_mode();
@@ -924,14 +929,14 @@ const Main_Game =
 
             return new Promise(function(resolve){
 
+                Alien_theme.play_music()
+
                 start_game_timeout = setTimeout(resolve,5000); //This function waits for the user to select a difficulty     
             })
             .then(function(){
 
                 if(user_difficulty_selected.some(function(val){return val === true}))
                 {
-                    //alert("Difficulty selected");
-                
                     Player_1.set_difficulty();
                 }
                 
