@@ -15,7 +15,7 @@ console.log("Game_App Linked");
 const Main_Game =
 {
     game_init()
-    {
+    {      
         document.addEventListener("mouseover",function(event){ //Prevents pausing to cheat together with below
  
             let hide_numbers = event.target;
@@ -101,11 +101,10 @@ const Main_Game =
 
             document.addEventListener("visibilitychange",function(){
 
-                if(document.hidden)
+                if(document.hidden === true)
                 {
-                    Alien_theme.pause_music();    
-                }
-                
+                    Alien_theme.pause_music();
+                }      
             })
             
             // -------------------- DOCUMENT EVENT LISTENERS ABOVE HERE ------------------- //
@@ -132,8 +131,8 @@ const Main_Game =
 
             const Alien_theme = new Sound("../media/alien_spaceship_start_theme.mp3","bg_audio_theme");
             Alien_theme.add_sound();
-            Alien_theme.audio_control.loop = true;
-            Alien_theme.audio_control.volume = 0.08;
+            Alien_theme.audio_control.loop = false;
+            Alien_theme.audio_control.volume = 0.005;
 
             const Fire_Projectile_Sound = new Sound("../media/fire_projectile_trim.mp3","fire_projectile_sound");
             Fire_Projectile_Sound.add_sound();
@@ -221,8 +220,9 @@ const Main_Game =
                     //Gameplay_UI.restart_all_game_animations();
                     Gameplay_UI.remove_level_popup();
 
-                    rand_bg_music_sel(); //---------- AUDIO--- RUNS MAIN BACKGROUND AUDIO
-                    
+                    //rand_bg_music_sel(); //---------- AUDIO--- RUNS MAIN BACKGROUND AUDIO
+                    bg_music_resume(music_sel);
+
                     start_diff_population();
                     
                     setTimeout(function(){
@@ -409,26 +409,46 @@ const Main_Game =
 
             function rand_bg_music_sel()
             {
-                let sel = Math.floor(Math.random()*3 + 1);
+                music_sel = Math.floor(Math.random()*3 + 1);
 
-                if(sel === 1)
+                if(music_sel === 1)
                 {
                     Bg_Music.play_music(); //----------AUDIO---
                     Bg_Music.audio_control.style.display = "initial"
                 }
 
-                else if(sel === 2)
+                else if(music_sel === 2)
                 {
                     Bg_Music_2.play_music(); //----------AUDIO---
                     Bg_Music_2.audio_control.style.display = "initial" 
                 }
 
-                else if(sel === 3)
+                else if(music_sel === 3)
                 {
                     Bg_Music_3.play_music(); //----------AUDIO---
                     Bg_Music_3.audio_control.style.display = "initial" 
                 }
+
+                return music_sel
             };
+
+            function bg_music_resume(fn_music_sel)
+            {
+                if(fn_music_sel === 1)
+                {
+                    Bg_Music.play_music();
+                }
+                
+                else if(fn_music_sel === 2)
+                {
+                    Bg_Music_2.play_music();
+                }
+                
+                else if(fn_music_sel === 3)
+                {
+                    Bg_Music_3.play_music();    
+                }               
+            }
 
             function bg_music_pause()
             {
@@ -529,17 +549,20 @@ const Main_Game =
                             clearInterval(timer_interval_id);
                             clearInterval(projectile_interval_id);
                         
-                            Gameplay_UI.gamescreen.children[5].style.visibility = "hidden";
+                            Gameplay_UI.gamescreen.children[5].children[1].children[0].style.visibility = "hidden"; //The gun disappears when game is lost
+                            Gameplay_UI.gamescreen.children[5].children[0].style.visibility = "hidden"; //The projectile below the gun disappears as well
+                            Gameplay_UI.gamescreen.children[5].children[1].style.backgroundImage = 'url("../img/spaceship-explosion-gif-edited-unscreen.gif")';
                             
                             fire_rate_stop();
 
                             for(let i=0; i < Gameplay_UI.spaceships.length; i++)
                             {
-                                Gameplay_UI.gamescreen.children[i].children[0].style.visibility = "hidden";
+                                Gameplay_UI.gamescreen.children[i].children[0].style.visibility = "hidden"; //Makes the UFO numbers disappear
                                 Gameplay_UI.gamescreen.children[i].style.cursor = "initial";
                             }
 
                             Gameplay_UI.gamescreen.style.backgroundImage = 'url("../img/game_over_explosion_gif.gif")';
+                            
 
                             bg_music_pause(); //----------AUDIO---
 
@@ -853,6 +876,7 @@ const Main_Game =
             let explode;
             let user_difficulty_selected = [false,false,false,false,false];
             let game_speed;
+            let music_sel;
 
             // ---------- INITIALIZE CLASSES BELOW HERE ---------- //
                         

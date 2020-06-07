@@ -3,6 +3,8 @@ import Game_Rules from "./game_rules.js"
 
 const Speed_Controller = //to be used in Set Intervals timer arg
 {
+    endless_speed : (Math.random()*10 + 60),
+    
     spaceship_speed_ctrl(mtd_speed)
     {
         if(Game_Rules.hard_mode === true && mtd_speed === null)
@@ -13,6 +15,16 @@ const Speed_Controller = //to be used in Set Intervals timer arg
         else if(Game_Rules.easy_mode === true && mtd_speed === null)
         {
             return (Math.random()*10 + 60)//(Math.random()*5 + 10)*100 //default value is (Math.random()*5 + 10)*3 in ms      
+        }
+
+        else if(Game_Rules.endless_mode === true && mtd_speed === null)
+        {
+            if(Game_Rules.hit === true)
+            {
+                hit = false;
+                
+                return this.endless_speed = this.endless_speed * 0.98;   
+            } 
         }
         
         else
