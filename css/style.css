@@ -413,6 +413,14 @@ audio
     z-index: 50;
 }
 
+#starting_game_popup
+{
+    top: 35vh;
+    animation-name: none;
+    display: initial;
+    font-size: 1.2rem;
+}
+
 .yellow_text, .YELLOW_TEXT /*UPPERCASE colour classes are for difficulty buttons aka buttons_2 class*/
 {
     color: yellow

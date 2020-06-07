@@ -13,6 +13,7 @@ const Gameplay_UI =
     restart_button : document.querySelector("#restart_button"),
     end_button : document.querySelector("#end_button"),
     save_button : document.querySelector("#save_button"),
+    starting_game_popup : document.querySelector("#starting_game_popup"),
     difficulty_options : [],
     //prodigy_difficulty_button : document.querySelector(".RED_TEXT"),
     //save_exit_report_button : document.querySelector("#save_exit_report_button"),
@@ -29,9 +30,8 @@ const Gameplay_UI =
     combo_disp : undefined,
     current_score_disp : undefined,
     highest_score_disp : undefined,
-    difficulty_buttons : "",
-    starting_game_popup : "",
-    combo_bonus_popup : "",
+    difficulty_buttons : undefined,
+    combo_bonus_popup : undefined,
 
     hide_numbers()
     {
@@ -594,12 +594,7 @@ const Gameplay_UI =
 
     display_start_game_popup()
     {
-        this.starting_game_popup = document.createElement("h1");
-        this.starting_game_popup.setAttribute("class","game_popups");
-        this.gamescreen.appendChild(this.starting_game_popup);
-        
-        this.starting_game_popup.innerHTML = `Difficulty Selected! <br><br><br> Starting Game...`; 
-        
+      
         /*this.starting_game_popup.style.position = "absolute";
         this.starting_game_popup.style.maxWidth = 50 + "%";
         this.starting_game_popup.style.marginLeft = "auto";
@@ -607,6 +602,7 @@ const Gameplay_UI =
         this.starting_game_popup.style.left = 0;
         this.starting_game_popup.style.right = 0;
         this.starting_game_popup.style.textAlign = "center";*/
+        this.starting_game_popup.style.display = "initial"
         this.starting_game_popup.style.animationName = "none"
         this.starting_game_popup.style.top = 35 + "vh";
         /*this.starting_game_popup.style.color = "gold";

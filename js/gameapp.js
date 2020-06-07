@@ -898,6 +898,7 @@ const Main_Game =
 
             let game_tab_off = false;
             Gameplay_UI.difficulty_button_settings();
+            Gameplay_UI.remove_start_game_popup();
 
             //Game_Rules.set_easy_mode();
             //Game_Rules.set_hard_mode();
@@ -1066,6 +1067,8 @@ const Main_Game =
                     if(user_difficulty_selected.some(function(val){return val === true}))
                     {
                         setTimeout(resolve,0)
+
+                        Gameplay_UI.display_start_game_popup();
                     }
 
                     else
@@ -1091,11 +1094,7 @@ const Main_Game =
 
                 Alien_theme.pause_music();
                 Gameplay_UI.remove_difficulty_button_settings();
-
-                for(let click_index = 0; click_index < 200; click_index++) //REMOVES ALL POTENTIAL DISPLAYS IF MULTIPLE CLICKS ARE PRESSED
-                {
-                    Gameplay_UI.remove_start_game_popup();
-                }
+                Gameplay_UI.remove_start_game_popup();
 
                 load_level_1() //GAME START HERE  
             }) 
