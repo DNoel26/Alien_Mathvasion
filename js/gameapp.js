@@ -373,7 +373,7 @@ const Main_Game =
 
             function rand_bg_music_sel()
             {
-                let sel = Math.floor(Math.random()*2 + 1);
+                let sel = Math.floor(Math.random()*3 + 1);
 
                 if(sel === 1)
                 {

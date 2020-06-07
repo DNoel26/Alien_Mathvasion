@@ -58,12 +58,12 @@ const Game_Rules =
         this.score_decr = 20;
     },
 
-    set_ext_randomizer()
+    set_ext_randomizer() //Controls the possible UFO formations 
     {
         return this.rand_sel = Math.floor(Math.random()*6);
     },
 
-    set_int_randomizer(min, max)
+    set_int_randomizer(min, max) //Obsolete method
     {
         return Math.random() * (max - min) + min;
     },
