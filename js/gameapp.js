@@ -948,6 +948,7 @@ const Main_Game =
             })
             .then(function(){
 
+                Alien_theme.pause_music();
                 Gameplay_UI.remove_difficulty_button_settings();
                 load_level_1()
             }) //GAME START HERE
