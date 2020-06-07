@@ -60,7 +60,7 @@ const Game_Rules =
 
     set_ext_randomizer()
     {
-        return this.rand_sel = Math.floor(Math.random()*4);
+        return this.rand_sel = Math.floor(Math.random()*6);
     },
 
     set_int_randomizer(min, max)
@@ -109,6 +109,24 @@ const Game_Rules =
             this.ship_margin_incr[2] += 0.075;
             this.ship_margin_incr[3] += 0.075;
             this.ship_margin_incr[4] += 0.075;
+        }
+
+        else if(this.rand_sel === 4)
+        {
+            this.ship_margin_incr[0] += 0.040;
+            this.ship_margin_incr[1] += 0.045;
+            this.ship_margin_incr[2] += 0.050;
+            this.ship_margin_incr[3] += 0.055;
+            this.ship_margin_incr[4] += 0.060;
+        }
+
+        else if(this.rand_sel === 5)
+        {
+            this.ship_margin_incr[0] += 0.060;
+            this.ship_margin_incr[1] += 0.055;
+            this.ship_margin_incr[2] += 0.050;
+            this.ship_margin_incr[3] += 0.045;
+            this.ship_margin_incr[4] += 0.040;
         }
     },
 

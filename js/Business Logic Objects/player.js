@@ -1,4 +1,5 @@
 import Game_Rules from "./game_rules.js";
+import Gameplay_UI from "../UI Logic Objects/gameplayUI.js";
 
 class Player
 {
@@ -17,6 +18,8 @@ class Player
     high_score = 0;
     difficulty_completed;
     report = {};
+    win = false;
+    lose = false;
 
     constructor(fn,ln,pt)
     {
@@ -32,7 +35,8 @@ class Player
 
     set_difficulty()
     {
-        if(Game_Rules.easy_mode === true)
+        this.difficulty_completed = Gameplay_UI.difficulty_disp.innerHTML;
+        /*if(Game_Rules.easy_mode === true)
         {           
             return this.difficulty_completed = "Easy";  
         }
@@ -40,7 +44,7 @@ class Player
         else if(Game_Rules.hard_mode === true)
         {
             return this.difficulty_completed = "Hard";  
-        }
+        }*/
     };
 
     get_hit_count()

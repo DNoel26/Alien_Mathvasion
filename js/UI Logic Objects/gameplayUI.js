@@ -12,11 +12,13 @@ const Gameplay_UI =
     restart_button : document.querySelector("#restart_button"),
     end_button : document.querySelector("#end_button"),
     save_button : document.querySelector("#save_button"),
+    difficulty_options : [],
+    //prodigy_difficulty_button : document.querySelector(".RED_TEXT"),
     //save_exit_report_button : document.querySelector("#save_exit_report_button"),
     player_name_disp : undefined,
     player_tag_disp : undefined,
     level_disp : undefined,
-    level_disp_gamescreen : undefined,
+    level_disp_popup : undefined,
     report_disp_gamescreen : undefined,
     report_disp_data : [],
     difficulty_disp : undefined,
@@ -26,6 +28,8 @@ const Gameplay_UI =
     combo_disp : undefined,
     current_score_disp : undefined,
     highest_score_disp : undefined,
+    //difficulty_display : "",
+    difficulty_buttons : "",
 
     display_spaceship_num(mtd_i, mtd_ship_color, mtd_ans_obj, ) //this is called within populate_spaceship method
     {
@@ -230,19 +234,35 @@ const Gameplay_UI =
         }    
     },
 
-    difficulty_display()
+    difficulty_display(mtd_diff_sel)
     {
         this.difficulty_disp = this.gamescreen_sides[0].children[1].children[3].children[1];
 
-        if(Game_Rules.easy_mode === true)
+        let difficulty_class = [".RED_TEXT",".ORANGE_TEXT",".BLUE_TEXT",".GREEN_TEXT",".YELLOW_TEXT"];
+
+        let i = 0;
+
+        for(i=0; i<difficulty_class.length; i++)
         {
-            this.difficulty_disp.innerHTML = "Easy";      
+            this.difficulty_options[i] = document.querySelector(difficulty_class[i]).innerHTML;
         }
 
-        else if(Game_Rules.hard_mode === true)
+        this.difficulty_disp.innerHTML = this.difficulty_options[mtd_diff_sel]; //E.g. mtd_diff_sel = 0 will be "Prodigy difficulty"
+
+        if(this.difficulty_options[mtd_diff_sel] == undefined)
         {
-            this.difficulty_disp.innerHTML = "Hard"; 
+            this.difficulty_disp.innerHTML = "Not Selected";   
         }
+
+        /*if(Game_Rules.easy_mode === true && Game_Rules.hard_mode === false)
+        {
+            this.difficulty_disp.innerHTML = "TEST";      
+        }
+
+        else if(Game_Rules.hard_mode === true && Game_Rules.easy_mode === false)
+        {
+            this.difficulty_disp.innerHTML = "TEST2"; 
+        }*/
     },
 
     timer_display(mtd_countdown_interval, mtd_countdown_initial)
@@ -320,51 +340,51 @@ const Gameplay_UI =
 
     display_level_popup(e)
     {
-        this.level_disp_gamescreen = document.createElement("h1");
-        this.level_disp_gamescreen.setAttribute("class","level_popup")
+        this.level_disp_popup = document.createElement("h1");
+        this.level_disp_popup.setAttribute("class","level_popup");
         //this.level_disp_gamescreen.setAttribute("id","level_display");
-        this.gamescreen.appendChild(this.level_disp_gamescreen);
+        this.gamescreen.appendChild(this.level_disp_popup);
 
         if(Game_Rules.level_1 === true && e !== null)
         {
-            this.level_disp_gamescreen.innerHTML = "Level 1 Start!!!"
+            this.level_disp_popup.innerHTML = "Level 1 Start!!!"
         }
 
         else if(Game_Rules.level_1 === true && e === null)
         {
-            this.level_disp_gamescreen.innerHTML = "Level 1 Complete!!!"   
+            this.level_disp_popup.innerHTML = "Level 1 Complete!!!"   
         }
 
         else if(Game_Rules.level_2 == true && e !== null)
         {
-            this.level_disp_gamescreen.innerHTML = "Level 2 Start!!!"
+            this.level_disp_popup.innerHTML = "Level 2 Start!!!"
         }
 
         else if(Game_Rules.level_2 == true && e === null)
         {
-            this.level_disp_gamescreen.innerHTML = "Level 2 Complete!!!"   
+            this.level_disp_popup.innerHTML = "Level 2 Complete!!!"   
         };
         
-        this.level_disp_gamescreen.style.position = "absolute";
-        this.level_disp_gamescreen.style.maxWidth = 50 + "%";
-        this.level_disp_gamescreen.style.marginLeft = "auto";
-        this.level_disp_gamescreen.style.marginRight = "auto";
-        this.level_disp_gamescreen.style.left = 0;
-        this.level_disp_gamescreen.style.right = 0;
-        this.level_disp_gamescreen.style.textAlign = "center";
-        this.level_disp_gamescreen.style.top = 24 + "vh";
-        this.level_disp_gamescreen.style.color = "gold";
-        this.level_disp_gamescreen.style.fontSize = 1.6 + "rem";
-        this.level_disp_gamescreen.style.animationName = "popup";
-        this.level_disp_gamescreen.style.animationIterationCount = "infinite";
-        this.level_disp_gamescreen.style.animationDuration = 0.75 + "s";
-        this.level_disp_gamescreen.style.userSelect = "none";
-        this.level_disp_gamescreen.style.zIndex = 50;
+        this.level_disp_popup.style.position = "absolute";
+        this.level_disp_popup.style.maxWidth = 50 + "%";
+        this.level_disp_popup.style.marginLeft = "auto";
+        this.level_disp_popup.style.marginRight = "auto";
+        this.level_disp_popup.style.left = 0;
+        this.level_disp_popup.style.right = 0;
+        this.level_disp_popup.style.textAlign = "center";
+        this.level_disp_popup.style.top = 24 + "vh";
+        this.level_disp_popup.style.color = "gold";
+        this.level_disp_popup.style.fontSize = 1.6 + "rem";
+        this.level_disp_popup.style.animationName = "popup";
+        this.level_disp_popup.style.animationIterationCount = "infinite";
+        this.level_disp_popup.style.animationDuration = 0.75 + "s";
+        this.level_disp_popup.style.userSelect = "none";
+        this.level_disp_popup.style.zIndex = 50;
     },
 
     remove_level_popup()
     {
-        this.gamescreen.removeChild(this.level_disp_gamescreen);
+        this.gamescreen.removeChild(this.level_disp_popup);
         //this.level_disp_gamescreen.style.display = "none";
     },
 
@@ -405,7 +425,7 @@ const Gameplay_UI =
         {
             this.report_disp_data[i] = document.createElement("h3");
             this.gamescreen.appendChild(this.report_disp_data[i]);
-            this.report_disp_data[i].style.color = "gold";  
+            this.report_disp_data[i].style.color = "white";  
             this.report_disp_data[i].style.justifySelf = "center"; 
             this.report_disp_data[i].style.userSelect = "none"; 
             this.report_disp_data[i].style.zIndex = 12;
@@ -413,15 +433,15 @@ const Gameplay_UI =
             this.report_disp_data[i].style.animationDuration = "6s";
         }
   
-        this.report_disp_data[0].innerHTML = mtd_msg_disp;
-        this.report_disp_data[1].innerHTML = `Player Name: ${mtd_name}`;
-        this.report_disp_data[2].innerHTML = `Player Tag: ${mtd_tag}`;
-        this.report_disp_data[3].innerHTML = `Difficulty Completed: ${mtd_difficulty}`;
-        this.report_disp_data[4].innerHTML = `Hits: ${mtd_lvl_1_hits} (Level 1) + ${mtd_lvl_2_hits} (Level 2) = ${mtd_lvl_1_hits + mtd_lvl_2_hits} (Total)`;
-        this.report_disp_data[5].innerHTML = `Misses: ${mtd_lvl_1_misses} (Level 1) + ${mtd_lvl_2_misses} (Level 2) = ${mtd_lvl_1_misses + mtd_lvl_2_misses} (Total)`;
-        this.report_disp_data[6].innerHTML = `Most Consecutive Hits: ${mtd_combo}`;
-        this.report_disp_data[7].innerHTML = `Highest Score Achieved This Game: ${mtd_hi_score}`;
-        this.report_disp_data[8].innerHTML = `Final Score: ${mtd_score}`;
+        this.report_disp_data[0].innerHTML = `<span class="yellow_text">${mtd_msg_disp}</span>`;
+        this.report_disp_data[1].innerHTML = `Player Name: <span class="yellow_text">${mtd_name}</span>`;
+        this.report_disp_data[2].innerHTML = `Player Tag: <span class="yellow_text">${mtd_tag}</span>`;
+        this.report_disp_data[3].innerHTML = `Difficulty Selected: <span class="yellow_text">${mtd_difficulty}</span>`;
+        this.report_disp_data[4].innerHTML = `Hits: <span class="yellow_text">${mtd_lvl_1_hits}</span> (Level 1) + <span class="yellow_text">${mtd_lvl_2_hits}</span> (Level 2) = <span class="yellow_text">${mtd_lvl_1_hits + mtd_lvl_2_hits}</span> (Total)`;
+        this.report_disp_data[5].innerHTML = `Misses: <span class="yellow_text">${mtd_lvl_1_misses}</span> (Level 1) + <span class="yellow_text">${mtd_lvl_2_misses}</span> (Level 2) = <span class="yellow_text">${mtd_lvl_1_misses + mtd_lvl_2_misses}</span> (Total)`;
+        this.report_disp_data[6].innerHTML = `Most Consecutive Hits: <span class="yellow_text">${mtd_combo}</span>`;
+        this.report_disp_data[7].innerHTML = `Highest Score Achieved This Game: <span class="yellow_text">${mtd_hi_score}</span>`;
+        this.report_disp_data[8].innerHTML = `Final Score: <span class="yellow_text">${mtd_score}</span>`;
         
         this.report_disp_data[9] = document.createElement("button");
         this.report_disp_data[9].setAttribute("class","buttons");
@@ -468,11 +488,90 @@ const Gameplay_UI =
 
         for(i=0; i<this.spaceships.length; i++)
         {
-            this.spaceships[i].style.animation = "none";
+            this.spaceships[i].style.animationName = "none";
         }
 
-        this.gun.style.animation = "none";
+        this.gun.style.animationName = "none";
+        this.gun_projectile.animationName = "none";
     },
+
+    restart_all_game_animations()
+    {
+        let i=0;
+
+        for(i=0; i<this.spaceships.length; i++)
+        {
+            this.spaceships[i].style.animationName = "";
+        }
+
+        this.gun.style.animationName = "";
+        this.gun_projectile.animationName = "";
+    },
+
+    difficulty_button_settings()
+    {
+        let i = 0;
+        this.difficulty_buttons = [];
+        //Prodigy
+        //Math Whizz
+        //Mere Mortal
+        //Below Average
+        //Try English?
+
+        for(i-0; i<5; i++)
+        {
+            this.difficulty_buttons[i] = document.createElement("button");
+            this.difficulty_buttons[i].setAttribute("class","buttons_2");
+            this.difficulty_buttons[i].style.position = "absolute";
+            this.difficulty_buttons[i].style.width = 12 + "vw";
+            this.difficulty_buttons[i].style.height = 10 + "vh"
+            this.gamescreen.appendChild(this.difficulty_buttons[i]);
+        }
+
+        this.difficulty_buttons[0].innerHTML = "Select Difficulty<br><br><span class='red_text'>Prodigy</span>";
+        this.difficulty_buttons[0].innerHTML = this.difficulty_buttons[0].innerHTML.toUpperCase()
+        this.difficulty_buttons[0].setAttribute("id","hardest_mode_button");
+        this.difficulty_buttons[0].style.bottom = 40 + "vh";
+        this.difficulty_buttons[0].style.left = 20 + "vw";
+
+        this.difficulty_buttons[1].innerHTML = "Select Difficulty<br><br><span class='orange_text'>Math Whizz</span>";
+        this.difficulty_buttons[1].innerHTML = this.difficulty_buttons[1].innerHTML.toUpperCase()
+        this.difficulty_buttons[1].setAttribute("id","hard_mode_button");
+        this.difficulty_buttons[1].style.bottom = 40 + "vh";
+        this.difficulty_buttons[1].style.left = 32 + "vw";
+
+        this.difficulty_buttons[2].innerHTML = "Select Difficulty<br><br><span class='blue_text'>Mere Mortal</span>";
+        this.difficulty_buttons[2].innerHTML = this.difficulty_buttons[2].innerHTML.toUpperCase()
+        this.difficulty_buttons[2].setAttribute("id","normal_mode_button");
+        this.difficulty_buttons[2].style.bottom = 40 + "vh";
+        this.difficulty_buttons[2].style.left = 44 + "vw";
+
+        this.difficulty_buttons[3].innerHTML = "Select Difficulty<br><br><span class='green_text'>Below Average</span>";
+        this.difficulty_buttons[3].innerHTML = this.difficulty_buttons[3].innerHTML.toUpperCase()
+        this.difficulty_buttons[3].setAttribute("id","easy_mode_button");
+        this.difficulty_buttons[3].style.bottom = 40 + "vh";
+        this.difficulty_buttons[3].style.left = 56 + "vw";
+
+        this.difficulty_buttons[4].innerHTML = "Select Difficulty<br><br><span class='yellow_text'>Try English?</span>";
+        this.difficulty_buttons[4].innerHTML = this.difficulty_buttons[4].innerHTML.toUpperCase()
+        this.difficulty_buttons[4].setAttribute("id","easiest_mode_button");
+        this.difficulty_buttons[4].style.bottom = 40 + "vh";
+        this.difficulty_buttons[4].style.left = 68 + "vw";
+
+        this.difficulty_popup = document.createElement("h1");
+        //this.difficulty_popup =
+    },
+
+    remove_difficulty_button_settings()
+    {
+        let i = 0;
+        
+        for(i=0; i<5; i++)
+        {
+            this.gamescreen.removeChild(this.difficulty_buttons[i]);
+        }
+    },
+
     /*player_name_disp : undefined,
     player_tag_disp : undefined,
     level_disp : undefined,

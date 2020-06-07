@@ -84,7 +84,7 @@ const Main_Game =
             let game_test_speed = ""; //Default value should be set to "". Otherwise, controls spaceship movement speed for testing.
             // ---------- LOAD AUDIO BELOW HERE ---------- //
 
-            let bg_vol_ctrl = 0.3; //Controls background audio volume. Default volume set to 0.3 
+            let bg_vol_ctrl = 0.15; //Controls background audio volume. Default volume set to 0.3 
 
             const Bg_Music = new Sound("../media/Deep_Torvus_3_trim_1.mp3","bg_audio_1");
             Bg_Music.add_sound();
@@ -154,12 +154,7 @@ const Main_Game =
 
                     fire_rate_stop();
                     game_test_speed = 10000;
-
-                    setTimeout(location.href = "../index.html",10000);
-                })
-                .catch(function(){
-                   
-                    location.href = "../index.html";
+                    //location.href = "../index.html";
                 })
             };
 
@@ -167,6 +162,9 @@ const Main_Game =
             {
                 level_2_pro_obj = new Promise(function(resolve){ //Main functions for gameplay after game load complete
                     
+                    //Gameplay_UI.gamescreen.style.backgroundImage = 'url("../img/space_bg_gameplay_gif_lvl_2.gif")';
+                    
+
                     Gameplay_UI.display_level_popup()
                     Game_Rules.level_1 = false;
                     Game_Rules.level_2 = true;
@@ -181,6 +179,7 @@ const Main_Game =
                 })
                 .then(function(){
                     
+                    //Gameplay_UI.restart_all_game_animations();
                     Gameplay_UI.remove_level_popup();
 
                     rand_bg_music_sel(); //---------- AUDIO--- RUNS MAIN BACKGROUND AUDIO
@@ -207,7 +206,7 @@ const Main_Game =
                     })
                     .catch(function(){
                     
-                        location.href = "../index.html";
+                        //location.href = "../index.html";
                     })
             }
                 
@@ -294,8 +293,9 @@ const Main_Game =
                         
                         setTimeout(function(){
 
-                            Gameplay_UI.stop_all_game_animations();
+                            //Gameplay_UI.stop_all_game_animations();
                             explosion(0);
+                            explosion(300)
                             Gameplay_UI.display_level_popup(null_level_end_popup);    
                         },700)
                          
@@ -350,7 +350,7 @@ const Main_Game =
                         Player_1.get_max_combo();
 
                         Gameplay_UI.display_report_screen(
-                            "Status Report",
+                            "Congratulations! You Survived!",
                             Player_1.get_full_name(),
                             Player_1.tag,
                             Player_1.difficulty_completed,
@@ -504,9 +504,23 @@ const Main_Game =
 
                                 Game_Over_Sound.play_music();
 
-                                setTimeout(function(){
+                                level_2_end_report_start = setTimeout(function(){
 
-                                    document.location.reload()
+                                    Player_1.get_max_combo();
+            
+                                    Gameplay_UI.display_report_screen(
+                                        "Game Over. You Failed!",
+                                        Player_1.get_full_name(),
+                                        Player_1.tag,
+                                        Player_1.difficulty_completed,
+                                        Player_1.hit_count[0],
+                                        Player_1.hit_count[1],
+                                        Player_1.miss_count[0],
+                                        Player_1.miss_count[1],
+                                        Player_1.max_combo,
+                                        Player_1.high_score,
+                                        Player_1.score
+                                    );
                                 },5000)
                             })
                             .catch(function(){
@@ -515,7 +529,7 @@ const Main_Game =
                             })
                     };
                     
-                }},Speed_Controller.spaceship_speed_ctrl(null_ship_speed))
+                }},Speed_Controller.spaceship_speed_ctrl(game_speed))
             };
                 
             function set_int_projectile() //to be used in spacebar press and mouse click events
@@ -532,7 +546,7 @@ const Main_Game =
 
                 projectile_interval_id = setInterval(function(){
 
-                    projectile_margin_bottom += 7; //unit in vh
+                    projectile_margin_bottom += 2.5; //unit in vh
                     Gameplay_UI.fire_projectile(projectile_margin_bottom);
 
                     for(let hit_index = 0; hit_index < Gameplay_UI.spaceships.length; hit_index++)
@@ -607,7 +621,7 @@ const Main_Game =
 
                         if(sum_level_off_cond || diff_level_off_cond)
                         {      
-                            Gameplay_UI.stop_all_game_animations();
+                            //Gameplay_UI.stop_all_game_animations();
                             fire_rate_stop();
 
                             setTimeout(function(){
@@ -663,7 +677,7 @@ const Main_Game =
                             if(sum_level_off_cond || diff_level_off_cond)
                             {                               
                                 fire_rate_stop();
-                                Gameplay_UI.stop_all_game_animations();
+                                //Gameplay_UI.stop_all_game_animations();
                                 setTimeout(fire_rate_stop,500);
                             }     
                         })
@@ -769,7 +783,8 @@ const Main_Game =
             let timer_interval_id;
             let projectile_interval_id;
             let timeout_fire_rate_restart;
-            let timeout_set_int_spaceship
+            let timeout_set_int_spaceship;
+            let start_game_timeout;
 
             let game_index = 0; 
 
@@ -781,6 +796,8 @@ const Main_Game =
             let level_1_end_level_2_start, level_2_end_report_start;
             let level_1_pro_obj = {}, level_2_pro_obj = {};
             let explode;
+            let user_difficulty_selected = [false,false,false,false,false];
+            let game_speed;
 
             // ---------- INITIALIZE CLASSES BELOW HERE ---------- //
                         
@@ -797,23 +814,14 @@ const Main_Game =
 
             // ---------- START LEVEL 1 BELOW ---------- //
             
+            Gameplay_UI.difficulty_button_settings();
+
             //Game_Rules.set_easy_mode();
-            Game_Rules.set_hard_mode();
+            //Game_Rules.set_hard_mode();
             Game_Rules.level_1 = true; //Must be TRUE at start
             Game_Rules.level_2 = false; //Must be FALSE at start
             
             Player_1.get_full_name();
-            Player_1.set_difficulty();
-            
-            Gameplay_UI.player_name_display(Player_1.get_full_name());
-            Gameplay_UI.player_tag_display(Player_1.tag)
-            Gameplay_UI.level_display();
-            Gameplay_UI.difficulty_display();
-            Gameplay_UI.hit_display(Player_1.total_hits);
-            Gameplay_UI.miss_display(Player_1.total_misses);
-            Gameplay_UI.combo_display(Player_1.combo);
-            Gameplay_UI.current_score_display(Player_1.score);
-            Gameplay_UI.highest_score_display(Player_1.high_score);
 
             if(Game_Rules.level_1 === true)
             {
@@ -836,8 +844,98 @@ const Main_Game =
             Diff_Timer.restrict_countdown();
             Sum_Timer.restrict_elapsed();
             Diff_Timer.restrict_elapsed();
+            
+            document.addEventListener("click",function(event){
 
-            load_level_1(); //GAME START HERE
+                let difficulty_button = event.target;
+                
+                if(difficulty_button.id == "hardest_mode_button")
+                {
+                    Game_Rules.set_hard_mode();
+                    Gameplay_UI.difficulty_display(0);
+                    Player_1.difficulty_completed = Gameplay_UI.difficulty_options[0];
+                    game_speed = (Math.random()*10 + 20);
+                    console.log(Game_Rules.easy_mode, Game_Rules.hard_mode, Speed_Controller.spaceship_speed_ctrl(), " HARDEST MODE SELECTED");
+
+                    return user_difficulty_selected[0] = true;
+                }
+
+                else if(difficulty_button.id == "hard_mode_button")
+                {
+                    Game_Rules.set_hard_mode();
+                    Gameplay_UI.difficulty_display(1)
+                    game_speed = null; //Default at null set to Math.random()*10 + 40
+                    console.log(Game_Rules.easy_mode, Game_Rules.hard_mode, Speed_Controller.spaceship_speed_ctrl(), " HARD MODE SELECTED");
+
+                    return user_difficulty_selected[1] = true;
+                }
+
+                else if(difficulty_button.id == "normal_mode_button")
+                {
+                    Game_Rules.set_easy_mode();
+                    Gameplay_UI.difficulty_display(2)
+                    game_speed = null; //Default at null set to Math.random()*10 + 40
+                    console.log(Game_Rules.easy_mode, Game_Rules.hard_mode, Speed_Controller.spaceship_speed_ctrl(), " NORMAL MODE SELECTED");
+
+                    return user_difficulty_selected[2] = true;
+                }
+
+                else if(difficulty_button.id == "easy_mode_button")
+                {
+                    Game_Rules.set_easy_mode();
+                    Gameplay_UI.difficulty_display(3)
+                    game_speed = Math.random()*10 + 90;
+                    console.log(Game_Rules.easy_mode, Game_Rules.hard_mode, Speed_Controller.spaceship_speed_ctrl(), " EASY MODE SELECTED");
+
+                    return user_difficulty_selected[3] = true;
+                }
+
+                else if(difficulty_button.id == "easiest_mode_button")
+                {
+                    Game_Rules.set_easy_mode();
+                    Gameplay_UI.difficulty_display(4)
+                    game_speed = Math.random()*10 + 120;
+                    console.log(Game_Rules.easy_mode, Game_Rules.hard_mode, Speed_Controller.spaceship_speed_ctrl(), " EASIEST MODE SELECTED");
+                    
+                    return user_difficulty_selected[4] = true;         
+                }
+            })           
+            
+            Gameplay_UI.player_name_display(Player_1.get_full_name());
+            Gameplay_UI.player_tag_display(Player_1.tag)
+            Gameplay_UI.level_display();
+            Gameplay_UI.difficulty_display();
+            Gameplay_UI.hit_display(Player_1.total_hits);
+            Gameplay_UI.miss_display(Player_1.total_misses);
+            Gameplay_UI.combo_display(Player_1.combo);
+            Gameplay_UI.current_score_display(Player_1.score);
+            Gameplay_UI.highest_score_display(Player_1.high_score);
+
+            return new Promise(function(resolve){
+
+                start_game_timeout = setTimeout(resolve,5000); //This function waits for the user to select a difficulty     
+            })
+            .then(function(){
+
+                if(user_difficulty_selected.some(function(val){return val === true}))
+                {
+                    //alert("Difficulty selected");
+                
+                    Player_1.set_difficulty();
+                }
+                
+                else
+                {
+                    alert("Please select a difficulty!");
+                    document.location.reload();
+                }
+            })
+            .then(function(){
+
+                Gameplay_UI.remove_difficulty_button_settings();
+                load_level_1()
+            }) //GAME START HERE
+                
         })
     }
 };

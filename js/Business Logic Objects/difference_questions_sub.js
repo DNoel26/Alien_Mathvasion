@@ -57,8 +57,8 @@ class Diff_Question extends Question
 
             else if(this.correct_ans.val >= 6 && this.correct_ans.val <= 18)
             {
-                this.min_incorrect_ans = this.correct_ans.val - 7;
-                this.max_incorrect_ans = this.correct_ans.val + 7;
+                this.min_incorrect_ans = this.correct_ans.val - 6;
+                this.max_incorrect_ans = this.correct_ans.val + 6;
             }
 
             else
@@ -77,20 +77,20 @@ class Diff_Question extends Question
         {
             if(this.correct_ans.val < 6) //IMPORTANT - this prevents crashing if diff values are too low or too high
             {
-                this.min_incorrect_ans = this.correct_ans.val - 3;
-                this.max_incorrect_ans = this.correct_ans.val + 7; 
+                this.min_incorrect_ans = this.correct_ans.val - 2;
+                this.max_incorrect_ans = this.correct_ans.val + 5; 
             }
 
             else if(this.correct_ans.val >= 6 && this.correct_ans.val <= 18)
             {
-                this.min_incorrect_ans = this.correct_ans.val - 5;
-                this.max_incorrect_ans = this.correct_ans.val + 5;
+                this.min_incorrect_ans = this.correct_ans.val - 4;
+                this.max_incorrect_ans = this.correct_ans.val + 4;
             }
 
             else
             {
-                this.min_incorrect_ans = this.correct_ans.val - 7;
-                this.max_incorrect_ans = this.correct_ans.val + 3;
+                this.min_incorrect_ans = this.correct_ans.val - 5;
+                this.max_incorrect_ans = this.correct_ans.val + 2;
             }
 
             for(i=0; i<Gameplay_UI.spaceships.length-1; i++)
