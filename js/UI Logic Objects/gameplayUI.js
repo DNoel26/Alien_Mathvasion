@@ -8,6 +8,7 @@ const Gameplay_UI =
     gamescreen : document.querySelector("#gamescreen_section"),
     gun_projectile : document.querySelector("#gun_projectile"),
     gamescreen_sides : document.querySelectorAll(".side_of_gamescreen"),
+    all_button_ones : document.querySelectorAll(".buttons"),
     settings : document.querySelector("#settings_button"),
     restart_button : document.querySelector("#restart_button"),
     end_button : document.querySelector("#end_button"),
@@ -30,6 +31,26 @@ const Gameplay_UI =
     highest_score_disp : undefined,
     //difficulty_display : "",
     difficulty_buttons : "",
+
+    hide_numbers()
+    {
+        let i = 0
+        
+        for(i=0; this.spaceships.length; i++)
+        {
+            this.spaceships[i].style.visibility = "hidden";
+        }
+    },
+
+    reveal_numbers()
+    {
+        let i = 0
+        
+        for(i=0; this.spaceships.length; i++)
+        {
+            this.spaceships[i].style.visibility = "visible";
+        }
+    },
 
     display_spaceship_num(mtd_i, mtd_ship_color, mtd_ans_obj, ) //this is called within populate_spaceship method
     {
@@ -524,7 +545,8 @@ const Gameplay_UI =
             this.difficulty_buttons[i].setAttribute("class","buttons_2");
             this.difficulty_buttons[i].style.position = "absolute";
             this.difficulty_buttons[i].style.width = 12 + "vw";
-            this.difficulty_buttons[i].style.height = 10 + "vh"
+            this.difficulty_buttons[i].style.height = 18 + "vh";
+            this.difficulty_buttons[i].style.animationName = "none";
             this.gamescreen.appendChild(this.difficulty_buttons[i]);
         }
 
@@ -559,7 +581,6 @@ const Gameplay_UI =
         this.difficulty_buttons[4].style.left = 68 + "vw";
 
         this.difficulty_popup = document.createElement("h1");
-        //this.difficulty_popup =
     },
 
     remove_difficulty_button_settings()

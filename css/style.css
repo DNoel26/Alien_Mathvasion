@@ -30,7 +30,7 @@
 @keyframes spaceship_numbers
 {
     0% {font-size: 1rem;}
-    50% {font-size: 1.25rem;}
+    50% {font-size: 1.2rem;}
     100% {font-size: 1rem;}
 }
 
@@ -268,13 +268,16 @@ audio
     border-color: tomato;
     letter-spacing: 0.1rem; 
     line-height: 1rem;
+    border-radius: 32px;
 }
 
-.buttons_2:focus, .buttons_2:hover, .buttons_2:active
+.buttons_2:focus, .buttons_2:hover, .buttons_2:active, .buttons_2 span:hover
 {
     color: black;
     background-color: white;
     outline: 0;
+    font-size: 0.95vw;
+    line-height: 1.2rem;
 }
 
 .buttons:focus, .buttons:hover, .buttons:active
