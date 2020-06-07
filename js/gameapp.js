@@ -89,12 +89,17 @@ const Main_Game =
             const Bg_Music = new Sound("../media/Deep_Torvus_3_trim_1.mp3","bg_audio_1");
             Bg_Music.add_sound();
             Bg_Music.audio_control.loop = true;
-            Bg_Music.audio_control.volume = bg_vol_ctrl;
+            Bg_Music.audio_control.volume = bg_vol_ctrl+0.1;
 
             const Bg_Music_2 = new Sound("../media/Phendrana_Depths_Remix_trim_1.mp3","bg_audio_2");
             Bg_Music_2.add_sound();
             Bg_Music_2.audio_control.loop = true;
-            Bg_Music_2.audio_control.volume = bg_vol_ctrl-0.1;   
+            Bg_Music_2.audio_control.volume = bg_vol_ctrl;
+            
+            const Bg_Music_3 = new Sound("../media/Brinstar_Plant_Overgrowth.mp3","bg_audio_3");
+            Bg_Music_3.add_sound();
+            Bg_Music_3.audio_control.loop = true;
+            Bg_Music_3.audio_control.volume = bg_vol_ctrl;
 
             const Fire_Projectile_Sound = new Sound("../media/fire_projectile_trim.mp3","fire_projectile_sound");
             Fire_Projectile_Sound.add_sound();
@@ -370,16 +375,22 @@ const Main_Game =
             {
                 let sel = Math.floor(Math.random()*2 + 1);
 
-                if(sel == 1)
+                if(sel === 1)
                 {
                     Bg_Music.play_music(); //----------AUDIO---
                     Bg_Music.audio_control.style.display = "initial"
                 }
 
-                else if(sel == 2)
+                else if(sel === 2)
                 {
                     Bg_Music_2.play_music(); //----------AUDIO---
                     Bg_Music_2.audio_control.style.display = "initial" 
+                }
+
+                else if(sel === 3)
+                {
+                    Bg_Music_3.play_music(); //----------AUDIO---
+                    Bg_Music_3.audio_control.style.display = "initial" 
                 }
             };
 
@@ -387,6 +398,7 @@ const Main_Game =
             {
                 Bg_Music.pause_music();
                 Bg_Music_2.pause_music();
+                Bg_Music_3.pause_music();
             };
 
             function start_sum_population()
@@ -493,8 +505,7 @@ const Main_Game =
 
                             Gameplay_UI.gamescreen.style.backgroundImage = 'url("../img/game_over_explosion_gif.gif")';
 
-                            Bg_Music.pause_music(); //----------AUDIO---
-                            Bg_Music_2.pause_music(); //----------AUDIO---
+                            bg_music_pause(); //----------AUDIO---
 
                             new Promise(function(resolve){
 
