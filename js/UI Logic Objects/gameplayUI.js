@@ -29,8 +29,9 @@ const Gameplay_UI =
     combo_disp : undefined,
     current_score_disp : undefined,
     highest_score_disp : undefined,
-    //difficulty_display : "",
     difficulty_buttons : "",
+    starting_game_popup : "",
+    combo_bonus_popup : "",
 
     hide_numbers()
     {
@@ -362,7 +363,7 @@ const Gameplay_UI =
     display_level_popup(e)
     {
         this.level_disp_popup = document.createElement("h1");
-        this.level_disp_popup.setAttribute("class","level_popup");
+        this.level_disp_popup.setAttribute("class","game_popups");
         //this.level_disp_gamescreen.setAttribute("id","level_display");
         this.gamescreen.appendChild(this.level_disp_popup);
 
@@ -386,21 +387,21 @@ const Gameplay_UI =
             this.level_disp_popup.innerHTML = "Level 2 Complete!!!"   
         };
         
-        this.level_disp_popup.style.position = "absolute";
+        /*this.level_disp_popup.style.position = "absolute";
         this.level_disp_popup.style.maxWidth = 50 + "%";
         this.level_disp_popup.style.marginLeft = "auto";
         this.level_disp_popup.style.marginRight = "auto";
         this.level_disp_popup.style.left = 0;
         this.level_disp_popup.style.right = 0;
-        this.level_disp_popup.style.textAlign = "center";
+        this.level_disp_popup.style.textAlign = "center";*/
         this.level_disp_popup.style.top = 24 + "vh";
-        this.level_disp_popup.style.color = "gold";
+        /*this.level_disp_popup.style.color = "gold";
         this.level_disp_popup.style.fontSize = 1.6 + "rem";
         this.level_disp_popup.style.animationName = "popup";
         this.level_disp_popup.style.animationIterationCount = "infinite";
         this.level_disp_popup.style.animationDuration = 0.75 + "s";
         this.level_disp_popup.style.userSelect = "none";
-        this.level_disp_popup.style.zIndex = 50;
+        this.level_disp_popup.style.zIndex = 50;*/
     },
 
     remove_level_popup()
@@ -553,34 +554,32 @@ const Gameplay_UI =
         this.difficulty_buttons[0].innerHTML = "Select Difficulty<br><br><span class='red_text'>Prodigy</span>";
         this.difficulty_buttons[0].innerHTML = this.difficulty_buttons[0].innerHTML.toUpperCase()
         this.difficulty_buttons[0].setAttribute("id","hardest_mode_button");
-        this.difficulty_buttons[0].style.bottom = 40 + "vh";
+        this.difficulty_buttons[0].style.bottom = 30 + "vh";
         this.difficulty_buttons[0].style.left = 20 + "vw";
 
         this.difficulty_buttons[1].innerHTML = "Select Difficulty<br><br><span class='orange_text'>Math Whizz</span>";
         this.difficulty_buttons[1].innerHTML = this.difficulty_buttons[1].innerHTML.toUpperCase()
         this.difficulty_buttons[1].setAttribute("id","hard_mode_button");
-        this.difficulty_buttons[1].style.bottom = 40 + "vh";
+        this.difficulty_buttons[1].style.bottom = 30 + "vh";
         this.difficulty_buttons[1].style.left = 32 + "vw";
 
         this.difficulty_buttons[2].innerHTML = "Select Difficulty<br><br><span class='blue_text'>Mere Mortal</span>";
         this.difficulty_buttons[2].innerHTML = this.difficulty_buttons[2].innerHTML.toUpperCase()
         this.difficulty_buttons[2].setAttribute("id","normal_mode_button");
-        this.difficulty_buttons[2].style.bottom = 40 + "vh";
+        this.difficulty_buttons[2].style.bottom = 30 + "vh";
         this.difficulty_buttons[2].style.left = 44 + "vw";
 
         this.difficulty_buttons[3].innerHTML = "Select Difficulty<br><br><span class='green_text'>Below Average</span>";
         this.difficulty_buttons[3].innerHTML = this.difficulty_buttons[3].innerHTML.toUpperCase()
         this.difficulty_buttons[3].setAttribute("id","easy_mode_button");
-        this.difficulty_buttons[3].style.bottom = 40 + "vh";
+        this.difficulty_buttons[3].style.bottom = 30 + "vh";
         this.difficulty_buttons[3].style.left = 56 + "vw";
 
         this.difficulty_buttons[4].innerHTML = "Select Difficulty<br><br><span class='yellow_text'>Try English?</span>";
         this.difficulty_buttons[4].innerHTML = this.difficulty_buttons[4].innerHTML.toUpperCase()
         this.difficulty_buttons[4].setAttribute("id","easiest_mode_button");
-        this.difficulty_buttons[4].style.bottom = 40 + "vh";
+        this.difficulty_buttons[4].style.bottom = 30 + "vh";
         this.difficulty_buttons[4].style.left = 68 + "vw";
-
-        this.difficulty_popup = document.createElement("h1");
     },
 
     remove_difficulty_button_settings()
@@ -593,6 +592,36 @@ const Gameplay_UI =
         }
     },
 
+    display_start_game_popup()
+    {
+        this.starting_game_popup = document.createElement("h1");
+        this.starting_game_popup.setAttribute("class","game_popups");
+        this.gamescreen.appendChild(this.starting_game_popup);
+        
+        this.starting_game_popup.innerHTML = `Difficulty Selected! <br><br><br> Starting Game...`; 
+        
+        /*this.starting_game_popup.style.position = "absolute";
+        this.starting_game_popup.style.maxWidth = 50 + "%";
+        this.starting_game_popup.style.marginLeft = "auto";
+        this.starting_game_popup.style.marginRight = "auto";
+        this.starting_game_popup.style.left = 0;
+        this.starting_game_popup.style.right = 0;
+        this.starting_game_popup.style.textAlign = "center";*/
+        this.starting_game_popup.style.animationName = "none"
+        this.starting_game_popup.style.top = 35 + "vh";
+        /*this.starting_game_popup.style.color = "gold";
+        this.starting_game_popup.style.fontSize = 1.6 + "rem";
+        this.starting_game_popup.style.animationName = "popup";
+        this.starting_game_popup.style.animationIterationCount = "infinite";
+        this.starting_game_popup.style.animationDuration = 0.75 + "s";
+        this.starting_game_popup.style.userSelect = "none";
+        this.starting_game_popup.style.zIndex = 50;*/
+    },
+
+    remove_start_game_popup()
+    {
+        this.starting_game_popup.style.display = "none";
+    }
     /*player_name_disp : undefined,
     player_tag_disp : undefined,
     level_disp : undefined,

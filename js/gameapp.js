@@ -877,6 +877,7 @@ const Main_Game =
             let level_1_pro_obj = {}, level_2_pro_obj = {};
             let explode;
             let user_difficulty_selected = [false,false,false,false,false];
+            let user_difficulty_button_clicked = false;
             let game_speed;
             let music_sel;
 
@@ -921,68 +922,80 @@ const Main_Game =
             let diff_level_off_cond = (Diff_Timer.elapsed === Diff_Timer.limit) && (Game_Rules.level_2 === true);
             let stop_end_level_bug = (Sum_Timer.countdown <= 1 && Game_Rules.level_1 === true) || (Diff_Timer.countdown <= 1 && Game_Rules.level_2 === true)
 
-
             Sum_Timer.restrict_countdown();
             Diff_Timer.restrict_countdown();
             Sum_Timer.restrict_elapsed();
             Diff_Timer.restrict_elapsed();
             
-            document.addEventListener("click",function(event){
+            function difficulty_selector(){
 
                 let difficulty_button = event.target;
                 
-                if(difficulty_button.id == "hardest_mode_button")
+                if(difficulty_button.id == "hardest_mode_button" && user_difficulty_button_clicked === false)
                 {
                     Game_Rules.set_hard_mode();
                     Gameplay_UI.difficulty_display(0);
+                    Gameplay_UI.display_start_game_popup();
                     Player_1.difficulty_completed = Gameplay_UI.difficulty_options[0];
                     game_speed = (Math.random()*10 + 20);
-                    console.log(Game_Rules.easy_mode, Game_Rules.hard_mode, Speed_Controller.spaceship_speed_ctrl(), " HARDEST MODE SELECTED");
+                    console.log(Game_Rules.easy_mode, Game_Rules.hard_mode, Speed_Controller.spaceship_speed_ctrl(), " HARDEST MODE SELECTED");                  
 
                     return user_difficulty_selected[0] = true;
                 }
 
-                else if(difficulty_button.id == "hard_mode_button")
+                else if(difficulty_button.id == "hard_mode_button" && user_difficulty_button_clicked === false)
                 {
                     Game_Rules.set_hard_mode();
-                    Gameplay_UI.difficulty_display(1)
+                    Gameplay_UI.difficulty_display(1);
+                    Gameplay_UI.display_start_game_popup();
+                    Player_1.difficulty_completed = Gameplay_UI.difficulty_options[1];
                     game_speed = null; //Default at null set to Math.random()*10 + 40
                     console.log(Game_Rules.easy_mode, Game_Rules.hard_mode, Speed_Controller.spaceship_speed_ctrl(), " HARD MODE SELECTED");
 
                     return user_difficulty_selected[1] = true;
                 }
 
-                else if(difficulty_button.id == "normal_mode_button")
+                else if(difficulty_button.id == "normal_mode_button" && user_difficulty_button_clicked === false)
                 {
                     Game_Rules.set_easy_mode();
-                    Gameplay_UI.difficulty_display(2)
+                    Gameplay_UI.difficulty_display(2);
+                    Gameplay_UI.display_start_game_popup();
+                    Player_1.difficulty_completed = Gameplay_UI.difficulty_options[2];
                     game_speed = null; //Default at null set to Math.random()*10 + 40
                     console.log(Game_Rules.easy_mode, Game_Rules.hard_mode, Speed_Controller.spaceship_speed_ctrl(), " NORMAL MODE SELECTED");
 
                     return user_difficulty_selected[2] = true;
                 }
 
-                else if(difficulty_button.id == "easy_mode_button")
+                else if(difficulty_button.id == "easy_mode_button" && user_difficulty_button_clicked === false)
                 {
                     Game_Rules.set_easy_mode();
                     Gameplay_UI.difficulty_display(3)
+                    Gameplay_UI.display_start_game_popup();
+                    Player_1.difficulty_completed = Gameplay_UI.difficulty_options[3];
                     game_speed = Math.random()*10 + 90;
                     console.log(Game_Rules.easy_mode, Game_Rules.hard_mode, Speed_Controller.spaceship_speed_ctrl(), " EASY MODE SELECTED");
 
                     return user_difficulty_selected[3] = true;
                 }
 
-                else if(difficulty_button.id == "easiest_mode_button")
+                else if(difficulty_button.id == "easiest_mode_button" && user_difficulty_button_clicked === false)
                 {
                     Game_Rules.set_easy_mode();
                     Gameplay_UI.difficulty_display(4)
+                    Gameplay_UI.display_start_game_popup();
+                    Player_1.difficulty_completed = Gameplay_UI.difficulty_options[4];
                     game_speed = Math.random()*10 + 120;
                     console.log(Game_Rules.easy_mode, Game_Rules.hard_mode, Speed_Controller.spaceship_speed_ctrl(), " EASIEST MODE SELECTED");
                     
                     return user_difficulty_selected[4] = true;         
                 }
-            })           
-            
+
+                user_difficulty_button_clicked = true;  
+            };
+
+            document.addEventListener("click", difficulty_selector); 
+   
             Gameplay_UI.player_name_display(Player_1.get_full_name());
             Gameplay_UI.player_tag_display(Player_1.tag)
             Gameplay_UI.level_display();
@@ -993,11 +1006,11 @@ const Main_Game =
             Gameplay_UI.current_score_display(Player_1.score);
             Gameplay_UI.highest_score_display(Player_1.high_score);
 
-            //---------- PROGRAM EXECUTE BELOW HERE ----------//
-            
+            //---------- PROGRAM EXECUTE BELOW HERE ----------//   
+
             return start_game_wait = new Promise(function(resolve){ //FIRST WAIT
 
-                Alien_theme.play_music() //MAIN MENU THEME 
+                Alien_theme.play_music() //MAIN MENU THEME
 
                 start_game_timeout_wait = setTimeout(resolve,6000); //This function waits for the user to select a difficulty     
             })
@@ -1078,8 +1091,14 @@ const Main_Game =
 
                 Alien_theme.pause_music();
                 Gameplay_UI.remove_difficulty_button_settings();
-                load_level_1()
-            }) //GAME START HERE
+
+                for(let click_index = 0; click_index < 200; click_index++) //REMOVES ALL POTENTIAL DISPLAYS IF MULTIPLE CLICKS ARE PRESSED
+                {
+                    Gameplay_UI.remove_start_game_popup();
+                }
+
+                load_level_1() //GAME START HERE  
+            }) 
                 
         })
     }

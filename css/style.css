@@ -394,6 +394,25 @@ audio
     user-select: none;
 }
 
+.game_popups
+{
+    position: absolute;
+    max-width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+    top: 50vh;
+    color: gold;
+    font-size: 1.6rem;
+    animation-name: popup;
+    animation-iteration-count: infinite;
+    animation-duration: 0.75s;
+    user-select: none;
+    z-index: 50;
+}
+
 .yellow_text, .YELLOW_TEXT /*UPPERCASE colour classes are for difficulty buttons aka buttons_2 class*/
 {
     color: yellow
@@ -417,6 +436,11 @@ audio
 .GREEN_TEXT
 {
     color: green;
+}
+
+.WHITE_TEXT
+{
+    color: white;
 }
 
 /*.spaceship
