@@ -21,7 +21,7 @@ const Speed_Controller = //to be used in Set Intervals timer arg
         {
             if(Game_Rules.hit === true)
             {
-                hit = false;
+                Game_Rules.hit = false;
                 
                 return this.endless_speed = this.endless_speed * 0.98;   
             } 

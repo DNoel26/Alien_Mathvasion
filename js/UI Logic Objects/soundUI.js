@@ -20,6 +20,7 @@ class Sound
         sound.setAttribute("allow","autoplay");
         sound.setAttribute("muted","muted");
         sound.setAttribute("id",this.audio_id);
+        sound.setAttribute("class","all_audio");
         document.body.appendChild(sound);
 
         this.audio_control = document.querySelector(`#${this.audio_id}`);

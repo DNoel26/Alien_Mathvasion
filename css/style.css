@@ -29,16 +29,16 @@
 
 @keyframes spaceship_numbers
 {
-    0% {font-size: 1rem;}
-    50% {font-size: 1.2rem;}
-    100% {font-size: 1rem;}
+    0% {font-size: 1vw;}
+    50% {font-size: 1.2vw;}
+    100% {font-size: 1vw;}
 }
 
 @keyframes gunner_number
 {
-    0% {font-size: 1rem;}
-    50% {font-size: 1.25rem;}
-    100% {font-size: 1rem;}
+    0% {font-size: 1vw;}
+    50% {font-size: 1.25vw;}
+    100% {font-size: 1vw;}
 }
 
 @keyframes gunner
@@ -55,16 +55,16 @@
 
 @keyframes data
 {
-    0% {font-size: 0.8rem;}
-    50% {font-size: 0.9rem;}
-    100% {font-size: 0.8rem;}
+    0% {font-size: 0.8vw;}
+    50% {font-size: 0.9vw;}
+    100% {font-size: 0.8vw;}
 }
 
 @keyframes buttons
 {
-    0% {font-size: 0.6rem;}
-    50% {font-size: 0.65em;}
-    100% {font-size: 0.6rem;}
+    0% {font-size: 0.55vw;}
+    50% {font-size: 0.6vw;}
+    100% {font-size: 0.55vw;}
 }
 
 @keyframes shake 
@@ -92,9 +92,9 @@
 
 @keyframes popup
 {
-    0% {font-size: 1.6rem;}
-    50% {font-size: 2.4rem;}
-    100% {font-size: 1.6rem;}    
+    0% {font-size: 1.6vw;}
+    50% {font-size: 2.0vw;}
+    100% {font-size: 1.6vw;}    
 }
 
 @keyframes report_fade_in
@@ -129,6 +129,7 @@ main
     display: grid;
     grid-template-columns: auto 1fr auto;
     max-width: 100vw;
+    width: 100vw;
     margin: 0 auto 0 auto;
     background-color: var(--game_bg_colour);
 }
@@ -136,15 +137,17 @@ main
 #game_main
 {
     max-height: 100vh;
+    height: 100vh;
 }
 
-#bg_audio_1, #bg_audio_2
+.all_audio/*#bg_audio_1, #bg_audio_2*/
 {
     position: absolute;
-    left: 0.1vw;
-    top: 93vh;
-    display: none;
-    visibility: hidden;
+    left: 0.5vw;
+    top: 0.1vh;
+    display: initial;
+    visibility: visible;
+    max-height: 3%;
 }
 
 audio
@@ -224,7 +227,7 @@ audio
 
 .side_of_gamescreen h1, h2
 {
-    font-size: 0.8rem;
+    font-size: 0.9vw;
     text-align: center;
     user-select: none;
     max-height: 100%;
@@ -249,7 +252,7 @@ audio
     width: 100%;
     cursor: pointer;
     font-family: inherit;
-    font-size: 0.6rem;
+    font-size: 0.6vw;
     border: none;
     border-style: ridge;
     border-radius: 12px;
@@ -271,12 +274,12 @@ audio
     border-radius: 32px;
 }
 
-.buttons_2:focus, .buttons_2:hover, .buttons_2:active, .buttons_2 span:hover
+.buttons_2:focus, .buttons_2:hover, .buttons_2:active, .buttons_2 span:hover, .buttons_2:focus span, .buttons_2:hover span, .buttons_2:active span
 {
     color: black;
     background-color: white;
     outline: 0;
-    font-size: 0.95vw;
+    font-size: 0.8vw;
     line-height: 1.2rem;
 }
 
@@ -320,7 +323,7 @@ audio
     animation: spaceship_numbers 3s;
     animation-iteration-count: infinite;
     max-width: 100%;
-    font-size: 1rem;
+    font-size: 1vw;
     text-align: center;
     align-self: center;
     padding-bottom: 22%;
@@ -388,7 +391,7 @@ audio
     align-self: center;
     justify-self: center;
     max-width: 100%;
-    font-size: 0.8rem;
+    font-size: 0.8vw;
     padding-bottom: 33%;
     padding-left: 2%;
     user-select: none;
@@ -405,7 +408,7 @@ audio
     text-align: center;
     top: 50vh;
     color: gold;
-    font-size: 1.6rem;
+    font-size: 1.6vw;
     animation-name: popup;
     animation-iteration-count: infinite;
     animation-duration: 0.75s;
@@ -418,7 +421,7 @@ audio
     top: 35vh;
     animation-name: none;
     display: initial;
-    font-size: 1.2rem;
+    font-size: 1.2vw;
 }
 
 .yellow_text, .YELLOW_TEXT /*UPPERCASE colour classes are for difficulty buttons aka buttons_2 class*/

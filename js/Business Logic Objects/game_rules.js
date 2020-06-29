@@ -45,9 +45,9 @@ const Game_Rules =
     set_easy_mode()
     {
         this.easy_mode = true;
-        this.hard_mode = false;
+        this.hard_mode = false; 
         this.score_incr = 10;
-        this.score_decr = 10;
+        this.score_decr = 15;
     },
     
     set_hard_mode()
@@ -55,7 +55,7 @@ const Game_Rules =
         this.hard_mode = true;
         this.easy_mode = false;
         this.score_incr = 20;
-        this.score_decr = 20;
+        this.score_decr = 30;
     },
 
     set_ext_randomizer() //Controls the possible UFO formations 
