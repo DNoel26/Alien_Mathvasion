@@ -6,7 +6,7 @@
 * [Gameplay](#gameplay)
 
 ## Summary
-This project is a alien invasion type game, built from scratch using only HTML, CSS and JavaScript. It is designed to test the math skills of young children in a fan and exciting way. It is currently hosted on Netlify and can be accessed via the link here: https://dnoelmathinvasiongame.netlify.app/html/gamescreen.html
+This project is a alien invasion type game, built from scratch using only HTML, CSS and JavaScript. It is designed to test the math skills of young children in a fun and exciting way. It is currently hosted on Netlify and can be accessed via the link here: https://dnoelmathinvasiongame.netlify.app/html/gamescreen.html
 
 Note: To date, works best on Google Chrome and on a PC. Site is not yet fully responsive for mobile or tablet devices. All core functionality works but some minor features do not. In rare cases, the game does not start when a difficulty is selected. Hit refresh or F5 to get it working again.
 
