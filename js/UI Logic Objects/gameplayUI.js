@@ -36,20 +36,24 @@ const Gameplay_UI =
     hide_numbers()
     {
         let i = 0
-        
+
+        this.gun.children[0].style.visibility = "hidden"; 
+
         for(i=0; this.spaceships.length; i++)
         {
-            this.spaceships[i].style.visibility = "hidden";
-        }
+            this.spaceships[i].children[0].style.visibility = "hidden";
+        } 
     },
 
     reveal_numbers()
     {
         let i = 0
-        
+
+        this.gun.children[0].style.visibility = "visible"; 
+
         for(i=0; this.spaceships.length; i++)
         {
-            this.spaceships[i].style.visibility = "visible";
+            this.spaceships[i].children[0].style.visibility = "visible";
         }
     },
 
@@ -313,7 +317,7 @@ const Gameplay_UI =
 
             if(mtd_countdown_interval < 4)
             {
-                this.timer_disp.style.fontSize = 1.4 + "rem";
+                this.timer_disp.style.fontSize = 1.4 + "vw";
                 this.timer_disp.style.animationName = "none"
             }
 
@@ -420,13 +424,27 @@ const Gameplay_UI =
         }
 
         this.gamescreen.style.display = "grid";
-        this.gamescreen.style.padding = "12vh 0 34vh 0";
+
+        const mq = window.matchMedia( "(max-width: 575.98px)" );
+        
+        if(mq.matches)
+        {
+            this.gamescreen.style.padding = "0 0 50vh 0";
+            this.gamescreen.style.marginTop = "-5vh";
+        }
+
+        else
+        {
+            this.gamescreen.style.padding = "15vh 0 35vh 0";
+        }
+        
         this.gamescreen.style.gridTemplateRows = "auto";
         this.gamescreen.style.gridTemplateColumns = "1fr";
         this.gamescreen.style.alignItems = "center";
 
         this.report_disp_gamescreen = document.createElement("img");
         this.report_disp_gamescreen.setAttribute("src","../img/report_screen.jpg");
+        this.report_disp_gamescreen.setAttribute("id", "end_report");
         this.gamescreen.appendChild(this.report_disp_gamescreen);
         
         this.report_disp_gamescreen.style.position = "absolute";
@@ -451,6 +469,8 @@ const Gameplay_UI =
             this.report_disp_data[i].style.justifySelf = "center"; 
             this.report_disp_data[i].style.userSelect = "none"; 
             this.report_disp_data[i].style.zIndex = 12;
+            this.report_disp_data[i].style.fontSize = "1vw";
+            this.report_disp_data[i].style.height = "5vh"; 
             this.report_disp_data[i].style.animationName = "report_data";
             this.report_disp_data[i].style.animationDuration = "6s";
         }
@@ -470,13 +490,14 @@ const Gameplay_UI =
         this.report_disp_data[9].setAttribute("id","save_exit_report_button");
         this.gamescreen.appendChild(this.report_disp_data[9]);   
         this.report_disp_data[9].style.zIndex = 13; 
+        this.report_disp_data[9].style.fontSize = "1vw"; 
         this.report_disp_data[9].innerHTML = "Save and Exit Game"
         this.report_disp_data[9].style.justifySelf = "center"; 
         this.report_disp_data[9].style.animationName = "report_data";
         this.report_disp_data[9].style.animationDuration = "6s";
         this.report_disp_data[9].style.animationIterationCount = "1";
-        this.report_disp_data[9].style.width = "30%";
-        this.report_disp_data[9].style.height = "100%";
+        this.report_disp_data[9].style.width = "40%";
+        this.report_disp_data[9].style.height = "5.5vh";
  
         console.log(this.report_disp_data[1].innerHTML.split(" "))
      },

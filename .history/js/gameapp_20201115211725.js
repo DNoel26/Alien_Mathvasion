@@ -1081,6 +1081,8 @@ const Main_Game =
                 document.addEventListener("mouseover",function(event){ //Prevents pausing to cheat together with below
  
                     let hide_numbers = event.target;
+
+                    hide_numbers.clas
                     
                     if(hide_numbers.className === "buttons")
                     {

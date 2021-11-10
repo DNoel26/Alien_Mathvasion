@@ -44,13 +44,13 @@
 @keyframes gunner
 {
     from {width: 5%; bottom: 0;}
-    to {width: 10%; bottom: 2.5%;}
+    to {width: 10%; bottom: 2.5vh;}
 }
 
 @keyframes gunner_projectile
 {
-    from {width: 5%; bottom: 5%;}
-    to {width: 10%; bottom: 2.5%;}
+    from {width: 5%; bottom: 5vh;}
+    to {width: 10%; bottom: 2.5vh;}
 }
 
 @keyframes data
@@ -63,7 +63,7 @@
 @keyframes buttons
 {
     0% {font-size: 0.55vw;}
-    50% {font-size: 0.6vw;}
+    50% {font-size: 0.65vw;}
     100% {font-size: 0.55vw;}
 }
 
@@ -124,23 +124,26 @@ body
     color: var(--txt_colour_white);
 }
 
-main
+#game_body
 {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    max-width: 100vw;
-    width: 100vw;
-    margin: 0 auto 0 auto;
-    background-color: var(--game_bg_colour);
+    font-size: 1vw;
+    letter-spacing: 0.1vw;
+    line-height: 2vh;
 }
 
 #game_main
 {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    max-width: 100vw;
+    width: 100vw;    
     max-height: 100vh;
     height: 100vh;
+    margin: 0 auto 0 auto;
+    background-color: var(--game_bg_colour);
 }
 
-.all_audio/*#bg_audio_1, #bg_audio_2*/
+.all_audio /*#bg_audio_1, #bg_audio_2*/
 {
     position: absolute;
     left: 0.5vw;
@@ -248,16 +251,16 @@ audio
     animation-iteration-count: infinite;
     max-height: 100%;
     max-width: 100%;
-    height: 48%;
+    height: 5.5vh;
     width: 100%;
     cursor: pointer;
     font-family: inherit;
     font-size: 0.6vw;
     border: none;
     border-style: ridge;
-    border-radius: 12px;
-    border-width: 6px;
-    background-color: tomato;/*darkviolet;*/
+    border-radius: 0.8vw;
+    border-width: 0.4vw;
+    background-color: tomato; /*darkviolet;*/
     position: relative;
     color: var(--txt_colour_white);
     justify-self: center;
@@ -266,12 +269,12 @@ audio
 .buttons_2
 {
     color: white;
-    background-color: black;/*darkviolet;*/   
+    background-color: black; /*darkviolet;*/   
     font-weight: 900;
     border-color: tomato;
-    letter-spacing: 0.1rem; 
-    line-height: 1rem;
-    border-radius: 32px;
+    letter-spacing: 0.1vw; 
+    line-height: 2vh;
+    border-radius: 2vw;
 }
 
 .buttons_2:focus, .buttons_2:hover, .buttons_2:active, .buttons_2 span:hover, .buttons_2:focus span, .buttons_2:hover span, .buttons_2:active span
@@ -280,7 +283,7 @@ audio
     background-color: white;
     outline: 0;
     font-size: 0.8vw;
-    line-height: 1.2rem;
+    line-height: 2.2vh;
 }
 
 .buttons:focus, .buttons:hover, .buttons:active
@@ -306,7 +309,7 @@ audio
     background-position: center;
     margin-top: 0;
     border: none;
-    border-radius: 5px;
+    border-radius: 0.5vw;
     height: 15vh;
     width: 98%;
     z-index: 3;
@@ -339,7 +342,7 @@ audio
     /*margin-top: 500px;*/
 }
 
-#gun_projectile/*#bot_gun_div img*/
+#gun_projectile /*#bot_gun_div img*/
 {
     animation-name: gunner_projectile, shake_2;
     animation-duration: 1s, 4s;
@@ -347,7 +350,7 @@ audio
     animation-delay: 0s, 3s;
     position: absolute;
     width: 10%;
-    bottom: 2.5%;
+    bottom: 2.5vh;
     left: 21%; /*211.17px;*/
     z-index: 1;
     user-select: none;
@@ -362,10 +365,10 @@ audio
     animation-delay: 0s, 3s;
     display: grid;
     position: absolute;
-    bottom: 2.5%;
+    bottom: 2.5vh;
     left: 21%; /*210.6px;*/
     width: 10%;
-    height: 22%;
+    height: 22vh;
     text-align: center;
     background-color: var(--gun_bg_colour);
     background-image: url("../img/gunship_art.png");
@@ -462,4 +465,41 @@ audio
     margin: 0 auto;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr;
+}*/
+
+/*@media (max-width: 575.99px)
+{
+    .side_of_gamescreen button, .buttons, .buttons_2
+    {
+        background-color: blue;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767.99px)
+{
+    .side_of_gamescreen button, .buttons, .buttons_2
+    {
+        background-color: green; 
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991.99px)
+{
+    .side_of_gamescreen button, .buttons, .buttons_2
+    {
+        background-color: red; 
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199.99px)
+{
+    .side_of_gamescreen button, .buttons, .buttons_2
+    {
+        background-color: purple; 
+    }
+}
+
+@media (min-width: 1200px)
+{
+
 }*/

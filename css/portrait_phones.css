@@ -1,0 +1,307 @@
+
+@media (max-width: 575.98px)
+{
+    .side_of_gamescreen button, .buttons, .buttons_2
+    {
+        background-color: blue; /*darkviolet;*/
+    }
+
+    #game_body
+    {
+        line-height: 0.2vh;
+    }
+
+    #game_main
+    {
+        grid-template-rows: 20vh 60vh 20vh;
+        grid-template-columns: 1;
+    }
+
+    #gamescreen_section
+    {   
+        max-width: 100%;
+        max-height: 60vh;
+        width: 100vw;
+        height: 60vh;
+        margin: auto 0 auto 0;
+        grid-row: 2;
+    }
+
+    #js_gamescreen_report
+    {
+        background-image: url("../img/report_screen.jpg");
+        background-repeat: no-repeat;
+        background-size: 100%;
+        background-position: center;
+    }
+
+    .side_of_gamescreen
+    {
+        display: grid;
+        grid-template-rows: 1fr;
+        grid-template-columns: 1fr;
+        /*background-color: unset;
+        background-repeat: no-repeat;
+        background-size: cover;*/
+        color: var(--txt_colour_white);
+        max-width: 100%;
+    }
+
+    .side_of_gamescreen > div > img
+    {
+        display: none;
+    }
+
+    #left_section_gamescreen
+    {
+        grid-row: 3;
+    }
+
+    #right_section_gamescreen
+    {
+        grid-row: 1;
+    }
+
+    #left_section_gamescreen > div, #right_section_gamescreen > div
+    {
+        grid-row: 1;
+        grid-column: 1;
+    } 
+
+    #left_data_div, #right_data_div
+    {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+        margin: auto;
+        position: relative;
+        z-index: 1;
+    }
+
+    .side_of_gamescreen h1, h2
+    {
+        font-size: 0.8vw;
+        text-align: center;
+        user-select: none;
+        max-height: 100%;
+        max-width: 100%;
+    }
+
+    /*.side_of_gamescreen > div > img
+    {
+        max-width: 100%;
+        max-height: 100%;
+        height: 98vh;
+        width: 19vw;
+        margin-top: 1vh;
+        opacity: 35%;
+        z-index: 0;
+        user-select: none;
+    }
+
+    #left_data_div, #right_data_div
+    {
+        display: grid;
+        position: relative;
+        z-index: 1;
+        margin: 5vh auto 0 auto;
+    }
+
+    .side_of_gamescreen h1, h2
+    {
+        font-size: 0.9vw;
+        text-align: center;
+        user-select: none;
+        max-height: 100%;
+        max-width: 100%;
+    }
+
+    .side_of_gamescreen h2
+    {
+        animation: data 3s;
+        animation-iteration-count: infinite;
+        padding-top: 10%;
+        color: var(--txt_colour_data);   
+    }*/
+
+    /*.side_of_gamescreen button, .buttons, .buttons_2
+    {
+        animation: buttons 3s;
+        animation-iteration-count: infinite;
+        max-height: 100%;
+        max-width: 100%;
+        height: 5.5vh;
+        width: 100%;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 0.6vw;
+        border: none;
+        border-style: ridge;
+        border-radius: 0.8vw;
+        border-width: 0.4vw;
+        background-color: tomato;
+        position: relative;
+        color: var(--txt_colour_white);
+        justify-self: center; */
+    }
+
+    .buttons_2
+    {
+        color: white;
+        background-color: black; /*darkviolet;*/   
+        font-weight: 900;
+        border-color: tomato;
+        letter-spacing: 0.1vw; 
+        line-height: 2vh;
+        border-radius: 2vw;
+    }
+
+    .buttons_2:focus, .buttons_2:hover, .buttons_2:active, .buttons_2 span:hover, .buttons_2:focus span, .buttons_2:hover span, .buttons_2:active span
+    {
+        color: black;
+        background-color: white;
+        outline: 0;
+        font-size: 0.8vw;
+        line-height: 2.2vh;
+    }
+
+    .buttons:focus, .buttons:hover, .buttons:active
+    {
+        background-color: var(--button_bg_colour);
+        color: var(--txt_colour_data);
+    }
+
+    .spaceship
+    {
+        animation-name: spaceship, shake_2;
+        animation-duration: 1.5s, 4s;
+        animation-delay: 0s, 3s;
+        animation-iteration-count: 1, infinite;
+        /*animation: shake 0.8s;*/
+        display: grid;
+        justify-self: center; /*Ask Kadeem about justify again*/
+        background-color: var(--spaceship_bg_colour);
+        color: var(--txt_colour_white);
+        background-image: url("../img/spaceship_art_2.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        margin-top: 0;
+        border: none;
+        border-radius: 0.5vw;
+        height: 15vh;
+        width: 98%;
+        z-index: 3;
+        cursor: crosshair;
+    }
+
+    .spaceship > *
+    {
+        pointer-events: none;
+    }
+
+    .spaceship > h3
+    {
+        animation: spaceship_numbers 3s;
+        animation-iteration-count: infinite;
+        max-width: 100%;
+        font-size: 1vw;
+        text-align: center;
+        align-self: center;
+        padding-bottom: 22%;
+        color: var(--txt_colour_spaceship);
+        z-index: 2;
+        user-select: none;
+    /*padding: 10px 60px; /*Ask Kadeem how to get padding size to be exactly equal for each bubble, no matter the bubble content*/
+    }
+
+    #bot_gun_div
+    {
+        max-width: 100%;
+        /*margin-top: 500px;*/
+    }
+
+    #gun_projectile /*#bot_gun_div img*/
+    {
+        animation-name: gunner_projectile, shake_2;
+        animation-duration: 1s, 4s;
+        animation-iteration-count: 1, infinite;
+        animation-delay: 0s, 3s;
+        position: absolute;
+        width: 10%;
+        bottom: 2.5vh;
+        left: 21%; /*211.17px;*/
+        z-index: 1;
+        user-select: none;
+        pointer-events: none;
+    }
+
+    #gun
+    {
+        animation-name: gunner, shake_2;
+        animation-duration: 1s, 4s;
+        animation-iteration-count: 1, infinite;
+        animation-delay: 0s, 3s;
+        display: grid;
+        position: absolute;
+        bottom: 2.5vh;
+        left: 21%; /*210.6px;*/
+        width: 10%;
+        height: 22vh;
+        text-align: center;
+        background-color: var(--gun_bg_colour);
+        background-image: url("../img/gunship_art.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        color: var(--txt_colour_gun);
+        z-index: 2;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    #gun > *
+    {
+        pointer-events: none;
+        user-select: none;
+    }
+
+    #gun h3
+    {   
+        animation: gunner_number 3s;
+        animation-iteration-count: infinite;
+        align-self: center;
+        justify-self: center;
+        max-width: 100%;
+        font-size: 0.8vw;
+        padding-bottom: 33%;
+        padding-left: 2%;
+        user-select: none;
+    }
+
+    .game_popups
+    {
+        position: absolute;
+        max-width: 50%;
+        margin-left: auto;
+        margin-right: auto;
+        left: 0;
+        right: 0;
+        text-align: center;
+        top: 50vh;
+        color: gold;
+        font-size: 1.6vw;
+        animation-name: popup;
+        animation-iteration-count: infinite;
+        animation-duration: 0.75s;
+        user-select: none;
+        z-index: 50;
+    }
+
+    #starting_game_popup
+    {
+        top: 35vh;
+        animation-name: none;
+        display: initial;
+        font-size: 1.2vw;
+    }
+}
